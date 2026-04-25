@@ -1,6 +1,6 @@
 {
   "name": "accessibility-widget",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "WCAG 2.2 AA uyumlu, native preferences panel — overlay degil, kullanici tercih kontrolu. 7 tercih (font/kontrast/fokus/link/motion/dyslexia/reading), 9 dil, light/dark, OS prefers-reduced-motion + prefers-contrast saygisi. Powered by Blakfy.",
   "license": "MIT",
   "author": "Tarık Tunç",

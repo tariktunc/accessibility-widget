@@ -1,6 +1,7 @@
 export { AccessibilityWidget } from './AccessibilityWidget';
 export { AccessibilityPanel } from './AccessibilityPanel';
 export { BlakfyBadge } from './BlakfyBadge';
+export { A11yServerHelper } from './A11yServerHelper';
 export {
   applyPrefs,
   getPrefs,
@@ -14,11 +15,13 @@ export {
 export type {
   Preferences,
   PreferencesRecord,
+  PreferencesChangeHandler,
   FontScale,
   Contrast,
   Motion,
   Locale,
   Theme,
   Position,
+  IconStyle,
   Translation,
 } from './types';

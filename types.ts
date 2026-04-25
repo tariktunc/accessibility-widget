@@ -26,6 +26,10 @@ export type Theme = 'light' | 'dark' | 'auto';
 
 export type Position = 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right';
 
+export type IconStyle = 'walking' | 'access' | 'eye';
+
+export type PreferencesChangeHandler = (record: PreferencesRecord) => void;
+
 export type Translation = {
   fab: {
     label: string;

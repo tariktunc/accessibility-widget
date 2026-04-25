@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.1.0] — 2026-04-26
+
+### Added
+- `keyboardShortcut` prop (default true) — Alt+0 ile panel acar
+- `iconStyle` prop ('walking' | 'access' | 'eye') — default 'access' (universal access symbol)
+- `onPreferencesChange` callback prop (external integration)
+- `<A11yServerHelper />` async server helper — SSR FOUC korumasi tek satirda
+- "Sifirla" 2-tiklama onay (3 saniye timer, kazara tiklama riskini azalt)
+- OpenDyslexic CDN tespit + console warning (font yuklenmemisse uyarir)
+- `PreferencesChangeHandler` ve `IconStyle` tip exports
+- CONTRIBUTING.md (anti-overlay felsefesi PR kurali olarak)
+- tests/README.md (Playwright + axe-core test stratejisi)
+
+### Fixed
+- package.json version 1.0.1 → 1.1.0 hizalandi
+
+## [1.0.1] — 2026-04-26
+- 'Operated by Blakfy Studio' imza metni
+
 ## [1.0.0] — 2026-04-26
 
 ### Added

@@ -2,7 +2,7 @@
 
 import * as Dialog from '@radix-ui/react-dialog';
 import * as Switch from '@radix-ui/react-switch';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { savePrefs, resetPrefs, getPrefs, DEFAULT_PREFS } from './preferences-store';
 import { BlakfyBadge } from './BlakfyBadge';
 import translations from './translations.json';
@@ -35,6 +35,8 @@ export function AccessibilityPanel({
   const isRtl = locale === 'ar' || locale === 'he';
   const [prefs, setPrefs] = useState<Preferences>(() => getPrefs());
   const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('light');
+  const [resetConfirm, setResetConfirm] = useState(false);
+  const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (theme === 'light' || theme === 'dark') { setResolvedTheme(theme); return; }
@@ -56,9 +58,21 @@ export function AccessibilityPanel({
   };
 
   const onReset = () => {
+    if (!resetConfirm) {
+      setResetConfirm(true);
+      if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
+      resetTimerRef.current = setTimeout(() => setResetConfirm(false), 3000);
+      return;
+    }
+    if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
+    setResetConfirm(false);
     setPrefs(DEFAULT_PREFS);
     resetPrefs(locale);
   };
+
+  useEffect(() => () => {
+    if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
+  }, []);
 
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
@@ -157,9 +171,14 @@ export function AccessibilityPanel({
               type="button"
               onClick={onReset}
               style={{ borderWidth, borderRadius }}
-              className="min-h-[44px] border-solid border-neutral-300 px-3 sm:px-4 text-[clamp(11px,2.2vw,14px)] font-medium text-neutral-900 hover:bg-neutral-50 dark:border-neutral-700 dark:text-neutral-100 dark:hover:bg-neutral-900 whitespace-nowrap"
+              className={`min-h-[44px] border-solid px-3 sm:px-4 text-[clamp(11px,2.2vw,14px)] font-medium whitespace-nowrap transition-colors ${
+                resetConfirm
+                  ? 'border-red-500 bg-red-500 text-white hover:bg-red-600'
+                  : 'border-neutral-300 text-neutral-900 hover:bg-neutral-50 dark:border-neutral-700 dark:text-neutral-100 dark:hover:bg-neutral-900'
+              }`}
+              aria-pressed={resetConfirm}
             >
-              {t.reset}
+              {resetConfirm ? `${t.reset}?` : t.reset}
             </button>
             <button
               type="button"

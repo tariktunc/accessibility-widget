@@ -66,6 +66,30 @@ function writePrefs(prefs: Preferences, locale: string): PreferencesRecord {
   return record;
 }
 
+let _dyslexiaFontWarned = false;
+
+function checkDyslexiaFont() {
+  if (_dyslexiaFontWarned || typeof document === 'undefined') return;
+  _dyslexiaFontWarned = true;
+  // Heuristic: try detecting OpenDyslexic font availability
+  const test = document.createElement('span');
+  test.style.fontFamily = "'OpenDyslexic', monospace";
+  test.style.position = 'absolute';
+  test.style.visibility = 'hidden';
+  test.textContent = 'mmmmm';
+  document.body.appendChild(test);
+  const w1 = test.offsetWidth;
+  test.style.fontFamily = "monospace";
+  const w2 = test.offsetWidth;
+  document.body.removeChild(test);
+  if (w1 === w2) {
+    console.warn(
+      '[a11y-widget] OpenDyslexic font yuklenmemis. Layout <head>\'ine ekleyin:\n' +
+      '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/open-dyslexic-regular.css" />'
+    );
+  }
+}
+
 export function applyPrefs(prefs: Preferences) {
   if (typeof document === 'undefined') return;
   const html = document.documentElement;
@@ -76,6 +100,7 @@ export function applyPrefs(prefs: Preferences) {
   html.dataset.a11yMotion = prefs.motion;
   html.dataset.a11yDyslexia = String(prefs.dyslexiaFont);
   html.dataset.a11yReading = String(prefs.readingMode);
+  if (prefs.dyslexiaFont) checkDyslexiaFont();
 }
 
 export function getPrefs(): Preferences {
