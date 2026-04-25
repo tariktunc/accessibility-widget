@@ -1,0 +1,245 @@
+{
+  "tr": {
+    "fab": { "label": "Erisilebilirlik tercihleri" },
+    "panel": {
+      "title": "Erisilebilirlik Tercihleri",
+      "description": "Sayfa goruntuleme tercihlerinizi ayarlayin. Bu panel sitenin temel erisilebilirligine ek olarak kisisel tercih kontrolleri sunar.",
+      "reset": "Sifirla",
+      "close": "Kapat",
+      "disclaimer": "Bu panel kullanici tercih kontrolu sunar; sitenin teknik erisilebilirligi yapi seviyesinde saglanmistir.",
+      "preferences": {
+        "fontScale": {
+          "title": "Yazi Olcegi",
+          "description": "Tum metinleri buyutur veya kucultur.",
+          "values": { "100": "Normal", "110": "Buyuk", "125": "Cok Buyuk" }
+        },
+        "contrast": { "title": "Yuksek Kontrast", "description": "Siyah arka plan + sari linkler (AAA 7:1)." },
+        "focusRing": { "title": "Belirgin Fokus Halkasi", "description": "Klavye odagi 4px belirgin mavi halka ile gosterilir." },
+        "linkUnderline": { "title": "Link Altcizgisi", "description": "Tum linklerde altcizgi gosterir." },
+        "motion": { "title": "Hareketi Azalt", "description": "Animasyonlari ve gecisleri devre disi birakir." },
+        "dyslexiaFont": {
+          "title": "Disleksi Dostu Yazi Tipi",
+          "description": "OpenDyslexic font ailesini kullanir.",
+          "note": "Bazi okuyucular bunu tercih eder; arastirmalar evrensel etki gostermemistir."
+        },
+        "readingMode": { "title": "Okuma Modu", "description": "Sidebar ve dikkat dagitici alanlari gizler." }
+      }
+    }
+  },
+  "en": {
+    "fab": { "label": "Accessibility preferences" },
+    "panel": {
+      "title": "Accessibility Preferences",
+      "description": "Adjust your viewing preferences. This panel offers personal preference controls in addition to the site's structural accessibility.",
+      "reset": "Reset",
+      "close": "Close",
+      "disclaimer": "This panel provides user preference controls; structural accessibility is built into the site itself.",
+      "preferences": {
+        "fontScale": {
+          "title": "Font Size",
+          "description": "Increase or decrease text size.",
+          "values": { "100": "Normal", "110": "Large", "125": "Extra Large" }
+        },
+        "contrast": { "title": "High Contrast", "description": "Black background + yellow links (AAA 7:1)." },
+        "focusRing": { "title": "Enhanced Focus Ring", "description": "Show keyboard focus with a prominent 4px blue ring." },
+        "linkUnderline": { "title": "Underline Links", "description": "Add underline to all links." },
+        "motion": { "title": "Reduce Motion", "description": "Disable animations and transitions." },
+        "dyslexiaFont": {
+          "title": "Dyslexia-Friendly Font",
+          "description": "Use the OpenDyslexic font family.",
+          "note": "Some readers prefer this; research has not shown universal benefit."
+        },
+        "readingMode": { "title": "Reading Mode", "description": "Hide sidebars and distracting areas." }
+      }
+    }
+  },
+  "de": {
+    "fab": { "label": "Barrierefreiheit-Einstellungen" },
+    "panel": {
+      "title": "Barrierefreiheit-Einstellungen",
+      "description": "Passen Sie Ihre Anzeigeeinstellungen an. Dieses Panel bietet personliche Praferenzkontrollen zusatzlich zur strukturellen Barrierefreiheit der Website.",
+      "reset": "Zurucksetzen",
+      "close": "Schliessen",
+      "disclaimer": "Dieses Panel bietet Nutzerpraferenzen; die strukturelle Barrierefreiheit ist in der Website selbst integriert.",
+      "preferences": {
+        "fontScale": {
+          "title": "Schriftgrosse",
+          "description": "Textgrosse erhohen oder verringern.",
+          "values": { "100": "Normal", "110": "Gross", "125": "Sehr Gross" }
+        },
+        "contrast": { "title": "Hoher Kontrast", "description": "Schwarzer Hintergrund + gelbe Links (AAA 7:1)." },
+        "focusRing": { "title": "Verstarkter Fokusring", "description": "Tastaturfokus mit auffalligem 4px blauen Ring anzeigen." },
+        "linkUnderline": { "title": "Links Unterstreichen", "description": "Alle Links unterstreichen." },
+        "motion": { "title": "Bewegung Reduzieren", "description": "Animationen und Ubergange deaktivieren." },
+        "dyslexiaFont": {
+          "title": "Legasthenie-freundliche Schrift",
+          "description": "OpenDyslexic-Schriftfamilie verwenden.",
+          "note": "Einige Leser bevorzugen dies; die Forschung zeigt keinen universellen Nutzen."
+        },
+        "readingMode": { "title": "Lesemodus", "description": "Seitenleisten und Ablenkungen ausblenden." }
+      }
+    }
+  },
+  "fr": {
+    "fab": { "label": "Preferences d'accessibilite" },
+    "panel": {
+      "title": "Preferences d'accessibilite",
+      "description": "Ajustez vos preferences d'affichage. Ce panneau offre des controles de preferences personnelles en plus de l'accessibilite structurelle du site.",
+      "reset": "Reinitialiser",
+      "close": "Fermer",
+      "disclaimer": "Ce panneau fournit des controles de preferences utilisateur; l'accessibilite structurelle est integree au site lui-meme.",
+      "preferences": {
+        "fontScale": {
+          "title": "Taille de police",
+          "description": "Augmenter ou diminuer la taille du texte.",
+          "values": { "100": "Normal", "110": "Grand", "125": "Tres grand" }
+        },
+        "contrast": { "title": "Contraste eleve", "description": "Fond noir + liens jaunes (AAA 7:1)." },
+        "focusRing": { "title": "Anneau de focus renforce", "description": "Afficher le focus clavier avec un anneau bleu de 4px." },
+        "linkUnderline": { "title": "Souligner les liens", "description": "Souligner tous les liens." },
+        "motion": { "title": "Reduire le mouvement", "description": "Desactiver les animations et transitions." },
+        "dyslexiaFont": {
+          "title": "Police adaptee a la dyslexie",
+          "description": "Utiliser la famille de polices OpenDyslexic.",
+          "note": "Certains lecteurs preferent cette option; la recherche n'a pas montre de benefice universel."
+        },
+        "readingMode": { "title": "Mode lecture", "description": "Masquer les barres laterales et zones distrayantes." }
+      }
+    }
+  },
+  "es": {
+    "fab": { "label": "Preferencias de accesibilidad" },
+    "panel": {
+      "title": "Preferencias de accesibilidad",
+      "description": "Ajuste sus preferencias de visualizacion. Este panel ofrece controles de preferencias personales ademas de la accesibilidad estructural del sitio.",
+      "reset": "Restablecer",
+      "close": "Cerrar",
+      "disclaimer": "Este panel proporciona controles de preferencias del usuario; la accesibilidad estructural esta integrada en el sitio.",
+      "preferences": {
+        "fontScale": {
+          "title": "Tamano de fuente",
+          "description": "Aumentar o disminuir el tamano del texto.",
+          "values": { "100": "Normal", "110": "Grande", "125": "Muy grande" }
+        },
+        "contrast": { "title": "Alto contraste", "description": "Fondo negro + enlaces amarillos (AAA 7:1)." },
+        "focusRing": { "title": "Anillo de foco mejorado", "description": "Mostrar el foco del teclado con un anillo azul de 4px." },
+        "linkUnderline": { "title": "Subrayar enlaces", "description": "Subrayar todos los enlaces." },
+        "motion": { "title": "Reducir movimiento", "description": "Desactivar animaciones y transiciones." },
+        "dyslexiaFont": {
+          "title": "Fuente para dislexia",
+          "description": "Usar la familia tipografica OpenDyslexic.",
+          "note": "Algunos lectores la prefieren; la investigacion no muestra beneficio universal."
+        },
+        "readingMode": { "title": "Modo lectura", "description": "Ocultar barras laterales y areas distractoras." }
+      }
+    }
+  },
+  "it": {
+    "fab": { "label": "Preferenze di accessibilita" },
+    "panel": {
+      "title": "Preferenze di accessibilita",
+      "description": "Regola le tue preferenze di visualizzazione. Questo pannello offre controlli di preferenze personali oltre all'accessibilita strutturale del sito.",
+      "reset": "Ripristina",
+      "close": "Chiudi",
+      "disclaimer": "Questo pannello fornisce controlli di preferenze utente; l'accessibilita strutturale e integrata nel sito stesso.",
+      "preferences": {
+        "fontScale": {
+          "title": "Dimensione carattere",
+          "description": "Aumenta o diminuisci la dimensione del testo.",
+          "values": { "100": "Normale", "110": "Grande", "125": "Molto grande" }
+        },
+        "contrast": { "title": "Alto contrasto", "description": "Sfondo nero + link gialli (AAA 7:1)." },
+        "focusRing": { "title": "Anello di focus migliorato", "description": "Mostra il focus tastiera con un anello blu di 4px." },
+        "linkUnderline": { "title": "Sottolinea link", "description": "Sottolinea tutti i link." },
+        "motion": { "title": "Riduci movimento", "description": "Disabilita animazioni e transizioni." },
+        "dyslexiaFont": {
+          "title": "Font per dislessia",
+          "description": "Usa la famiglia di font OpenDyslexic.",
+          "note": "Alcuni lettori la preferiscono; la ricerca non mostra benefici universali."
+        },
+        "readingMode": { "title": "Modalita lettura", "description": "Nasconde sidebar e aree di distrazione." }
+      }
+    }
+  },
+  "ar": {
+    "fab": { "label": "تفضيلات إمكانية الوصول" },
+    "panel": {
+      "title": "تفضيلات إمكانية الوصول",
+      "description": "اضبط تفضيلات العرض الخاصة بك. توفر هذه اللوحة عناصر تحكم في التفضيلات الشخصية بالإضافة إلى إمكانية الوصول الهيكلية للموقع.",
+      "reset": "إعادة تعيين",
+      "close": "إغلاق",
+      "disclaimer": "توفر هذه اللوحة عناصر تحكم في تفضيلات المستخدم؛ إمكانية الوصول الهيكلية مدمجة في الموقع نفسه.",
+      "preferences": {
+        "fontScale": {
+          "title": "حجم الخط",
+          "description": "زيادة أو تقليل حجم النص.",
+          "values": { "100": "عادي", "110": "كبير", "125": "كبير جدًا" }
+        },
+        "contrast": { "title": "تباين عالي", "description": "خلفية سوداء + روابط صفراء (AAA 7:1)." },
+        "focusRing": { "title": "حلقة تركيز محسنة", "description": "إظهار تركيز لوحة المفاتيح بحلقة زرقاء 4 بكسل." },
+        "linkUnderline": { "title": "تسطير الروابط", "description": "تسطير جميع الروابط." },
+        "motion": { "title": "تقليل الحركة", "description": "تعطيل الرسوم المتحركة والانتقالات." },
+        "dyslexiaFont": {
+          "title": "خط صديق لعسر القراءة",
+          "description": "استخدم عائلة خطوط OpenDyslexic.",
+          "note": "يفضله بعض القراء؛ لم تظهر الأبحاث فائدة عالمية."
+        },
+        "readingMode": { "title": "وضع القراءة", "description": "إخفاء الأشرطة الجانبية ومناطق الإلهاء." }
+      }
+    }
+  },
+  "he": {
+    "fab": { "label": "העדפות נגישות" },
+    "panel": {
+      "title": "העדפות נגישות",
+      "description": "התאם את העדפות התצוגה שלך. פאנל זה מציע בקרות העדפות אישיות בנוסף לנגישות המבנית של האתר.",
+      "reset": "איפוס",
+      "close": "סגור",
+      "disclaimer": "פאנל זה מספק בקרות העדפות משתמש; הנגישות המבנית משולבת באתר עצמו.",
+      "preferences": {
+        "fontScale": {
+          "title": "גודל גופן",
+          "description": "הגדל או הקטן את גודל הטקסט.",
+          "values": { "100": "רגיל", "110": "גדול", "125": "גדול מאוד" }
+        },
+        "contrast": { "title": "ניגודיות גבוהה", "description": "רקע שחור + קישורים צהובים (AAA 7:1)." },
+        "focusRing": { "title": "טבעת פוקוס משופרת", "description": "הצג פוקוס מקלדת עם טבעת כחולה בולטת של 4 פיקסל." },
+        "linkUnderline": { "title": "קו תחתון בקישורים", "description": "הוסף קו תחתון לכל הקישורים." },
+        "motion": { "title": "הפחת תנועה", "description": "השבת הנפשות ומעברים." },
+        "dyslexiaFont": {
+          "title": "גופן ידידותי לדיסלקציה",
+          "description": "השתמש במשפחת הגופנים OpenDyslexic.",
+          "note": "חלק מהקוראים מעדיפים זאת; המחקר לא הראה תועלת אוניברסלית."
+        },
+        "readingMode": { "title": "מצב קריאה", "description": "הסתר סרגלי צד ואזורים מסיחים." }
+      }
+    }
+  },
+  "ru": {
+    "fab": { "label": "Настройки доступности" },
+    "panel": {
+      "title": "Настройки доступности",
+      "description": "Настройте параметры отображения. Эта панель предоставляет личные настройки в дополнение к структурной доступности сайта.",
+      "reset": "Сбросить",
+      "close": "Закрыть",
+      "disclaimer": "Эта панель предоставляет пользовательские настройки; структурная доступность встроена в сам сайт.",
+      "preferences": {
+        "fontScale": {
+          "title": "Размер шрифта",
+          "description": "Увеличить или уменьшить размер текста.",
+          "values": { "100": "Обычный", "110": "Большой", "125": "Очень большой" }
+        },
+        "contrast": { "title": "Высокий контраст", "description": "Черный фон + желтые ссылки (AAA 7:1)." },
+        "focusRing": { "title": "Усиленное кольцо фокуса", "description": "Показывать фокус клавиатуры синим кольцом 4px." },
+        "linkUnderline": { "title": "Подчеркивать ссылки", "description": "Подчеркивать все ссылки." },
+        "motion": { "title": "Уменьшить движение", "description": "Отключить анимации и переходы." },
+        "dyslexiaFont": {
+          "title": "Шрифт для дислексии",
+          "description": "Использовать семейство шрифтов OpenDyslexic.",
+          "note": "Некоторые читатели предпочитают это; исследования не показали универсальной пользы."
+        },
+        "readingMode": { "title": "Режим чтения", "description": "Скрыть боковые панели и отвлекающие области." }
+      }
+    }
+  }
+}

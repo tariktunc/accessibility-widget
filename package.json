@@ -1,0 +1,41 @@
+{
+  "name": "accessibility-widget",
+  "version": "1.0.0",
+  "description": "WCAG 2.2 AA uyumlu, native preferences panel — overlay degil, kullanici tercih kontrolu. 7 tercih (font/kontrast/fokus/link/motion/dyslexia/reading), 9 dil, light/dark, OS prefers-reduced-motion + prefers-contrast saygisi. Powered by Blakfy.",
+  "license": "MIT",
+  "author": "Tarık Tunç",
+  "homepage": "https://github.com/tariktunc/accessibility-widget",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tariktunc/accessibility-widget.git"
+  },
+  "keywords": [
+    "accessibility",
+    "a11y",
+    "wcag",
+    "wcag-2.2",
+    "react",
+    "nextjs",
+    "radix-ui",
+    "tailwind",
+    "preferences",
+    "blakfy"
+  ],
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "files": [
+    "*.tsx",
+    "*.ts",
+    "*.css",
+    "*.json",
+    "*.md",
+    "LICENSE"
+  ],
+  "peerDependencies": {
+    "@radix-ui/react-dialog": "^1.0.0",
+    "@radix-ui/react-switch": "^1.0.0",
+    "next": ">=14",
+    "react": ">=18",
+    "react-dom": ">=18"
+  }
+}

@@ -1,0 +1,122 @@
+/* WebForge Accessibility Widget — Native CSS Variables
+ * Bu dosya projenin globals.css'i icine import edilmelidir.
+ * Yaklasim: kullanici tercihleri data-attribute uzerinden CSS variable'lari toggle eder.
+ * DOM patch'i YOK, ARIA enjeksiyonu YOK — sadece kullanici-tarafi tercih override.
+ */
+
+/* === FONT SCALE === */
+:root {
+  --a11y-font-scale: 1;
+}
+:root[data-a11y-fontscale="110"] { --a11y-font-scale: 1.1; }
+:root[data-a11y-fontscale="125"] { --a11y-font-scale: 1.25; }
+html { font-size: calc(100% * var(--a11y-font-scale, 1)); }
+
+/* === HIGH CONTRAST ===
+ * AAA 7:1 kontrast garantisi
+ * Kullanici tercihinde aktif olur; OS prefers-contrast: more da otomatik tetikler */
+:root[data-a11y-contrast="high"] {
+  --a11y-bg: #000000;
+  --a11y-fg: #ffffff;
+  --a11y-link: #ffff00;
+  --a11y-link-visited: #ff80ff;
+  --a11y-border: #ffffff;
+}
+
+@media (prefers-contrast: more) {
+  :root:not([data-a11y-contrast="normal"]) {
+    --a11y-bg: #000000;
+    --a11y-fg: #ffffff;
+    --a11y-link: #ffff00;
+  }
+}
+
+:root[data-a11y-contrast="high"] body,
+:root[data-a11y-contrast="high"] main,
+:root[data-a11y-contrast="high"] article,
+:root[data-a11y-contrast="high"] section {
+  background: var(--a11y-bg) !important;
+  color: var(--a11y-fg) !important;
+}
+
+:root[data-a11y-contrast="high"] a {
+  color: var(--a11y-link) !important;
+  text-decoration: underline !important;
+}
+
+:root[data-a11y-contrast="high"] a:visited {
+  color: var(--a11y-link-visited) !important;
+}
+
+:root[data-a11y-contrast="high"] *:focus-visible {
+  outline: 3px solid var(--a11y-link) !important;
+  outline-offset: 2px;
+}
+
+/* === ENHANCED FOCUS RING ===
+ * 4px belirgin halka, klavye kullanicilari icin */
+:root[data-a11y-focus="enhanced"] *:focus-visible {
+  outline: 4px solid #2563eb !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 0 8px rgba(37, 99, 235, 0.25) !important;
+  border-radius: 4px;
+}
+
+/* === UNDERLINE LINKS ===
+ * WCAG 1.4.1 — renge dayanma */
+:root[data-a11y-links="underline"] a {
+  text-decoration: underline !important;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1.5px;
+}
+
+/* === REDUCED MOTION ===
+ * OS sinyalini sayar + kullanici override */
+:root[data-a11y-motion="reduce"] *,
+:root[data-a11y-motion="reduce"] *::before,
+:root[data-a11y-motion="reduce"] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-a11y-motion="auto"]) *,
+  :root[data-a11y-motion="auto"] * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* === DYSLEXIA-FRIENDLY FONT ===
+ * NOT: Arastirma karisik. Bazi kullanicilar tercih eder, evrensel "fix" degildir.
+ * Font: OpenDyslexic (CDN) veya Comic Sans MS fallback */
+:root[data-a11y-dyslexia="true"] body,
+:root[data-a11y-dyslexia="true"] body *:not(code):not(pre):not(kbd) {
+  font-family: 'OpenDyslexic', 'Comic Sans MS', 'Trebuchet MS', sans-serif !important;
+  letter-spacing: 0.05em !important;
+  word-spacing: 0.15em !important;
+  line-height: 1.6 !important;
+}
+
+/* === READING MODE ===
+ * Sidebar/aside'lari gizler, dikkat dagiticiyi azaltir */
+:root[data-a11y-reading="true"] aside,
+:root[data-a11y-reading="true"] [role="complementary"],
+:root[data-a11y-reading="true"] .sidebar,
+:root[data-a11y-reading="true"] [data-reading="hide"] {
+  display: none !important;
+}
+
+:root[data-a11y-reading="true"] main,
+:root[data-a11y-reading="true"] article,
+:root[data-a11y-reading="true"] [role="main"] {
+  max-width: 70ch !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+:root[data-a11y-reading="true"] body {
+  line-height: 1.7 !important;
+}
