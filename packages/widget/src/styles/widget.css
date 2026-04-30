@@ -23,20 +23,20 @@
   --blakfy-a11y-panel-border-dark: rgba(255,255,255,0.06);
 
   --blakfy-a11y-toggle-on: #3b82f6;
-  --blakfy-a11y-toggle-off: #d0d0e0;
+  --blakfy-a11y-toggle-off: #d0d0d0;
   --blakfy-a11y-focus-ring: #3b82f6;
   --blakfy-a11y-fab-size: 48px;
 
-  /* Internal — light */
+  /* Internal — light: beyaz / açık gri / siyah */
   --__bg:          #ffffff;
-  --__card:        #f3f4f8;
-  --__card-hover:  #eaebf2;
-  --__card-active: #e0e8fa;
-  --__text:        #1c1c2e;
-  --__muted:       rgba(28,28,46,0.45);
-  --__muted-dim:   rgba(28,28,46,0.3);
-  --__divide:      rgba(0,0,0,0.06);
-  --__switch-off:  #d0d0e0;
+  --__card:        #f5f5f5;
+  --__card-hover:  #eeeeee;
+  --__card-active: #e8e8e8;
+  --__text:        #111111;
+  --__muted:       rgba(17,17,17,0.45);
+  --__muted-dim:   rgba(17,17,17,0.3);
+  --__divide:      rgba(0,0,0,0.07);
+  --__switch-off:  #d0d0d0;
   --__header-bg:   #ffffff;
 }
 
@@ -44,23 +44,24 @@
  * 2. Dark mode — referans palette (#16191b sidebar, #222 cards, #deeffd text)
  * ========================================================================== */
 :host([data-theme="dark"]) {
-  --blakfy-a11y-panel-bg: #16191b;
-  --blakfy-a11y-panel-text: #deeffd;
-  --blakfy-a11y-panel-muted: rgba(222,239,253,0.45);
-  --blakfy-a11y-panel-border: rgba(255,255,255,0.06);
+  --blakfy-a11y-panel-bg: #111111;
+  --blakfy-a11y-panel-text: #ffffff;
+  --blakfy-a11y-panel-muted: rgba(255,255,255,0.45);
+  --blakfy-a11y-panel-border: rgba(255,255,255,0.07);
   --blakfy-a11y-primary-hover: #60a5fa;
-  --blakfy-a11y-toggle-off: #3a3d42;
+  --blakfy-a11y-toggle-off: #3a3a3a;
 
-  --__bg:          #16191b;
-  --__card:        #222426;
-  --__card-hover:  #2a2d30;
-  --__card-active: #1d2a3f;
-  --__text:        #deeffd;
-  --__muted:       rgba(222,239,253,0.45);
-  --__muted-dim:   rgba(222,239,253,0.28);
-  --__divide:      rgba(255,255,255,0.06);
-  --__switch-off:  #3a3d42;
-  --__header-bg:   #16191b;
+  /* Internal — dark: siyah / koyu gri / beyaz */
+  --__bg:          #111111;
+  --__card:        #1e1e1e;
+  --__card-hover:  #252525;
+  --__card-active: #1a2540;
+  --__text:        #ffffff;
+  --__muted:       rgba(255,255,255,0.45);
+  --__muted-dim:   rgba(255,255,255,0.28);
+  --__divide:      rgba(255,255,255,0.07);
+  --__switch-off:  #3a3a3a;
+  --__header-bg:   #111111;
 }
 
 /* ==========================================================================
