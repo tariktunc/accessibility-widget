@@ -147,7 +147,7 @@ jobs:
         run: pnpm build
 
       - name: Upload core dist
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: dist-core
           path: packages/core/dist
@@ -155,7 +155,7 @@ jobs:
           retention-days: 7
 
       - name: Upload widget dist
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: dist-widget
           path: packages/widget/dist
@@ -163,7 +163,7 @@ jobs:
           retention-days: 7
 
       - name: Upload next dist
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: dist-next
           path: packages/next/dist
@@ -232,7 +232,7 @@ jobs:
 
       - name: Upload Playwright report
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: playwright-report
           path: |
