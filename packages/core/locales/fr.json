@@ -2,33 +2,54 @@
   "fab": { "label": "Préférences d'accessibilité" },
   "panel": {
     "title": "Préférences d'accessibilité",
-    "description": "Ajustez vos préférences d'affichage. Ce panneau offre des contrôles de préférences personnelles en plus de l'accessibilité structurelle du site.",
+    "description": "Ajustez vos préférences d'affichage.",
     "reset": "Réinitialiser",
     "close": "Fermer",
-    "disclaimer": "Ce panneau fournit des contrôles de préférences utilisateur; l'accessibilité structurelle est intégrée au site lui-même.",
+    "disclaimer": "Ce panneau fournit des contrôles de préférences personnelles ; l'accessibilité structurelle est intégrée dans le site lui-même.",
     "theme": {
       "label": "Thème d'affichage",
       "auto": "Automatique",
       "light": "Clair",
       "dark": "Sombre"
     },
-    "branding": "Propulsé par Blakfy Studio",
+    "branding": "Powered by Blakfy Studio",
+    "sections": {
+      "text": "Texte",
+      "vision": "Apparence",
+      "navigation": "Navigation",
+      "motion": "Mouvement & Lecture"
+    },
     "preferences": {
       "fontScale": {
-        "title": "Taille de police",
-        "description": "Augmenter ou diminuer la taille du texte.",
+        "title": "Taille du texte",
+        "description": "Redimensionne tous les textes de manière proportionnelle sur toute la page. Idéal pour les petits écrans ou les utilisateurs malvoyants ; les modifications s'appliquent instantanément.",
         "values": { "100": "Normal", "110": "Grand", "125": "Très grand" }
       },
-      "contrast": { "title": "Contraste élevé", "description": "Fond noir + liens jaunes (AAA 7:1)." },
-      "focusRing": { "title": "Anneau de focus renforcé", "description": "Afficher le focus clavier avec un anneau bleu de 4px." },
-      "linkUnderline": { "title": "Souligner les liens", "description": "Souligner tous les liens." },
-      "motion": { "title": "Réduire le mouvement", "description": "Désactiver les animations et transitions." },
+      "contrast": {
+        "title": "Contraste élevé",
+        "description": "Applique un fond noir avec des liens jaunes très visibles répondant au ratio de contraste WCAG AAA 7:1. Conçu pour les utilisateurs malvoyants ou daltoniens."
+      },
+      "focusRing": {
+        "title": "Anneau de focus amélioré",
+        "description": "Affiche un contour bleu de 4px autour de l'élément actif lors de la navigation au clavier. Indispensable pour les utilisateurs qui ne peuvent pas ou ne souhaitent pas utiliser une souris."
+      },
+      "linkUnderline": {
+        "title": "Souligner les liens",
+        "description": "Ajoute des soulignements à tous les hyperliens de la page. Aide les utilisateurs qui ne peuvent pas distinguer les liens du texte ordinaire par la couleur seule."
+      },
+      "motion": {
+        "title": "Réduire les animations",
+        "description": "Désactive les animations, transitions et effets de défilement. Recommandé pour les utilisateurs souffrant de troubles vestibulaires, d'épilepsie ou de sensibilité aux mouvements."
+      },
       "dyslexiaFont": {
         "title": "Police adaptée à la dyslexie",
-        "description": "Utiliser la famille de polices OpenDyslexic.",
-        "note": "Certains lecteurs préfèrent cette option; la recherche n'a pas montré de bénéfice universel."
+        "description": "Applique la police OpenDyslexic, qui ajoute un poids supplémentaire au bas des lettres pour réduire la confusion entre les caractères similaires (b/d, p/q).",
+        "note": "Certains lecteurs trouvent cela utile ; la recherche n'a pas établi un bénéfice universel."
       },
-      "readingMode": { "title": "Mode lecture", "description": "Masquer les barres latérales et zones distrayantes." }
+      "readingMode": {
+        "title": "Mode lecture",
+        "description": "Masque les barres latérales, les bannières et les contenus distrayants pour vous permettre de vous concentrer sur le texte principal. Idéal pour les longs articles."
+      }
     }
   }
 }

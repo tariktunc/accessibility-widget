@@ -2,10 +2,10 @@
   "fab": { "label": "Barrierefreiheit-Einstellungen" },
   "panel": {
     "title": "Barrierefreiheit-Einstellungen",
-    "description": "Passen Sie Ihre Anzeigeeinstellungen an. Dieses Panel bietet persönliche Präferenzkontrollen zusätzlich zur strukturellen Barrierefreiheit der Website.",
+    "description": "Passen Sie Ihre Anzeigeeinstellungen an.",
     "reset": "Zurücksetzen",
     "close": "Schließen",
-    "disclaimer": "Dieses Panel bietet Nutzerpräferenzen; die strukturelle Barrierefreiheit ist in der Website selbst integriert.",
+    "disclaimer": "Dieses Panel bietet persönliche Präferenzeinstellungen; die strukturelle Barrierefreiheit ist in der Website selbst integriert.",
     "theme": {
       "label": "Anzeigedesign",
       "auto": "Automatisch",
@@ -13,22 +13,43 @@
       "dark": "Dunkel"
     },
     "branding": "Powered by Blakfy Studio",
+    "sections": {
+      "text": "Text",
+      "vision": "Darstellung",
+      "navigation": "Navigation",
+      "motion": "Bewegung & Lesen"
+    },
     "preferences": {
       "fontScale": {
         "title": "Schriftgröße",
-        "description": "Textgröße erhöhen oder verringern.",
+        "description": "Skaliert alle Texte proportional auf der gesamten Seite. Ideal für kleine Bildschirme oder Nutzer mit Sehschwäche; Änderungen werden sofort übernommen.",
         "values": { "100": "Normal", "110": "Groß", "125": "Sehr Groß" }
       },
-      "contrast": { "title": "Hoher Kontrast", "description": "Schwarzer Hintergrund + gelbe Links (AAA 7:1)." },
-      "focusRing": { "title": "Verstärkter Fokusring", "description": "Tastaturfokus mit auffälligem 4px blauen Ring anzeigen." },
-      "linkUnderline": { "title": "Links Unterstreichen", "description": "Alle Links unterstreichen." },
-      "motion": { "title": "Bewegung Reduzieren", "description": "Animationen und Übergänge deaktivieren." },
+      "contrast": {
+        "title": "Hoher Kontrast",
+        "description": "Wendet einen schwarzen Hintergrund mit auffälligen gelben Links an und erfüllt das WCAG-AAA-Kontrastverhältnis von 7:1. Für Nutzer mit Sehbehinderung oder Farbenblindheit konzipiert."
+      },
+      "focusRing": {
+        "title": "Verstärkter Fokusring",
+        "description": "Zeigt beim Navigieren per Tastatur einen 4px breiten blauen Rahmen um das fokussierte Element. Unverzichtbar für Nutzer, die keine Maus verwenden können oder möchten."
+      },
+      "linkUnderline": {
+        "title": "Links Unterstreichen",
+        "description": "Fügt allen Hyperlinks auf der Seite Unterstreichungen hinzu. Hilft Nutzern, die Links nicht allein durch Farbe von normalem Text unterscheiden können."
+      },
+      "motion": {
+        "title": "Bewegung Reduzieren",
+        "description": "Deaktiviert Seitenanimationen, Übergänge und Scroll-Effekte. Empfohlen für Nutzer mit vestibulärer Störung, Epilepsie oder Bewegungsempfindlichkeit."
+      },
       "dyslexiaFont": {
         "title": "Legasthenie-freundliche Schrift",
-        "description": "OpenDyslexic-Schriftfamilie verwenden.",
-        "note": "Einige Leser bevorzugen dies; die Forschung zeigt keinen universellen Nutzen."
+        "description": "Wendet die OpenDyslexic-Schrift an, die Buchstaben durch stärkere Untergewichtung leichter unterscheidbar macht und ähnliche Zeichen (b/d, p/q) differenziert.",
+        "note": "Einige Leser finden dies hilfreich; die Forschung hat keinen universellen Nutzen belegt."
       },
-      "readingMode": { "title": "Lesemodus", "description": "Seitenleisten und Ablenkungen ausblenden." }
+      "readingMode": {
+        "title": "Lesemodus",
+        "description": "Blendet Seitenleisten, Banner und ablenkende Nebeninhalte aus, damit Sie sich auf den Haupttext konzentrieren können. Ideal für lange Artikel oder visuell überfüllte Seiten."
+      }
     }
   }
 }

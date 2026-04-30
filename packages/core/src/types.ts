@@ -70,6 +70,12 @@ export interface Translation {
       dark: string;
     };
     branding: string;
+    sections: {
+      text: string;
+      vision: string;
+      navigation: string;
+      motion: string;
+    };
     preferences: {
       fontScale: {
         title: string;

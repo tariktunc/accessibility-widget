@@ -60,6 +60,29 @@ interface InternalState {
   rerender: () => void;
 }
 
+/**
+ * Map an HTML lang attribute (e.g. "tr-TR", "de", "zh-Hans") to a supported
+ * Locale code. Returns undefined if not supported — caller falls back to 'en'.
+ */
+function _mapHtmlLang(lang: string): Locale | undefined {
+  const base = lang.toLowerCase().split(/[-_]/)[0] ?? '';
+  const MAP: Record<string, Locale> = {
+    tr: 'tr', en: 'en', de: 'de', fr: 'fr',
+    es: 'es', it: 'it', ar: 'ar', he: 'iw', ru: 'ru',
+    iw: 'he', // legacy Hebrew code
+  };
+  // 'iw' → 'he'
+  const mapped = MAP[base];
+  return mapped === 'iw' ? 'he' : mapped;
+}
+
+/** Detect locale from <html lang> when data-locale is not set. */
+function _detectLocale(): Locale {
+  if (typeof document === 'undefined') return 'en';
+  const lang = document.documentElement.lang ?? '';
+  return _mapHtmlLang(lang) ?? 'en';
+}
+
 function _readScriptDataAttrs(): Partial<WidgetOptions> & { devPipe?: string; version?: string } {
   if (typeof document === 'undefined') return {};
   let script: HTMLScriptElement | null = null;
@@ -81,6 +104,7 @@ function _readScriptDataAttrs(): Partial<WidgetOptions> & { devPipe?: string; ve
   const ds = script.dataset;
   const out: Partial<WidgetOptions> & { devPipe?: string; version?: string } = {};
   if (ds.locale) out.locale = ds.locale as Locale;
+  else out.locale = _detectLocale();
   if (ds.theme) out.theme = ds.theme as WidgetOptions['theme'];
   if (ds.position) out.position = ds.position as WidgetOptions['position'];
   if (ds.font) out.font = ds.font;

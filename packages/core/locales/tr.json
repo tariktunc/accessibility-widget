@@ -2,10 +2,10 @@
   "fab": { "label": "Erişilebilirlik tercihleri" },
   "panel": {
     "title": "Erişilebilirlik Tercihleri",
-    "description": "Sayfa görüntüleme tercihlerinizi ayarlayın. Bu panel sitenin temel erişilebilirliğine ek olarak kişisel tercih kontrolleri sunar.",
+    "description": "Sayfa görüntüleme tercihlerinizi ayarlayın.",
     "reset": "Sıfırla",
     "close": "Kapat",
-    "disclaimer": "Bu panel kullanıcı tercih kontrolü sunar; sitenin teknik erişilebilirliği yapı seviyesinde sağlanmıştır.",
+    "disclaimer": "Bu panel kişisel tercih kontrolü sunar; sitenin teknik erişilebilirliği yapı seviyesinde sağlanmıştır.",
     "theme": {
       "label": "Görünüm Teması",
       "auto": "Otomatik",
@@ -13,22 +13,43 @@
       "dark": "Koyu"
     },
     "branding": "Blakfy Studio tarafından geliştirildi",
+    "sections": {
+      "text": "Metin",
+      "vision": "Görünüm",
+      "navigation": "Gezinme",
+      "motion": "Hareket & Okuma"
+    },
     "preferences": {
       "fontScale": {
         "title": "Yazı Ölçeği",
-        "description": "Tüm metinleri büyütür veya küçültür.",
+        "description": "Sayfadaki tüm metin boyutlarını orantılı olarak artırır. Küçük ekranlarda veya görme güçlüğü olan kullanıcılar için idealdir; değişiklik tüm sayfaya anında uygulanır.",
         "values": { "100": "Normal", "110": "Büyük", "125": "Çok Büyük" }
       },
-      "contrast": { "title": "Yüksek Kontrast", "description": "Siyah arka plan + sarı bağlantılar (AAA 7:1)." },
-      "focusRing": { "title": "Belirgin Odak Halkası", "description": "Klavye odağı 4px belirgin mavi halka ile gösterilir." },
-      "linkUnderline": { "title": "Bağlantı Altçizgisi", "description": "Tüm bağlantılarda altçizgi gösterir." },
-      "motion": { "title": "Hareketi Azalt", "description": "Animasyonları ve geçişleri devre dışı bırakır." },
+      "contrast": {
+        "title": "Yüksek Kontrast",
+        "description": "Siyah arka plan ve sarı bağlantılar uygular; WCAG AAA 7:1 kontrast oranını karşılar. Görme bozukluğu veya renk körü olan kullanıcılar için tasarlanmıştır."
+      },
+      "focusRing": {
+        "title": "Belirgin Odak Halkası",
+        "description": "Klavye ile gezinirken aktif öğenin etrafında 4 piksel kalın mavi çerçeve gösterir. Fare kullanamayan veya kullanmak istemeyen kullanıcılar için kritik erişilebilirlik aracıdır."
+      },
+      "linkUnderline": {
+        "title": "Bağlantı Altçizgisi",
+        "description": "Sayfadaki tüm köprü metinlerine altçizgi ekler. Renk ayrımı yapamayan kullanıcıların bağlantıları düz metinden ayırt etmesini kolaylaştırır."
+      },
+      "motion": {
+        "title": "Hareketi Azalt",
+        "description": "Sayfa animasyonlarını, geçiş efektlerini ve kaydırma animasyonlarını devre dışı bırakır. Vestibüler bozukluğu veya hareket hassasiyeti olan kullanıcılar için önerilir."
+      },
       "dyslexiaFont": {
         "title": "Disleksi Dostu Yazı Tipi",
-        "description": "OpenDyslexic yazı tipi ailesini kullanır.",
-        "note": "Bazı okuyucular bunu tercih eder; araştırmalar evrensel etki göstermemiştir."
+        "description": "OpenDyslexic ailesini uygulayarak harflerin alt ağırlığını artırır ve birbirine benzeyen karakterleri (b/d, p/q) daha ayırt edilebilir hale getirir.",
+        "note": "Bazı kullanıcılar bunu faydalı bulsa da araştırmalar evrensel fayda kanıtlamamıştır."
       },
-      "readingMode": { "title": "Okuma Modu", "description": "Kenar çubukları ve dikkat dağıtıcı alanları gizler." }
+      "readingMode": {
+        "title": "Okuma Modu",
+        "description": "Kenar çubukları, banner'lar ve dikkat dağıtıcı yan içerikleri gizleyerek ana metne odaklanmayı kolaylaştırır. Uzun makaleler veya karmaşık sayfalar için idealdir."
+      }
     }
   }
 }

@@ -2,33 +2,54 @@
   "fab": { "label": "Preferenze di accessibilità" },
   "panel": {
     "title": "Preferenze di accessibilità",
-    "description": "Regola le tue preferenze di visualizzazione. Questo pannello offre controlli di preferenze personali oltre all'accessibilità strutturale del sito.",
+    "description": "Regola le preferenze di visualizzazione.",
     "reset": "Ripristina",
     "close": "Chiudi",
-    "disclaimer": "Questo pannello fornisce controlli di preferenze utente; l'accessibilità strutturale è integrata nel sito stesso.",
+    "disclaimer": "Questo pannello fornisce controlli di preferenze personali; l'accessibilità strutturale è integrata nel sito stesso.",
     "theme": {
-      "label": "Tema display",
+      "label": "Tema di visualizzazione",
       "auto": "Automatico",
       "light": "Chiaro",
       "dark": "Scuro"
     },
-    "branding": "Sviluppato da Blakfy Studio",
+    "branding": "Powered by Blakfy Studio",
+    "sections": {
+      "text": "Testo",
+      "vision": "Aspetto",
+      "navigation": "Navigazione",
+      "motion": "Movimento e Lettura"
+    },
     "preferences": {
       "fontScale": {
-        "title": "Dimensione carattere",
-        "description": "Aumenta o diminuisci la dimensione del testo.",
-        "values": { "100": "Normale", "110": "Grande", "125": "Molto grande" }
+        "title": "Dimensione del testo",
+        "description": "Scala proporzionalmente tutti i testi nella pagina. Ideale per schermi piccoli o utenti ipovedenti; le modifiche si applicano istantaneamente.",
+        "values": { "100": "Normale", "110": "Grande", "125": "Molto Grande" }
       },
-      "contrast": { "title": "Alto contrasto", "description": "Sfondo nero + link gialli (AAA 7:1)." },
-      "focusRing": { "title": "Anello di focus migliorato", "description": "Mostra il focus tastiera con un anello blu di 4px." },
-      "linkUnderline": { "title": "Sottolinea link", "description": "Sottolinea tutti i link." },
-      "motion": { "title": "Riduci movimento", "description": "Disabilita animazioni e transizioni." },
+      "contrast": {
+        "title": "Alto contrasto",
+        "description": "Applica uno sfondo nero con link gialli ad alta visibilità che soddisfano il rapporto di contrasto WCAG AAA 7:1. Progettato per utenti con disabilità visive o daltonismo."
+      },
+      "focusRing": {
+        "title": "Anello di messa a fuoco migliorato",
+        "description": "Mostra un contorno blu da 4px attorno all'elemento attivo durante la navigazione da tastiera. Essenziale per gli utenti che non possono o non vogliono usare il mouse."
+      },
+      "linkUnderline": {
+        "title": "Sottolinea i link",
+        "description": "Aggiunge la sottolineatura a tutti i collegamenti ipertestuali della pagina. Aiuta gli utenti che non riescono a distinguere i link dal testo normale solo tramite il colore."
+      },
+      "motion": {
+        "title": "Riduci il movimento",
+        "description": "Disabilita animazioni, transizioni ed effetti di scorrimento. Consigliato per utenti con disturbi vestibolari, epilessia o sensibilità al movimento."
+      },
       "dyslexiaFont": {
-        "title": "Font per dislessia",
-        "description": "Usa la famiglia di font OpenDyslexic.",
-        "note": "Alcuni lettori la preferiscono; la ricerca non mostra benefici universali."
+        "title": "Font per la dislessia",
+        "description": "Applica il carattere OpenDyslexic, che aggiunge peso extra alla base delle lettere per ridurre la confusione tra caratteri simili (b/d, p/q) e migliorare la leggibilità.",
+        "note": "Alcuni lettori lo trovano utile; la ricerca non ha dimostrato un beneficio universale."
       },
-      "readingMode": { "title": "Modalità lettura", "description": "Nasconde sidebar e aree di distrazione." }
+      "readingMode": {
+        "title": "Modalità lettura",
+        "description": "Nasconde barre laterali, banner e contenuti secondari distraenti per concentrarti sul testo principale. Ideale per articoli lunghi o pagine visivamente affollate."
+      }
     }
   }
 }

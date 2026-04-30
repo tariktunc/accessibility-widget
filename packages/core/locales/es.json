@@ -2,33 +2,54 @@
   "fab": { "label": "Preferencias de accesibilidad" },
   "panel": {
     "title": "Preferencias de accesibilidad",
-    "description": "Ajuste sus preferencias de visualización. Este panel ofrece controles de preferencias personales además de la accesibilidad estructural del sitio.",
+    "description": "Ajuste sus preferencias de visualización.",
     "reset": "Restablecer",
     "close": "Cerrar",
-    "disclaimer": "Este panel proporciona controles de preferencias del usuario; la accesibilidad estructural está integrada en el sitio.",
+    "disclaimer": "Este panel proporciona controles de preferencias personales; la accesibilidad estructural está integrada en el propio sitio.",
     "theme": {
-      "label": "Tema visual",
+      "label": "Tema de pantalla",
       "auto": "Automático",
       "light": "Claro",
       "dark": "Oscuro"
     },
-    "branding": "Desarrollado por Blakfy Studio",
+    "branding": "Powered by Blakfy Studio",
+    "sections": {
+      "text": "Texto",
+      "vision": "Apariencia",
+      "navigation": "Navegación",
+      "motion": "Movimiento y Lectura"
+    },
     "preferences": {
       "fontScale": {
-        "title": "Tamaño de fuente",
-        "description": "Aumentar o disminuir el tamaño del texto.",
-        "values": { "100": "Normal", "110": "Grande", "125": "Muy grande" }
+        "title": "Tamaño del texto",
+        "description": "Escala todo el texto proporcionalmente en toda la página. Ideal para pantallas pequeñas o usuarios con baja visión; los cambios se aplican al instante.",
+        "values": { "100": "Normal", "110": "Grande", "125": "Muy Grande" }
       },
-      "contrast": { "title": "Alto contraste", "description": "Fondo negro + enlaces amarillos (AAA 7:1)." },
-      "focusRing": { "title": "Anillo de foco mejorado", "description": "Mostrar el foco del teclado con un anillo azul de 4px." },
-      "linkUnderline": { "title": "Subrayar enlaces", "description": "Subrayar todos los enlaces." },
-      "motion": { "title": "Reducir movimiento", "description": "Desactivar animaciones y transiciones." },
+      "contrast": {
+        "title": "Alto contraste",
+        "description": "Aplica un fondo negro con enlaces amarillos de alta visibilidad que cumplen la relación de contraste WCAG AAA 7:1. Diseñado para personas con discapacidad visual o daltonismo."
+      },
+      "focusRing": {
+        "title": "Anillo de enfoque mejorado",
+        "description": "Muestra un borde azul de 4px alrededor del elemento enfocado durante la navegación con teclado. Esencial para usuarios que no pueden o no desean usar un ratón."
+      },
+      "linkUnderline": {
+        "title": "Subrayar enlaces",
+        "description": "Añade subrayado a todos los hipervínculos de la página. Ayuda a los usuarios que no pueden distinguir los enlaces del texto normal sólo por el color."
+      },
+      "motion": {
+        "title": "Reducir movimiento",
+        "description": "Desactiva las animaciones, transiciones y efectos de desplazamiento. Recomendado para usuarios con trastornos vestibulares, epilepsia o sensibilidad al movimiento."
+      },
       "dyslexiaFont": {
-        "title": "Fuente para dislexia",
-        "description": "Usar la familia tipográfica OpenDyslexic.",
-        "note": "Algunos lectores la prefieren; la investigación no muestra beneficio universal."
+        "title": "Fuente adaptada a la dislexia",
+        "description": "Aplica la tipografía OpenDyslexic, que añade peso extra en la parte inferior de las letras para reducir la confusión entre caracteres similares (b/d, p/q).",
+        "note": "Algunos lectores lo encuentran útil; la investigación no ha establecido un beneficio universal."
       },
-      "readingMode": { "title": "Modo lectura", "description": "Ocultar barras laterales y áreas distractoras." }
+      "readingMode": {
+        "title": "Modo lectura",
+        "description": "Oculta barras laterales, banners y contenidos secundarios para que pueda concentrarse en el texto principal. Ideal para artículos largos o páginas visualmente complejas."
+      }
     }
   }
 }
