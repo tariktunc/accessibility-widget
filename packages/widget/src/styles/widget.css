@@ -8,59 +8,53 @@
  */
 
 /* ==========================================================================
- * 1. Custom property defaults (15 locked variables)
+ * 1. Custom property defaults — always dark theme
  * ========================================================================== */
 :host {
-  /* Color — light theme defaults */
-  --blakfy-a11y-primary: #2563eb;
-  --blakfy-a11y-primary-hover: #1d4ed8;
+  /* Locked public API variables */
+  --blakfy-a11y-primary: #3b82f6;
+  --blakfy-a11y-primary-hover: #60a5fa;
   --blakfy-a11y-primary-text: #ffffff;
-  --blakfy-a11y-panel-bg: #ffffff;
-  --blakfy-a11y-panel-text: #171717;
-  --blakfy-a11y-panel-muted: #525252;
-  --blakfy-a11y-panel-border: #e5e5e5;
+  --blakfy-a11y-panel-bg: #13131f;
+  --blakfy-a11y-panel-text: #f1f5f9;
+  --blakfy-a11y-panel-muted: rgba(241,245,249,0.5);
+  --blakfy-a11y-panel-border: rgba(255,255,255,0.08);
 
-  /* Color — dark theme overrides (resolved via :host([data-theme="dark"])) */
-  --blakfy-a11y-panel-bg-dark: #0a0a0a;
-  --blakfy-a11y-panel-text-dark: #fafafa;
-  --blakfy-a11y-panel-muted-dark: #a3a3a3;
-  --blakfy-a11y-panel-border-dark: #262626;
+  --blakfy-a11y-panel-bg-dark: #13131f;
+  --blakfy-a11y-panel-text-dark: #f1f5f9;
+  --blakfy-a11y-panel-muted-dark: rgba(241,245,249,0.5);
+  --blakfy-a11y-panel-border-dark: rgba(255,255,255,0.08);
 
   /* Switch */
-  --blakfy-a11y-toggle-on: #171717;
-  --blakfy-a11y-toggle-off: #d4d4d4;
+  --blakfy-a11y-toggle-on: #3b82f6;
+  --blakfy-a11y-toggle-off: #3a3a5c;
 
   /* Focus */
-  --blakfy-a11y-focus-ring: #2563eb;
+  --blakfy-a11y-focus-ring: #3b82f6;
 
   /* Sizes */
   --blakfy-a11y-fab-size: 48px;
 
-  /* Internal aliases — point to active mode (NOT locked, prefixed with __) */
-  --__bg: var(--blakfy-a11y-panel-bg);
-  --__text: var(--blakfy-a11y-panel-text);
-  --__muted: var(--blakfy-a11y-panel-muted);
-  --__border: var(--blakfy-a11y-panel-border);
+  /* Internal aliases — always dark */
+  --__bg: #13131f;
+  --__text: #f1f5f9;
+  --__muted: rgba(241,245,249,0.5);
+  --__border: rgba(255,255,255,0.08);
 }
 
 /* ==========================================================================
- * 2. Theme switch — dark mode overrides
+ * 2. Theme switch — dark mode (same values, kept for compat)
  * ========================================================================== */
 :host([data-theme="dark"]) {
-  --__bg: var(--blakfy-a11y-panel-bg-dark);
-  --__text: var(--blakfy-a11y-panel-text-dark);
-  --__muted: var(--blakfy-a11y-panel-muted-dark);
-  --__border: var(--blakfy-a11y-panel-border-dark);
-
-  /* Brighter blue so FAB + focus rings are visible on dark surfaces */
-  --blakfy-a11y-primary: #60a5fa;
-  --blakfy-a11y-primary-hover: #93c5fd;
-  --blakfy-a11y-focus-ring: #60a5fa;
-
-  /* Toggle: use blue-500 for ON (clearly visible on near-black bg),
-     medium gray for OFF — color-blind-safe: luminance contrast, not hue alone */
+  --__bg: #13131f;
+  --__text: #f1f5f9;
+  --__muted: rgba(241,245,249,0.5);
+  --__border: rgba(255,255,255,0.08);
+  --blakfy-a11y-primary: #3b82f6;
+  --blakfy-a11y-primary-hover: #60a5fa;
+  --blakfy-a11y-focus-ring: #3b82f6;
   --blakfy-a11y-toggle-on: #3b82f6;
-  --blakfy-a11y-toggle-off: #4b5563;
+  --blakfy-a11y-toggle-off: #3a3a5c;
 }
 
 /* ==========================================================================
@@ -166,16 +160,7 @@ button {
 }
 
 /* ==========================================================================
- * 6. Floating badge (locked per STABLE-API.md §9)
- *
- * Contrast budget (WCAG 2.2 AA — must pass 4.5:1 for normal text):
- *   light: #525252 (panel-muted) on #ffffff = 7.46:1 raw
- *   dark : #a3a3a3 (panel-muted-dark) on #0a0a0a = 8.18:1 raw
- *   At opacity 0.85 the perceived luminance still clears 4.5:1 in both
- *   themes (light ≈ 5.94:1, dark ≈ 6.32:1). Hover lifts to opacity 1.0.
- *   The previous opacity 0.7 default produced ~3.64:1 (AA fail). Per
- *   STABLE-API §9 only impl details are tunable — URL/text/position
- *   stay locked.
+ * 6. Floating badge
  * ========================================================================== */
 .badge {
   position: fixed;
@@ -217,14 +202,14 @@ button {
 }
 
 /* ==========================================================================
- * 7. Dialog modal
+ * 7. Dialog — sağdan kayan tam yükseklik sidebar
  * ========================================================================== */
 .backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
   z-index: 9999;
   animation: blakfy-fade-in 200ms ease forwards;
 }
@@ -235,50 +220,62 @@ button {
 
 .dialog {
   position: fixed;
-  inset-block-start: 50%;
-  inset-inline-start: 50%;
-  transform: translate(-50%, -50%);
-  width: min(560px, calc(100% - 1rem));
-  max-width: min(560px, calc(100% - 1rem));
-  max-height: 90vh;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  inline-size: 340px;
+  max-inline-size: 100vw;
+  block-size: 100vh;
+  max-block-size: 100vh;
   overflow-y: auto;
-  background: var(--__bg);
-  color: var(--__text);
-  border-radius: 0.5rem;
-  padding: 1rem;
+  background: #13131f;
+  color: #f1f5f9;
+  border-radius: 0;
+  padding: 0;
   z-index: 10000;
-  scrollbar-gutter: stable;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
-  animation: blakfy-zoom-in 200ms ease forwards;
+  box-shadow: -8px 0 32px rgba(0,0,0,0.5);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.15) transparent;
+  animation: blakfy-slide-in-right 220ms ease forwards;
 }
 
 .dialog[data-state="closing"] {
-  animation: blakfy-zoom-out 180ms ease forwards;
+  animation: blakfy-slide-out-right 180ms ease forwards;
 }
 
 .dialog:focus {
   outline: none;
 }
 
+/* ==========================================================================
+ * 8. Panel header — sticky
+ * ========================================================================== */
+.panel-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1rem 0.875rem;
+  background: #13131f;
+  border-block-end: 1px solid rgba(255,255,255,0.08);
+}
+
 .panel-title {
-  font-size: clamp(14px, 3vw, 18px);
+  font-size: clamp(14px, 3vw, 16px);
   font-weight: 600;
   line-height: 1.2;
-  color: var(--__text);
-  padding-inline-end: 2rem;
+  color: #f1f5f9;
 }
 
 .panel-desc {
   margin-block-start: 0.5rem;
-  font-size: clamp(11px, 2vw, 14px);
+  font-size: clamp(11px, 2vw, 13px);
   line-height: 1.5;
-  color: var(--__muted);
+  color: rgba(241,245,249,0.5);
 }
 
 .dialog-close {
-  position: absolute;
-  inset-block-start: 0.75rem;
-  inset-inline-end: 0.75rem;
   width: 32px;
   height: 32px;
   min-width: 44px;
@@ -287,13 +284,14 @@ button {
   align-items: center;
   justify-content: center;
   border-radius: 6px;
-  color: var(--__muted);
+  color: rgba(241,245,249,0.6);
   transition: background-color 150ms ease, color 150ms ease;
+  flex-shrink: 0;
 }
 
 .dialog-close:hover {
-  background: var(--__border);
-  color: var(--__text);
+  background: rgba(255,255,255,0.08);
+  color: #f1f5f9;
 }
 
 .dialog-close:focus-visible {
@@ -307,20 +305,39 @@ button {
 }
 
 /* ==========================================================================
- * 8. Switch (ARIA APG) — compact size
+ * 9. Section labels
+ * ========================================================================== */
+.section-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(241,245,249,0.45);
+  padding: 0.875rem 1rem 0.375rem;
+}
+
+.opt-section-title {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: rgba(241,245,249,0.7);
+  margin-block-end: 0.375rem;
+}
+
+/* ==========================================================================
+ * 10. Switch — daha büyük ve belirgin
  * ========================================================================== */
 .switch {
   position: relative;
   flex-shrink: 0;
-  inline-size: 36px;
-  block-size: 20px;
+  inline-size: 42px;
+  block-size: 24px;
   border-radius: 9999px;
-  background: var(--blakfy-a11y-toggle-off);
+  background: #3a3a5c;
   transition: background-color 200ms ease;
 }
 
 .switch[aria-checked="true"] {
-  background: var(--blakfy-a11y-toggle-on);
+  background: #3b82f6;
 }
 
 .switch:focus-visible {
@@ -338,8 +355,8 @@ button {
   position: absolute;
   inset-block-start: 2px;
   inset-inline-start: 2px;
-  inline-size: 16px;
-  block-size: 16px;
+  inline-size: 20px;
+  block-size: 20px;
   border-radius: 9999px;
   background: #ffffff;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
@@ -347,247 +364,162 @@ button {
 }
 
 .switch[aria-checked="true"] .switch-thumb {
-  transform: translateX(16px);
+  transform: translateX(18px);
 }
 
 [dir="rtl"] .switch[aria-checked="true"] .switch-thumb {
-  transform: translateX(-16px);
+  transform: translateX(-18px);
 }
 
 /* ==========================================================================
- * 9. Profiles section
+ * 11. Profile list (dikey liste)
  * ========================================================================== */
-.profiles-section {
-  margin-block-start: 0.875rem;
-}
-
-.profiles-label {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--__muted);
-  margin-block-end: 0.5rem;
-}
-
-.profile-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.375rem;
-}
-
-.profile-btn {
+.profile-list {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 0.2rem;
-  padding: 0.55rem 0.625rem;
-  border: 1.5px solid var(--__border);
+  gap: 0.25rem;
+  padding: 0 1rem;
+}
+
+.profile-list-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 0.875rem;
+  background: #1e1e30;
   border-radius: 8px;
-  color: var(--__text);
-  text-align: start;
+  cursor: pointer;
+  border: 1.5px solid transparent;
   transition: border-color 150ms ease, background 150ms ease;
-  min-block-size: 44px;
+  text-align: start;
+  width: 100%;
 }
 
-.profile-btn:hover {
-  border-color: var(--blakfy-a11y-primary);
-  background: rgba(37, 99, 235, 0.04);
+.profile-list-item:hover {
+  background: #252544;
 }
 
-:host([data-theme="dark"]) .profile-btn:hover {
-  background: rgba(96, 165, 250, 0.08);
+.profile-list-item--active {
+  border-color: #3b82f6;
+  background: #1a2040;
 }
 
-.profile-btn--active {
-  border-color: var(--blakfy-a11y-primary);
-  background: rgba(37, 99, 235, 0.07);
-}
-
-:host([data-theme="dark"]) .profile-btn--active {
-  background: rgba(96, 165, 250, 0.12);
-}
-
-.profile-btn:focus-visible {
+.profile-list-item:focus-visible {
   outline: 2px solid var(--blakfy-a11y-focus-ring);
   outline-offset: 2px;
 }
 
-.profile-icon {
-  display: flex;
-  color: var(--blakfy-a11y-primary);
+.profile-list-icon {
+  color: #3b82f6;
+  flex-shrink: 0;
 }
 
-.profile-icon svg {
+.profile-list-icon svg {
   width: 16px;
   height: 16px;
 }
 
-.profile-name {
-  font-size: 11.5px;
-  font-weight: 600;
-  line-height: 1.2;
-  color: var(--__text);
-}
-
-.profile-desc {
-  font-size: 10px;
-  line-height: 1.3;
-  color: var(--__muted);
-}
-
-/* ==========================================================================
- * 9b. Option buttons (shared for fontScale, lineHeight, textAlign, etc.)
- * ========================================================================== */
-.opt-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.375rem;
-  margin-block-start: 0.5rem;
-}
-
-.opt-btn {
-  min-block-size: 30px;
-  padding-inline: 0.625rem;
-  font-size: clamp(10px, 1.8vw, 12px);
-  font-weight: 500;
-  border: 1px solid var(--__border);
-  border-radius: 6px;
-  color: var(--__text);
-  white-space: nowrap;
+.profile-list-text {
   flex: 1;
-  min-inline-size: fit-content;
-  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+  min-width: 0;
 }
 
-.opt-btn:hover {
-  background: var(--__border);
-}
-
-.opt-btn[aria-pressed="true"] {
-  background: var(--blakfy-a11y-toggle-on);
-  color: var(--blakfy-a11y-panel-bg);
-  border-color: var(--blakfy-a11y-toggle-on);
-}
-
-:host([data-theme="dark"]) .opt-btn[aria-pressed="true"] {
-  background: var(--blakfy-a11y-toggle-on);
-  color: #ffffff;
-  border-color: var(--blakfy-a11y-toggle-on);
-}
-
-.opt-btn:focus-visible {
-  outline: 2px solid var(--blakfy-a11y-focus-ring);
-  outline-offset: 2px;
-}
-
-/* ==========================================================================
- * 9c. Accordion list
- * ========================================================================== */
-.acc-list {
-  margin-block-start: 0.875rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.375rem;
-}
-
-.acc-section {
-  border: 1px solid var(--__border);
-  border-radius: 8px;
-  overflow: hidden;
-  transition: border-color 150ms ease;
-}
-
-.acc-section.acc-open {
-  border-color: var(--blakfy-a11y-primary);
-}
-
-.acc-header {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.6rem 0.75rem;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: var(--__text);
-  text-align: start;
-  transition: background 150ms ease;
-}
-
-.acc-header:hover {
-  background: rgba(0, 0, 0, 0.03);
-}
-
-:host([data-theme="dark"]) .acc-header:hover {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.acc-header:focus-visible {
-  outline: 2px solid var(--blakfy-a11y-focus-ring);
-  outline-offset: -2px;
-  border-radius: 7px;
-}
-
-.acc-title {
-  flex: 1;
+.profile-list-name {
   font-size: 12.5px;
   font-weight: 600;
+  color: #f1f5f9;
+  line-height: 1.2;
+  display: block;
+}
+
+.profile-list-desc {
+  font-size: 10.5px;
+  color: rgba(241,245,249,0.5);
   line-height: 1.3;
+  margin-top: 2px;
+  display: block;
 }
 
-.acc-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-inline-size: 16px;
-  block-size: 16px;
-  padding-inline: 4px;
-  border-radius: 9999px;
-  background: var(--blakfy-a11y-primary);
-  color: #ffffff;
-  font-size: 9px;
-  font-weight: 700;
-  line-height: 1;
-}
-
-.accordion-chevron {
-  width: 14px;
-  height: 14px;
-  color: var(--__muted);
-  flex-shrink: 0;
-  transition: transform 200ms ease;
-}
-
-.acc-open .accordion-chevron {
-  transform: rotate(180deg);
-}
-
-.acc-body {
-  padding: 0 0.625rem 0.625rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.375rem;
+/* Profile list içindeki switch pointer-events: none (tıklama butona ait) */
+.profile-list-item .switch {
+  pointer-events: none;
 }
 
 /* ==========================================================================
- * 10. Toggle row + section
+ * 12. Stepper row
  * ========================================================================== */
-.section {
-  border: 1px solid var(--__border);
-  border-radius: 6px;
-  padding: 0.6rem 0.625rem;
+.stepper-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.625rem 1rem;
+  background: #1e1e30;
+  border-radius: 8px;
+  margin: 0 1rem 0.375rem;
 }
 
+.stepper-row-title {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #f1f5f9;
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: #13131f;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.stepper-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3b82f6;
+  font-size: 18px;
+  font-weight: 300;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.stepper-btn:disabled {
+  color: rgba(255,255,255,0.2);
+  cursor: default;
+}
+
+.stepper-btn:focus-visible {
+  outline: 2px solid var(--blakfy-a11y-focus-ring);
+}
+
+.stepper-value {
+  min-width: 60px;
+  text-align: center;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: #f1f5f9;
+  padding: 0 0.25rem;
+}
+
+/* ==========================================================================
+ * 13. Toggle row (koyu kart)
+ * ========================================================================== */
 .toggle-row {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 0.625rem;
-  border: 1px solid var(--__border);
-  border-radius: 6px;
-  padding: 0.6rem 0.625rem;
+  gap: 0.75rem;
+  background: #1e1e30;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+  padding: 0.75rem 0.875rem;
+  margin: 0 1rem 0.25rem;
 }
 
 .toggle-text {
@@ -599,14 +531,14 @@ button {
   font-size: clamp(11px, 2vw, 13px);
   font-weight: 600;
   line-height: 1.25;
-  color: var(--__text);
+  color: #f1f5f9;
 }
 
 .toggle-desc {
   margin-block-start: 0.2rem;
   font-size: clamp(10px, 1.7vw, 11.5px);
   line-height: 1.5;
-  color: var(--__muted);
+  color: rgba(241,245,249,0.5);
 }
 
 .toggle-note {
@@ -614,187 +546,99 @@ button {
   font-size: clamp(9px, 1.5vw, 10.5px);
   font-style: italic;
   line-height: 1.4;
-  color: #b45309;
-}
-
-:host([data-theme="dark"]) .toggle-note {
   color: #fbbf24;
 }
 
-/* Font scale (legacy alias — kept for backwards compat) */
-.scale-buttons {
-  margin-block-start: 0.5rem;
+/* ==========================================================================
+ * 14. Opt buttons (karanlık tema)
+ * ========================================================================== */
+.opt-buttons {
   display: flex;
   flex-wrap: wrap;
   gap: 0.375rem;
+  padding: 0 1rem 0.375rem;
 }
 
-.scale-btn {
+.opt-btn {
   min-block-size: 32px;
-  padding-inline: 0.75rem;
-  font-size: clamp(11px, 2vw, 12.5px);
+  padding-inline: 0.625rem;
+  font-size: 11.5px;
   font-weight: 500;
-  border: 1px solid var(--__border);
+  border: 1px solid rgba(255,255,255,0.12);
   border-radius: 6px;
-  color: var(--__text);
+  color: rgba(241,245,249,0.8);
   white-space: nowrap;
-  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+  flex: 1;
+  min-inline-size: fit-content;
+  background: transparent;
+  transition: background 150ms, border-color 150ms, color 150ms;
 }
 
-.scale-btn:hover {
-  background: var(--__border);
+.opt-btn:hover {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(255,255,255,0.25);
 }
 
-.scale-btn[aria-pressed="true"] {
-  background: var(--blakfy-a11y-toggle-on);
-  color: var(--blakfy-a11y-panel-bg);
-  border-color: var(--blakfy-a11y-toggle-on);
-}
-
-:host([data-theme="dark"]) .scale-btn[aria-pressed="true"] {
-  background: var(--blakfy-a11y-toggle-on);
+.opt-btn[aria-pressed="true"] {
+  background: #3b82f6;
   color: #ffffff;
-  border-color: var(--blakfy-a11y-toggle-on);
+  border-color: #3b82f6;
 }
 
-.scale-btn:focus-visible {
+.opt-btn:focus-visible {
   outline: 2px solid var(--blakfy-a11y-focus-ring);
   outline-offset: 2px;
 }
 
 /* ==========================================================================
- * 10. Footer buttons (Reset, Close)
+ * 15. Panel footer
  * ========================================================================== */
-.footer {
-  margin-block-start: 1.25rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  gap: 0.5rem;
+.panel-footer {
+  padding: 1rem;
+  border-block-start: 1px solid rgba(255,255,255,0.08);
+  margin-block-start: 0.5rem;
 }
 
-.btn {
-  min-block-size: 44px;
-  padding-inline: 1rem;
-  font-size: clamp(11px, 2.2vw, 14px);
+/* ==========================================================================
+ * 16. Reset butonu
+ * ========================================================================== */
+.btn-reset {
+  width: 100%;
+  min-block-size: 40px;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  color: rgba(241,245,249,0.8);
+  background: transparent;
+  font-size: 13px;
   font-weight: 500;
-  border: 1px solid transparent;
-  border-radius: 0.5rem;
-  white-space: nowrap;
-  transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+  cursor: pointer;
+  transition: background 150ms, border-color 150ms;
 }
 
-.btn:focus-visible {
-  outline: 2px solid var(--blakfy-a11y-focus-ring);
-  outline-offset: 2px;
+.btn-reset:hover {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(255,255,255,0.3);
 }
 
-.btn-secondary {
-  border-color: var(--__border);
-  color: var(--__text);
-}
-
-.btn-secondary:hover {
-  background: var(--__border);
-}
-
-.btn-primary {
-  background: var(--blakfy-a11y-toggle-on);
-  color: var(--blakfy-a11y-panel-bg);
-  font-weight: 600;
-}
-
-.btn-primary:hover {
-  opacity: 0.9;
-}
-
-:host([data-theme="dark"]) .btn-primary {
-  background: var(--blakfy-a11y-toggle-on);
-  color: #ffffff;
-}
-
-/* ==========================================================================
- * 11. Reset confirm state
- * ========================================================================== */
-.btn-secondary[data-confirm="true"] {
+.btn-reset[data-confirm="true"] {
   background: #dc2626;
   border-color: #dc2626;
-  color: #ffffff;
+  color: #fff;
 }
 
-.btn-secondary[data-confirm="true"]:hover {
-  background: #b91c1c;
-}
-
-/* ==========================================================================
- * 12. Theme switcher
- * ========================================================================== */
-.theme-switcher {
-  margin-block-start: 1rem;
-  padding-block-start: 0.75rem;
-  border-block-start: 1px solid var(--__border);
-}
-
-.theme-switcher-label {
-  font-size: clamp(11px, 2.2vw, 14px);
-  font-weight: 600;
-  color: var(--__text);
-  margin-block-end: 0.5rem;
-}
-
-.theme-buttons {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.theme-btn {
-  min-block-size: 36px;
-  padding-inline: 0.875rem;
-  font-size: clamp(10px, 1.8vw, 13px);
-  font-weight: 500;
-  border: 1px solid var(--__border);
-  border-radius: 0.5rem;
-  color: var(--__text);
-  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
-}
-
-.theme-btn:hover {
-  background: var(--__border);
-}
-
-.theme-btn[aria-pressed="true"] {
-  background: var(--blakfy-a11y-toggle-on);
-  color: var(--blakfy-a11y-panel-bg);
-  border-color: var(--blakfy-a11y-toggle-on);
-}
-
-:host([data-theme="dark"]) .theme-btn[aria-pressed="true"] {
-  background: var(--blakfy-a11y-toggle-on);
-  color: #ffffff;
-  border-color: var(--blakfy-a11y-toggle-on);
-}
-
-:host([data-theme="dark"]) .panel-branding:hover {
-  background: rgba(59, 130, 246, 0.08);
-}
-
-.theme-btn:focus-visible {
+.btn-reset:focus-visible {
   outline: 2px solid var(--blakfy-a11y-focus-ring);
   outline-offset: 2px;
 }
 
 /* ==========================================================================
- * 13. Disclaimer + badge area
+ * 17. Disclaimer + branding
  * ========================================================================== */
 .disclaimer {
-  margin-block-start: 1rem;
-  padding-block-start: 0.75rem;
-  border-block-start: 1px solid var(--__border);
   font-size: clamp(9px, 1.5vw, 11px);
   font-style: italic;
   line-height: 1.45;
-  color: var(--__muted);
+  color: rgba(241,245,249,0.35);
 }
 
 .panel-branding {
@@ -811,7 +655,7 @@ button {
 }
 
 .panel-branding:hover {
-  background: rgba(37, 99, 235, 0.06);
+  background: rgba(59, 130, 246, 0.08);
 }
 
 .panel-branding:focus-visible {
@@ -823,32 +667,17 @@ button {
 .panel-branding-powered {
   font-size: 11px;
   font-weight: 400;
-  color: var(--__muted);
+  color: rgba(241,245,249,0.5);
 }
 
 .panel-branding-name {
   font-size: 11.5px;
   font-weight: 700;
-  color: var(--blakfy-a11y-primary);
-}
-
-.panel-branding-arrow {
-  width: 11px;
-  height: 11px;
-  color: var(--__muted);
-  flex-shrink: 0;
-  opacity: 0.45;
-  transition: opacity 150ms ease, color 150ms ease, transform 150ms ease;
-}
-
-.panel-branding:hover .panel-branding-arrow {
-  opacity: 1;
-  color: var(--blakfy-a11y-primary);
-  transform: translateX(2px);
+  color: #3b82f6;
 }
 
 /* ==========================================================================
- * 14. Animations
+ * 18. Animations — slide in/out (sidebar)
  * ========================================================================== */
 @keyframes blakfy-fade-in {
   from { opacity: 0; }
@@ -860,18 +689,18 @@ button {
   to { opacity: 0; }
 }
 
-@keyframes blakfy-zoom-in {
-  from { opacity: 0; transform: translate(-50%, -50%) scale(0.96); }
-  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+@keyframes blakfy-slide-in-right {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
 }
 
-@keyframes blakfy-zoom-out {
-  from { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-  to { opacity: 0; transform: translate(-50%, -50%) scale(0.96); }
+@keyframes blakfy-slide-out-right {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(100%); opacity: 0; }
 }
 
 /* ==========================================================================
- * 15. Reduced motion (override is the only allowed !important per docs)
+ * 19. Reduced motion
  * ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -884,37 +713,25 @@ button {
 }
 
 /* ==========================================================================
- * 16. Responsive (≤480px)
+ * 20. Responsive (≤480px) — sidebar daha dar
  * ========================================================================== */
 @media (max-width: 480px) {
   .fab {
     --blakfy-a11y-fab-size: 44px;
   }
 
-  .footer {
-    flex-direction: column;
-  }
-
-  .footer .btn {
-    inline-size: 100%;
-  }
-
-  .scale-buttons {
-    flex-direction: column;
-  }
-
-  .scale-btn {
-    inline-size: 100%;
+  .dialog {
+    inline-size: 100vw;
   }
 }
 
 /* ==========================================================================
- * 17. Forced colors / Windows High Contrast
+ * 21. Forced colors / Windows High Contrast
  * ========================================================================== */
 @media (forced-colors: active) {
   .fab,
-  .btn,
-  .scale-btn,
+  .btn-reset,
+  .opt-btn,
   .switch {
     border: 1px solid CanvasText;
     forced-color-adjust: none;
