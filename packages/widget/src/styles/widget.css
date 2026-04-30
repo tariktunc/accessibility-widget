@@ -1,102 +1,90 @@
 /*
  * @blakfy/accessibility-widget — Shadow DOM stylesheet
- * Inlined into the Shadow root via <style>. See ADR-003.
- *
  * 15 CSS custom properties from STABLE-API.md §4 are LOCKED — never rename.
- * No `left:` / `right:` — use `inset-inline-*` for RTL safety.
- * No `!important` outside of the prefers-reduced-motion override.
  */
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
 /* ==========================================================================
- * 1. Custom property defaults — Light mode (default)
+ * 1. Light mode defaults
  * ========================================================================== */
 :host {
-  /* Locked public API variables */
   --blakfy-a11y-primary: #3b82f6;
   --blakfy-a11y-primary-hover: #2563eb;
   --blakfy-a11y-primary-text: #ffffff;
   --blakfy-a11y-panel-bg: #ffffff;
-  --blakfy-a11y-panel-text: #1a1a2e;
-  --blakfy-a11y-panel-muted: rgba(26,26,46,0.5);
-  --blakfy-a11y-panel-border: rgba(0,0,0,0.1);
+  --blakfy-a11y-panel-text: #1c1c2e;
+  --blakfy-a11y-panel-muted: rgba(28,28,46,0.45);
+  --blakfy-a11y-panel-border: rgba(0,0,0,0.08);
 
-  --blakfy-a11y-panel-bg-dark: #13131f;
-  --blakfy-a11y-panel-text-dark: #f1f5f9;
-  --blakfy-a11y-panel-muted-dark: rgba(241,245,249,0.5);
-  --blakfy-a11y-panel-border-dark: rgba(255,255,255,0.08);
+  --blakfy-a11y-panel-bg-dark: #16191b;
+  --blakfy-a11y-panel-text-dark: #deeffd;
+  --blakfy-a11y-panel-muted-dark: rgba(222,239,253,0.45);
+  --blakfy-a11y-panel-border-dark: rgba(255,255,255,0.06);
 
-  /* Switch */
   --blakfy-a11y-toggle-on: #3b82f6;
-  --blakfy-a11y-toggle-off: #c0c0d4;
-
-  /* Focus */
+  --blakfy-a11y-toggle-off: #d0d0e0;
   --blakfy-a11y-focus-ring: #3b82f6;
-
-  /* Sizes */
   --blakfy-a11y-fab-size: 48px;
 
-  /* Internal aliases — light mode */
-  --__bg: #ffffff;
-  --__card: #f0f0f7;
-  --__card-hover: #e4e4ee;
-  --__card-active: #dde4f8;
-  --__text: #1a1a2e;
-  --__muted: rgba(26,26,46,0.5);
-  --__muted-dim: rgba(26,26,46,0.35);
-  --__border: rgba(0,0,0,0.1);
-  --__border-mid: rgba(0,0,0,0.18);
-  --__switch-off: #c0c0d4;
-  --__header-bg: #ffffff;
+  /* Internal — light */
+  --__bg:          #ffffff;
+  --__card:        #f3f4f8;
+  --__card-hover:  #eaebf2;
+  --__card-active: #e0e8fa;
+  --__text:        #1c1c2e;
+  --__muted:       rgba(28,28,46,0.45);
+  --__muted-dim:   rgba(28,28,46,0.3);
+  --__divide:      rgba(0,0,0,0.06);
+  --__switch-off:  #d0d0e0;
+  --__header-bg:   #ffffff;
 }
 
 /* ==========================================================================
- * 2. Dark mode override
+ * 2. Dark mode — referans palette (#16191b sidebar, #222 cards, #deeffd text)
  * ========================================================================== */
 :host([data-theme="dark"]) {
-  --blakfy-a11y-panel-bg: #13131f;
-  --blakfy-a11y-panel-text: #f1f5f9;
-  --blakfy-a11y-panel-muted: rgba(241,245,249,0.5);
-  --blakfy-a11y-panel-border: rgba(255,255,255,0.08);
+  --blakfy-a11y-panel-bg: #16191b;
+  --blakfy-a11y-panel-text: #deeffd;
+  --blakfy-a11y-panel-muted: rgba(222,239,253,0.45);
+  --blakfy-a11y-panel-border: rgba(255,255,255,0.06);
   --blakfy-a11y-primary-hover: #60a5fa;
-  --blakfy-a11y-toggle-off: #3a3a5c;
+  --blakfy-a11y-toggle-off: #3a3d42;
 
-  --__bg: #13131f;
-  --__card: #1e1e30;
-  --__card-hover: #252544;
-  --__card-active: #1a2040;
-  --__text: #f1f5f9;
-  --__muted: rgba(241,245,249,0.5);
-  --__muted-dim: rgba(241,245,249,0.35);
-  --__border: rgba(255,255,255,0.08);
-  --__border-mid: rgba(255,255,255,0.14);
-  --__switch-off: #3a3a5c;
-  --__header-bg: #13131f;
+  --__bg:          #16191b;
+  --__card:        #222426;
+  --__card-hover:  #2a2d30;
+  --__card-active: #1d2a3f;
+  --__text:        #deeffd;
+  --__muted:       rgba(222,239,253,0.45);
+  --__muted-dim:   rgba(222,239,253,0.28);
+  --__divide:      rgba(255,255,255,0.06);
+  --__switch-off:  #3a3d42;
+  --__header-bg:   #16191b;
 }
 
 /* ==========================================================================
- * 3. Reset (Shadow-local — does NOT leak to host)
+ * 3. Reset
  * ========================================================================== */
-*,
-*::before,
-*::after {
+*, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 /* ==========================================================================
- * 4. Host container
+ * 4. Host
  * ========================================================================== */
 :host {
   all: initial;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-size: 16px;
-  line-height: 1.4;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.55;
   color: var(--__text);
 }
 
-button,
-a {
+button, a {
   font-family: inherit;
   color: inherit;
 }
@@ -113,13 +101,13 @@ button {
   height: 1px;
   padding: 0;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  clip: rect(0,0,0,0);
   white-space: nowrap;
   border: 0;
 }
 
 /* ==========================================================================
- * 5. FAB button
+ * 5. FAB
  * ========================================================================== */
 .fab {
   position: fixed;
@@ -135,8 +123,8 @@ button {
   border-radius: 9999px;
   background: var(--blakfy-a11y-primary);
   color: var(--blakfy-a11y-primary-text);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.25), 0 8px 10px -6px rgba(0, 0, 0, 0.15);
-  transition: background-color 200ms ease, transform 200ms ease;
+  box-shadow: 0 8px 24px rgba(59,130,246,0.35);
+  transition: background 200ms ease, transform 200ms ease;
   z-index: 9998;
 }
 
@@ -150,19 +138,14 @@ button {
   outline-offset: 3px;
 }
 
-/* Position variants */
 :host([data-position="bottom-right"]) .fab {
-  inset-block-end: 1rem;
   inset-inline-start: auto;
   inset-inline-end: 1rem;
 }
-
 :host([data-position="top-left"]) .fab {
   inset-block-end: auto;
   inset-block-start: 1rem;
-  inset-inline-start: 1rem;
 }
-
 :host([data-position="top-right"]) .fab {
   inset-block-end: auto;
   inset-block-start: 1rem;
@@ -170,13 +153,10 @@ button {
   inset-inline-end: 1rem;
 }
 
-.fab svg {
-  width: 24px;
-  height: 24px;
-}
+.fab svg { width: 24px; height: 24px; }
 
 /* ==========================================================================
- * 6. Floating badge
+ * 6. Badge
  * ========================================================================== */
 .badge {
   position: fixed;
@@ -186,84 +166,55 @@ button {
   align-items: center;
   gap: 0.375rem;
   padding: 0.25rem 0.5rem;
-  font-size: clamp(9px, 1.5vw, 11px);
+  font-size: 11px;
   font-weight: 500;
   text-decoration: none;
   color: var(--__muted);
-  opacity: 0.85;
-  transition: opacity 200ms ease, color 200ms ease;
+  opacity: 0.8;
+  transition: opacity 200ms ease;
   z-index: 9997;
   pointer-events: auto;
 }
-
-.badge:hover,
-.badge:focus-visible {
-  opacity: 1;
-  color: var(--__text);
-}
-
-.badge:focus-visible {
-  outline: 2px solid var(--blakfy-a11y-focus-ring);
-  outline-offset: 2px;
-  border-radius: 4px;
-}
-
-.badge strong {
-  font-weight: 700;
-}
-
-.badge svg {
-  width: 12px;
-  height: 12px;
-}
+.badge:hover, .badge:focus-visible { opacity: 1; color: var(--__text); }
+.badge:focus-visible { outline: 2px solid var(--blakfy-a11y-focus-ring); outline-offset: 2px; border-radius: 4px; }
+.badge strong { font-weight: 700; }
+.badge svg { width: 12px; height: 12px; }
 
 /* ==========================================================================
- * 7. Dialog — sağdan kayan tam yükseklik sidebar
+ * 7. Dialog — sağdan kayan sidebar
  * ========================================================================== */
 .backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   z-index: 9999;
   animation: blakfy-fade-in 200ms ease forwards;
 }
-
-.backdrop[data-state="closing"] {
-  animation: blakfy-fade-out 180ms ease forwards;
-}
+.backdrop[data-state="closing"] { animation: blakfy-fade-out 180ms ease forwards; }
 
 .dialog {
   position: fixed;
   inset-block-start: 0;
   inset-inline-end: 0;
-  inline-size: 340px;
+  inline-size: 400px;
   max-inline-size: 100vw;
   block-size: 100vh;
-  max-block-size: 100vh;
   overflow-y: auto;
   background: var(--__bg);
   color: var(--__text);
-  border-radius: 0;
-  padding: 0;
   z-index: 10000;
-  box-shadow: -8px 0 32px rgba(0,0,0,0.2);
+  box-shadow: -12px 0 40px rgba(0,0,0,0.22);
   scrollbar-width: thin;
-  scrollbar-color: var(--__border-mid) transparent;
-  animation: blakfy-slide-in-right 220ms ease forwards;
+  scrollbar-color: var(--__divide) transparent;
+  animation: blakfy-slide-in-right 240ms cubic-bezier(0.25,0.46,0.45,0.94) forwards;
 }
-
-.dialog[data-state="closing"] {
-  animation: blakfy-slide-out-right 180ms ease forwards;
-}
-
-.dialog:focus {
-  outline: none;
-}
+.dialog[data-state="closing"] { animation: blakfy-slide-out-right 190ms ease forwards; }
+.dialog:focus { outline: none; }
 
 /* ==========================================================================
- * 8. Panel header — sticky
+ * 8. Panel header
  * ========================================================================== */
 .panel-header {
   position: sticky;
@@ -272,195 +223,141 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 1rem 0.875rem;
+  padding: 1.25rem 1.5rem 1rem;
   background: var(--__header-bg);
-  border-block-end: 1px solid var(--__border);
+  border-block-end: 1px solid var(--__divide);
 }
 
 .panel-title {
-  font-size: clamp(14px, 3vw, 16px);
+  font-size: 17px;
   font-weight: 600;
   line-height: 1.2;
   color: var(--__text);
-}
-
-.panel-desc {
-  margin-block-start: 0.5rem;
-  font-size: clamp(11px, 2vw, 13px);
-  line-height: 1.5;
-  color: var(--__muted);
+  letter-spacing: -0.01em;
 }
 
 .dialog-close {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   min-width: 44px;
   min-height: 44px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 6px;
+  border-radius: 8px;
   color: var(--__muted);
-  transition: background-color 150ms ease, color 150ms ease;
+  transition: background 150ms ease, color 150ms ease;
   flex-shrink: 0;
 }
-
-.dialog-close:hover {
-  background: var(--__border);
-  color: var(--__text);
-}
-
-.dialog-close:focus-visible {
-  outline: 2px solid var(--blakfy-a11y-focus-ring);
-  outline-offset: 2px;
-}
-
-.dialog-close svg {
-  width: 18px;
-  height: 18px;
-}
+.dialog-close:hover { background: var(--__divide); color: var(--__text); }
+.dialog-close:focus-visible { outline: 2px solid var(--blakfy-a11y-focus-ring); outline-offset: 2px; }
+.dialog-close svg { width: 18px; height: 18px; }
 
 /* ==========================================================================
  * 9. Section labels
  * ========================================================================== */
 .section-label {
-  font-size: 10.5px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--__muted);
-  padding: 0.875rem 1rem 0.375rem;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--__text);
+  padding: 1.125rem 1.5rem 0.5rem;
+  opacity: 0.9;
 }
 
 .opt-section-title {
-  font-size: 11.5px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 500;
   color: var(--__text);
-  opacity: 0.75;
+  opacity: 0.7;
   margin-block-end: 0.375rem;
 }
 
 /* ==========================================================================
- * 10. Switch — daha büyük ve belirgin
+ * 10. Switch
  * ========================================================================== */
 .switch {
   position: relative;
   flex-shrink: 0;
-  inline-size: 42px;
-  block-size: 24px;
+  inline-size: 44px;
+  block-size: 26px;
   border-radius: 9999px;
   background: var(--__switch-off);
-  transition: background-color 200ms ease;
+  transition: background 200ms ease;
 }
-
-.switch[aria-checked="true"] {
-  background: var(--blakfy-a11y-primary);
-}
-
-.switch:focus-visible {
-  outline: 2px solid var(--blakfy-a11y-focus-ring);
-  outline-offset: 2px;
-}
-
-.switch::before {
-  content: "";
-  position: absolute;
-  inset: -8px;
-}
+.switch[aria-checked="true"] { background: var(--blakfy-a11y-primary); }
+.switch:focus-visible { outline: 2px solid var(--blakfy-a11y-focus-ring); outline-offset: 2px; }
+.switch::before { content: ""; position: absolute; inset: -8px; }
 
 .switch-thumb {
   position: absolute;
-  inset-block-start: 2px;
-  inset-inline-start: 2px;
+  inset-block-start: 3px;
+  inset-inline-start: 3px;
   inline-size: 20px;
   block-size: 20px;
   border-radius: 9999px;
   background: #ffffff;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
   transition: transform 200ms ease;
 }
-
-.switch[aria-checked="true"] .switch-thumb {
-  transform: translateX(18px);
-}
-
-[dir="rtl"] .switch[aria-checked="true"] .switch-thumb {
-  transform: translateX(-18px);
-}
+.switch[aria-checked="true"] .switch-thumb { transform: translateX(18px); }
+[dir="rtl"] .switch[aria-checked="true"] .switch-thumb { transform: translateX(-18px); }
 
 /* ==========================================================================
- * 11. Profile list (dikey liste)
+ * 11. Profile list
  * ========================================================================== */
 .profile-list {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
-  padding: 0 1rem;
+  gap: 4px;
+  padding: 0 1.25rem;
 }
 
 .profile-list-item {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.625rem 0.875rem;
+  gap: 0.875rem;
+  padding: 0.75rem 1rem;
   background: var(--__card);
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
-  border: 3px solid transparent;
-  transition: border-color 150ms ease, background 150ms ease;
+  border: none;
+  outline: 2px solid transparent;
+  transition: background 150ms ease, outline-color 150ms ease;
   text-align: start;
   width: 100%;
 }
-
-.profile-list-item:hover {
-  background: var(--__card-hover);
-}
-
+.profile-list-item:hover { background: var(--__card-hover); }
 .profile-list-item--active {
-  border-color: var(--blakfy-a11y-primary);
   background: var(--__card-active);
+  outline-color: var(--blakfy-a11y-primary);
 }
+.profile-list-item:focus-visible { outline-color: var(--blakfy-a11y-focus-ring); }
 
-.profile-list-item:focus-visible {
-  outline: 2px solid var(--blakfy-a11y-focus-ring);
-  outline-offset: 2px;
-}
+.profile-list-icon { color: var(--blakfy-a11y-primary); flex-shrink: 0; }
+.profile-list-icon svg { width: 18px; height: 18px; }
 
-.profile-list-icon {
-  color: var(--blakfy-a11y-primary);
-  flex-shrink: 0;
-}
-
-.profile-list-icon svg {
-  width: 16px;
-  height: 16px;
-}
-
-.profile-list-text {
-  flex: 1;
-  min-width: 0;
-}
+.profile-list-text { flex: 1; min-width: 0; }
 
 .profile-list-name {
-  font-size: 12.5px;
+  font-size: 13.5px;
   font-weight: 600;
   color: var(--__text);
-  line-height: 1.2;
+  line-height: 1.25;
   display: block;
 }
 
 .profile-list-desc {
-  font-size: 10.5px;
+  font-size: 11.5px;
+  font-weight: 400;
   color: var(--__muted);
-  line-height: 1.3;
+  line-height: 1.4;
   margin-top: 2px;
   display: block;
 }
 
-/* Profile list içindeki switch pointer-events: none (tıklama butona ait) */
-.profile-list-item .switch {
-  pointer-events: none;
-}
+.profile-list-item .switch { pointer-events: none; }
 
 /* ==========================================================================
  * 12. Stepper row
@@ -471,9 +368,8 @@ button {
   justify-content: space-between;
   padding: 0.625rem 1rem;
   background: var(--__card);
-  border: 3px solid var(--__border);
-  border-radius: 8px;
-  margin: 0 1rem 0.375rem;
+  border-radius: 10px;
+  margin: 0 1.25rem 0.375rem;
 }
 
 .stepper-row-header {
@@ -483,73 +379,65 @@ button {
 }
 
 .stepper-row-title {
-  font-size: 12.5px;
-  font-weight: 600;
+  font-size: 13.5px;
+  font-weight: 500;
   color: var(--__text);
 }
 
 .stepper {
   display: flex;
   align-items: center;
-  gap: 0;
   background: var(--__bg);
-  border-radius: 6px;
-  border: 3px solid var(--__border-mid);
+  border-radius: 8px;
+  border: 1px solid var(--__divide);
 }
 
 .stepper-btn {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--blakfy-a11y-primary);
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 300;
   border: none;
   background: transparent;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 7px;
   flex-shrink: 0;
+  transition: background 120ms ease;
 }
-
-.stepper-btn:disabled {
-  color: var(--__border-mid);
-  cursor: default;
-}
-
-.stepper-btn:focus-visible {
-  outline: 2px solid var(--blakfy-a11y-focus-ring);
-}
+.stepper-btn:hover { background: var(--__card); }
+.stepper-btn:disabled { color: var(--__muted); cursor: default; }
+.stepper-btn:focus-visible { outline: 2px solid var(--blakfy-a11y-focus-ring); }
 
 .stepper-value {
-  min-width: 60px;
+  min-width: 62px;
   text-align: center;
-  font-size: 11.5px;
+  font-size: 12.5px;
   font-weight: 500;
   color: var(--__text);
   padding: 0 0.25rem;
 }
 
 /* ==========================================================================
- * 13. Toggle row (kart)
+ * 13. Toggle row
  * ========================================================================== */
 .toggle-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.75rem;
+  gap: 0.875rem;
   background: var(--__card);
-  border: 3px solid var(--__border);
-  border-radius: 8px;
-  padding: 0.75rem 0.875rem;
-  margin: 0 1rem 0.25rem;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  margin: 0 1.25rem 0.25rem;
+  transition: background 150ms ease;
 }
+.toggle-row:hover { background: var(--__card-hover); }
 
-.toggle-text {
-  flex: 1;
-  min-width: 0;
-}
+.toggle-text { flex: 1; min-width: 0; }
 
 .toggle-title-row {
   display: flex;
@@ -558,29 +446,14 @@ button {
 }
 
 .toggle-title {
-  font-size: clamp(11px, 2vw, 13px);
-  font-weight: 600;
-  line-height: 1.25;
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.3;
   color: var(--__text);
 }
 
-.toggle-desc {
-  margin-block-start: 0.2rem;
-  font-size: clamp(10px, 1.7vw, 11.5px);
-  line-height: 1.5;
-  color: var(--__muted);
-}
-
-.toggle-note {
-  margin-block-start: 0.2rem;
-  font-size: clamp(9px, 1.5vw, 10.5px);
-  font-style: italic;
-  line-height: 1.4;
-  color: #fbbf24;
-}
-
 /* ==========================================================================
- * 14. Info button + CSS-only tooltip
+ * 14. Info button + tooltip
  * ========================================================================== */
 .info-wrap {
   position: relative;
@@ -593,9 +466,9 @@ button {
   width: 16px;
   height: 16px;
   border-radius: 9999px;
-  background: var(--__border-mid);
-  color: var(--__text);
-  font-size: 10px;
+  background: var(--__muted);
+  color: var(--__bg);
+  font-size: 9px;
   font-weight: 700;
   font-style: italic;
   display: inline-flex;
@@ -606,66 +479,55 @@ button {
   padding: 0;
   line-height: 1;
   flex-shrink: 0;
-  opacity: 0.55;
+  opacity: 0.45;
   transition: opacity 150ms ease, background 150ms ease;
 }
-
-.info-btn:hover,
-.info-btn:focus-visible {
+.info-btn:hover, .info-btn:focus-visible {
   opacity: 1;
   background: var(--blakfy-a11y-primary);
   color: #ffffff;
 }
-
-.info-btn:focus-visible {
-  outline: 2px solid var(--blakfy-a11y-focus-ring);
-  outline-offset: 2px;
-}
+.info-btn:focus-visible { outline: 2px solid var(--blakfy-a11y-focus-ring); outline-offset: 2px; }
 
 .info-tooltip {
   display: none;
   position: absolute;
   inset-inline-start: 0;
-  inset-block-start: calc(100% + 4px);
+  inset-block-start: calc(100% + 6px);
   background: var(--__card);
-  border: 3px solid var(--__border-mid);
-  border-radius: 8px;
-  padding: 0.5rem 0.625rem;
-  font-size: 11px;
-  line-height: 1.5;
+  border: 1px solid var(--__divide);
+  border-radius: 10px;
+  padding: 0.625rem 0.75rem;
+  font-size: 11.5px;
+  font-weight: 400;
+  line-height: 1.55;
   color: var(--__text);
-  inline-size: 210px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  inline-size: 220px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.14);
   z-index: 100;
   pointer-events: none;
 }
-
 .info-wrap:hover .info-tooltip,
-.info-wrap:focus-within .info-tooltip {
-  display: block;
-}
+.info-wrap:focus-within .info-tooltip { display: block; }
 
 .info-tooltip-note {
   display: block;
   margin-block-start: 0.25rem;
-  font-size: 10px;
-  color: #fbbf24;
+  font-size: 10.5px;
+  color: #f59e0b;
   font-style: italic;
 }
 
 /* ==========================================================================
- * 15. Opt-label row (section title + info btn)
+ * 15. Opt-label row
  * ========================================================================== */
 .opt-label-row {
   display: flex;
   align-items: center;
   gap: 0.375rem;
-  padding: 0 1rem 0.25rem;
+  padding: 0.625rem 1.25rem 0.25rem;
 }
-
-.opt-label-row .opt-section-title {
-  margin-block-end: 0;
-}
+.opt-label-row .opt-section-title { margin-block-end: 0; }
 
 /* ==========================================================================
  * 16. Opt buttons
@@ -674,49 +536,39 @@ button {
   display: flex;
   flex-wrap: wrap;
   gap: 0.375rem;
-  padding: 0 1rem 0.375rem;
+  padding: 0 1.25rem 0.5rem;
 }
 
 .opt-btn {
-  min-block-size: 32px;
-  padding-inline: 0.625rem;
-  font-size: 11.5px;
+  min-block-size: 34px;
+  padding-inline: 0.75rem;
+  font-size: 12.5px;
   font-weight: 500;
-  border: 3px solid var(--__border-mid);
-  border-radius: 6px;
+  border: 1px solid var(--__divide);
+  border-radius: 8px;
   color: var(--__text);
   white-space: nowrap;
   flex: 1;
   min-inline-size: fit-content;
-  background: transparent;
-  transition: background 150ms, border-color 150ms, color 150ms;
-  opacity: 0.8;
-}
-
-.opt-btn:hover {
   background: var(--__card);
-  border-color: var(--blakfy-a11y-primary);
-  opacity: 1;
+  transition: background 150ms, border-color 150ms, color 150ms;
+  opacity: 0.75;
 }
-
+.opt-btn:hover { background: var(--__card-hover); opacity: 1; }
 .opt-btn[aria-pressed="true"] {
   background: var(--blakfy-a11y-primary);
   color: #ffffff;
   border-color: var(--blakfy-a11y-primary);
   opacity: 1;
 }
-
-.opt-btn:focus-visible {
-  outline: 2px solid var(--blakfy-a11y-focus-ring);
-  outline-offset: 2px;
-}
+.opt-btn:focus-visible { outline: 2px solid var(--blakfy-a11y-focus-ring); outline-offset: 2px; }
 
 /* ==========================================================================
  * 17. Panel footer
  * ========================================================================== */
 .panel-footer {
-  padding: 1rem;
-  border-block-start: 1px solid var(--__border);
+  padding: 1.25rem 1.5rem;
+  border-block-start: 1px solid var(--__divide);
   margin-block-start: 0.5rem;
 }
 
@@ -725,44 +577,37 @@ button {
  * ========================================================================== */
 .btn-reset {
   width: 100%;
-  min-block-size: 40px;
-  border: 3px solid var(--__border-mid);
-  border-radius: 8px;
-  color: var(--__text);
+  min-block-size: 42px;
+  border: 1px solid var(--__divide);
+  border-radius: 10px;
+  color: var(--blakfy-a11y-primary);
   background: transparent;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
+  font-family: inherit;
   cursor: pointer;
   transition: background 150ms, border-color 150ms;
-  opacity: 0.8;
 }
-
 .btn-reset:hover {
   background: var(--__card);
   border-color: var(--blakfy-a11y-primary);
-  opacity: 1;
 }
-
 .btn-reset[data-confirm="true"] {
   background: #dc2626;
   border-color: #dc2626;
   color: #fff;
-  opacity: 1;
 }
-
-.btn-reset:focus-visible {
-  outline: 2px solid var(--blakfy-a11y-focus-ring);
-  outline-offset: 2px;
-}
+.btn-reset:focus-visible { outline: 2px solid var(--blakfy-a11y-focus-ring); outline-offset: 2px; }
 
 /* ==========================================================================
  * 19. Disclaimer + branding
  * ========================================================================== */
 .disclaimer {
-  margin-top: 0.75rem;
-  font-size: clamp(9px, 1.5vw, 11px);
+  margin-top: 0.875rem;
+  font-size: 11px;
+  font-weight: 400;
   font-style: italic;
-  line-height: 1.45;
+  line-height: 1.5;
   color: var(--__muted-dim);
 }
 
@@ -771,66 +616,47 @@ button {
   align-items: center;
   justify-content: center;
   gap: 0.3rem;
-  margin-block-start: 0.875rem;
+  margin-block-start: 1rem;
   padding: 0.45rem 0.75rem;
-  border-radius: 6px;
+  border-radius: 8px;
   text-decoration: none;
   color: inherit;
   transition: background 150ms ease;
 }
-
-.panel-branding:hover {
-  background: rgba(59, 130, 246, 0.08);
-}
-
-.panel-branding:focus-visible {
-  outline: 2px solid var(--blakfy-a11y-focus-ring);
-  outline-offset: 2px;
-  border-radius: 6px;
-}
+.panel-branding:hover { background: rgba(59,130,246,0.07); }
+.panel-branding:focus-visible { outline: 2px solid var(--blakfy-a11y-focus-ring); outline-offset: 2px; border-radius: 8px; }
 
 .panel-branding-powered {
   font-size: 11px;
   font-weight: 400;
   color: var(--__muted);
 }
-
 .panel-branding-name {
-  font-size: 11.5px;
+  font-size: 12px;
   font-weight: 700;
   color: var(--blakfy-a11y-primary);
 }
 
 /* ==========================================================================
- * 20. Animations — slide in/out (sidebar)
+ * 20. Animations
  * ========================================================================== */
-@keyframes blakfy-fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes blakfy-fade-out {
-  from { opacity: 1; }
-  to { opacity: 0; }
-}
+@keyframes blakfy-fade-in  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes blakfy-fade-out { from { opacity: 1; } to { opacity: 0; } }
 
 @keyframes blakfy-slide-in-right {
   from { transform: translateX(100%); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
+  to   { transform: translateX(0);    opacity: 1; }
 }
-
 @keyframes blakfy-slide-out-right {
-  from { transform: translateX(0); opacity: 1; }
-  to { transform: translateX(100%); opacity: 0; }
+  from { transform: translateX(0);    opacity: 1; }
+  to   { transform: translateX(100%); opacity: 0; }
 }
 
 /* ==========================================================================
  * 21. Reduced motion
  * ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
@@ -838,35 +664,21 @@ button {
 }
 
 /* ==========================================================================
- * 22. Responsive (≤480px) — sidebar daha dar
+ * 22. Responsive
  * ========================================================================== */
 @media (max-width: 480px) {
-  .fab {
-    --blakfy-a11y-fab-size: 44px;
-  }
-
-  .dialog {
-    inline-size: 100vw;
-  }
+  .fab { --blakfy-a11y-fab-size: 44px; }
+  .dialog { inline-size: 100vw; }
 }
 
 /* ==========================================================================
  * 23. Forced colors / Windows High Contrast
  * ========================================================================== */
 @media (forced-colors: active) {
-  .fab,
-  .btn-reset,
-  .opt-btn,
-  .switch {
+  .fab, .btn-reset, .opt-btn, .switch {
     border: 1px solid CanvasText;
     forced-color-adjust: none;
   }
-
-  .switch[aria-checked="true"] {
-    background: Highlight;
-  }
-
-  .switch-thumb {
-    background: HighlightText;
-  }
+  .switch[aria-checked="true"] { background: Highlight; }
+  .switch-thumb { background: HighlightText; }
 }
