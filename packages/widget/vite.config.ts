@@ -9,6 +9,7 @@ import preact from '@preact/preset-vite';
 import dts from 'vite-plugin-dts';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 import { resolve } from 'node:path';
+import { copyFileSync } from 'node:fs';
 
 type BuildTarget = 'iife' | 'esm' | 'element';
 
@@ -77,6 +78,15 @@ export default defineConfig({
     // `currentScript.src` and fetches `${baseURL}/locales/${code}.json`.
     // Run only on the IIFE pass so we don't duplicate copies (all three
     // builds share the same dist directory).
+    target === 'iife' && {
+      name: 'copy-to-test-site',
+      closeBundle() {
+        copyFileSync(
+          resolve(__dirname, 'dist/widget.js'),
+          resolve(__dirname, '../../test-site/widget.js'),
+        );
+      },
+    },
     target === 'iife' &&
       viteStaticCopy({
         targets: [

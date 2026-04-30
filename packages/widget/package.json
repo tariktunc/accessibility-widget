@@ -25,6 +25,7 @@
     "build:esm": "cross-env BUILD_TARGET=esm vite build",
     "build:element": "cross-env BUILD_TARGET=element vite build",
     "dev": "cross-env BUILD_TARGET=esm vite build --watch",
+    "watch": "cross-env BUILD_TARGET=iife vite build --watch",
     "test": "vitest run",
     "test:contract": "vitest run --config vitest.contract.config.ts",
     "test:e2e": "playwright test",
