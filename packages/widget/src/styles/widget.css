@@ -8,17 +8,17 @@
  */
 
 /* ==========================================================================
- * 1. Custom property defaults — always dark theme
+ * 1. Custom property defaults — Light mode (default)
  * ========================================================================== */
 :host {
   /* Locked public API variables */
   --blakfy-a11y-primary: #3b82f6;
-  --blakfy-a11y-primary-hover: #60a5fa;
+  --blakfy-a11y-primary-hover: #2563eb;
   --blakfy-a11y-primary-text: #ffffff;
-  --blakfy-a11y-panel-bg: #13131f;
-  --blakfy-a11y-panel-text: #f1f5f9;
-  --blakfy-a11y-panel-muted: rgba(241,245,249,0.5);
-  --blakfy-a11y-panel-border: rgba(255,255,255,0.08);
+  --blakfy-a11y-panel-bg: #ffffff;
+  --blakfy-a11y-panel-text: #1a1a2e;
+  --blakfy-a11y-panel-muted: rgba(26,26,46,0.5);
+  --blakfy-a11y-panel-border: rgba(0,0,0,0.1);
 
   --blakfy-a11y-panel-bg-dark: #13131f;
   --blakfy-a11y-panel-text-dark: #f1f5f9;
@@ -27,7 +27,7 @@
 
   /* Switch */
   --blakfy-a11y-toggle-on: #3b82f6;
-  --blakfy-a11y-toggle-off: #3a3a5c;
+  --blakfy-a11y-toggle-off: #c0c0d4;
 
   /* Focus */
   --blakfy-a11y-focus-ring: #3b82f6;
@@ -35,26 +35,42 @@
   /* Sizes */
   --blakfy-a11y-fab-size: 48px;
 
-  /* Internal aliases — always dark */
-  --__bg: #13131f;
-  --__text: #f1f5f9;
-  --__muted: rgba(241,245,249,0.5);
-  --__border: rgba(255,255,255,0.08);
+  /* Internal aliases — light mode */
+  --__bg: #ffffff;
+  --__card: #f0f0f7;
+  --__card-hover: #e4e4ee;
+  --__card-active: #dde4f8;
+  --__text: #1a1a2e;
+  --__muted: rgba(26,26,46,0.5);
+  --__muted-dim: rgba(26,26,46,0.35);
+  --__border: rgba(0,0,0,0.1);
+  --__border-mid: rgba(0,0,0,0.18);
+  --__switch-off: #c0c0d4;
+  --__header-bg: #ffffff;
 }
 
 /* ==========================================================================
- * 2. Theme switch — dark mode (same values, kept for compat)
+ * 2. Dark mode override
  * ========================================================================== */
 :host([data-theme="dark"]) {
+  --blakfy-a11y-panel-bg: #13131f;
+  --blakfy-a11y-panel-text: #f1f5f9;
+  --blakfy-a11y-panel-muted: rgba(241,245,249,0.5);
+  --blakfy-a11y-panel-border: rgba(255,255,255,0.08);
+  --blakfy-a11y-primary-hover: #60a5fa;
+  --blakfy-a11y-toggle-off: #3a3a5c;
+
   --__bg: #13131f;
+  --__card: #1e1e30;
+  --__card-hover: #252544;
+  --__card-active: #1a2040;
   --__text: #f1f5f9;
   --__muted: rgba(241,245,249,0.5);
+  --__muted-dim: rgba(241,245,249,0.35);
   --__border: rgba(255,255,255,0.08);
-  --blakfy-a11y-primary: #3b82f6;
-  --blakfy-a11y-primary-hover: #60a5fa;
-  --blakfy-a11y-focus-ring: #3b82f6;
-  --blakfy-a11y-toggle-on: #3b82f6;
-  --blakfy-a11y-toggle-off: #3a3a5c;
+  --__border-mid: rgba(255,255,255,0.14);
+  --__switch-off: #3a3a5c;
+  --__header-bg: #13131f;
 }
 
 /* ==========================================================================
@@ -207,7 +223,7 @@ button {
 .backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(0, 0, 0, 0.45);
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
   z-index: 9999;
@@ -227,14 +243,14 @@ button {
   block-size: 100vh;
   max-block-size: 100vh;
   overflow-y: auto;
-  background: #13131f;
-  color: #f1f5f9;
+  background: var(--__bg);
+  color: var(--__text);
   border-radius: 0;
   padding: 0;
   z-index: 10000;
-  box-shadow: -8px 0 32px rgba(0,0,0,0.5);
+  box-shadow: -8px 0 32px rgba(0,0,0,0.2);
   scrollbar-width: thin;
-  scrollbar-color: rgba(255,255,255,0.15) transparent;
+  scrollbar-color: var(--__border-mid) transparent;
   animation: blakfy-slide-in-right 220ms ease forwards;
 }
 
@@ -257,22 +273,22 @@ button {
   align-items: center;
   justify-content: space-between;
   padding: 1rem 1rem 0.875rem;
-  background: #13131f;
-  border-block-end: 1px solid rgba(255,255,255,0.08);
+  background: var(--__header-bg);
+  border-block-end: 1px solid var(--__border);
 }
 
 .panel-title {
   font-size: clamp(14px, 3vw, 16px);
   font-weight: 600;
   line-height: 1.2;
-  color: #f1f5f9;
+  color: var(--__text);
 }
 
 .panel-desc {
   margin-block-start: 0.5rem;
   font-size: clamp(11px, 2vw, 13px);
   line-height: 1.5;
-  color: rgba(241,245,249,0.5);
+  color: var(--__muted);
 }
 
 .dialog-close {
@@ -284,14 +300,14 @@ button {
   align-items: center;
   justify-content: center;
   border-radius: 6px;
-  color: rgba(241,245,249,0.6);
+  color: var(--__muted);
   transition: background-color 150ms ease, color 150ms ease;
   flex-shrink: 0;
 }
 
 .dialog-close:hover {
-  background: rgba(255,255,255,0.08);
-  color: #f1f5f9;
+  background: var(--__border);
+  color: var(--__text);
 }
 
 .dialog-close:focus-visible {
@@ -312,14 +328,15 @@ button {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(241,245,249,0.45);
+  color: var(--__muted);
   padding: 0.875rem 1rem 0.375rem;
 }
 
 .opt-section-title {
   font-size: 11.5px;
   font-weight: 600;
-  color: rgba(241,245,249,0.7);
+  color: var(--__text);
+  opacity: 0.75;
   margin-block-end: 0.375rem;
 }
 
@@ -332,12 +349,12 @@ button {
   inline-size: 42px;
   block-size: 24px;
   border-radius: 9999px;
-  background: #3a3a5c;
+  background: var(--__switch-off);
   transition: background-color 200ms ease;
 }
 
 .switch[aria-checked="true"] {
-  background: #3b82f6;
+  background: var(--blakfy-a11y-primary);
 }
 
 .switch:focus-visible {
@@ -386,22 +403,22 @@ button {
   align-items: center;
   gap: 0.75rem;
   padding: 0.625rem 0.875rem;
-  background: #1e1e30;
+  background: var(--__card);
   border-radius: 8px;
   cursor: pointer;
-  border: 1.5px solid transparent;
+  border: 3px solid transparent;
   transition: border-color 150ms ease, background 150ms ease;
   text-align: start;
   width: 100%;
 }
 
 .profile-list-item:hover {
-  background: #252544;
+  background: var(--__card-hover);
 }
 
 .profile-list-item--active {
-  border-color: #3b82f6;
-  background: #1a2040;
+  border-color: var(--blakfy-a11y-primary);
+  background: var(--__card-active);
 }
 
 .profile-list-item:focus-visible {
@@ -410,7 +427,7 @@ button {
 }
 
 .profile-list-icon {
-  color: #3b82f6;
+  color: var(--blakfy-a11y-primary);
   flex-shrink: 0;
 }
 
@@ -427,14 +444,14 @@ button {
 .profile-list-name {
   font-size: 12.5px;
   font-weight: 600;
-  color: #f1f5f9;
+  color: var(--__text);
   line-height: 1.2;
   display: block;
 }
 
 .profile-list-desc {
   font-size: 10.5px;
-  color: rgba(241,245,249,0.5);
+  color: var(--__muted);
   line-height: 1.3;
   margin-top: 2px;
   display: block;
@@ -453,24 +470,31 @@ button {
   align-items: center;
   justify-content: space-between;
   padding: 0.625rem 1rem;
-  background: #1e1e30;
+  background: var(--__card);
+  border: 3px solid var(--__border);
   border-radius: 8px;
   margin: 0 1rem 0.375rem;
+}
+
+.stepper-row-header {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
 }
 
 .stepper-row-title {
   font-size: 12.5px;
   font-weight: 600;
-  color: #f1f5f9;
+  color: var(--__text);
 }
 
 .stepper {
   display: flex;
   align-items: center;
   gap: 0;
-  background: #13131f;
+  background: var(--__bg);
   border-radius: 6px;
-  border: 1px solid rgba(255,255,255,0.12);
+  border: 3px solid var(--__border-mid);
 }
 
 .stepper-btn {
@@ -479,18 +503,18 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #3b82f6;
+  color: var(--blakfy-a11y-primary);
   font-size: 18px;
   font-weight: 300;
   border: none;
   background: transparent;
   cursor: pointer;
-  border-radius: 6px;
+  border-radius: 4px;
   flex-shrink: 0;
 }
 
 .stepper-btn:disabled {
-  color: rgba(255,255,255,0.2);
+  color: var(--__border-mid);
   cursor: default;
 }
 
@@ -503,20 +527,20 @@ button {
   text-align: center;
   font-size: 11.5px;
   font-weight: 500;
-  color: #f1f5f9;
+  color: var(--__text);
   padding: 0 0.25rem;
 }
 
 /* ==========================================================================
- * 13. Toggle row (koyu kart)
+ * 13. Toggle row (kart)
  * ========================================================================== */
 .toggle-row {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
-  background: #1e1e30;
-  border: 1px solid rgba(255,255,255,0.06);
+  background: var(--__card);
+  border: 3px solid var(--__border);
   border-radius: 8px;
   padding: 0.75rem 0.875rem;
   margin: 0 1rem 0.25rem;
@@ -527,18 +551,24 @@ button {
   min-width: 0;
 }
 
+.toggle-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
 .toggle-title {
   font-size: clamp(11px, 2vw, 13px);
   font-weight: 600;
   line-height: 1.25;
-  color: #f1f5f9;
+  color: var(--__text);
 }
 
 .toggle-desc {
   margin-block-start: 0.2rem;
   font-size: clamp(10px, 1.7vw, 11.5px);
   line-height: 1.5;
-  color: rgba(241,245,249,0.5);
+  color: var(--__muted);
 }
 
 .toggle-note {
@@ -550,7 +580,95 @@ button {
 }
 
 /* ==========================================================================
- * 14. Opt buttons (karanlık tema)
+ * 14. Info button + CSS-only tooltip
+ * ========================================================================== */
+.info-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.info-btn {
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  background: var(--__border-mid);
+  color: var(--__text);
+  font-size: 10px;
+  font-weight: 700;
+  font-style: italic;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+  border: none;
+  padding: 0;
+  line-height: 1;
+  flex-shrink: 0;
+  opacity: 0.55;
+  transition: opacity 150ms ease, background 150ms ease;
+}
+
+.info-btn:hover,
+.info-btn:focus-visible {
+  opacity: 1;
+  background: var(--blakfy-a11y-primary);
+  color: #ffffff;
+}
+
+.info-btn:focus-visible {
+  outline: 2px solid var(--blakfy-a11y-focus-ring);
+  outline-offset: 2px;
+}
+
+.info-tooltip {
+  display: none;
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: calc(100% + 4px);
+  background: var(--__card);
+  border: 3px solid var(--__border-mid);
+  border-radius: 8px;
+  padding: 0.5rem 0.625rem;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--__text);
+  inline-size: 210px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  z-index: 100;
+  pointer-events: none;
+}
+
+.info-wrap:hover .info-tooltip,
+.info-wrap:focus-within .info-tooltip {
+  display: block;
+}
+
+.info-tooltip-note {
+  display: block;
+  margin-block-start: 0.25rem;
+  font-size: 10px;
+  color: #fbbf24;
+  font-style: italic;
+}
+
+/* ==========================================================================
+ * 15. Opt-label row (section title + info btn)
+ * ========================================================================== */
+.opt-label-row {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0 1rem 0.25rem;
+}
+
+.opt-label-row .opt-section-title {
+  margin-block-end: 0;
+}
+
+/* ==========================================================================
+ * 16. Opt buttons
  * ========================================================================== */
 .opt-buttons {
   display: flex;
@@ -564,25 +682,28 @@ button {
   padding-inline: 0.625rem;
   font-size: 11.5px;
   font-weight: 500;
-  border: 1px solid rgba(255,255,255,0.12);
+  border: 3px solid var(--__border-mid);
   border-radius: 6px;
-  color: rgba(241,245,249,0.8);
+  color: var(--__text);
   white-space: nowrap;
   flex: 1;
   min-inline-size: fit-content;
   background: transparent;
   transition: background 150ms, border-color 150ms, color 150ms;
+  opacity: 0.8;
 }
 
 .opt-btn:hover {
-  background: rgba(255,255,255,0.07);
-  border-color: rgba(255,255,255,0.25);
+  background: var(--__card);
+  border-color: var(--blakfy-a11y-primary);
+  opacity: 1;
 }
 
 .opt-btn[aria-pressed="true"] {
-  background: #3b82f6;
+  background: var(--blakfy-a11y-primary);
   color: #ffffff;
-  border-color: #3b82f6;
+  border-color: var(--blakfy-a11y-primary);
+  opacity: 1;
 }
 
 .opt-btn:focus-visible {
@@ -591,39 +712,42 @@ button {
 }
 
 /* ==========================================================================
- * 15. Panel footer
+ * 17. Panel footer
  * ========================================================================== */
 .panel-footer {
   padding: 1rem;
-  border-block-start: 1px solid rgba(255,255,255,0.08);
+  border-block-start: 1px solid var(--__border);
   margin-block-start: 0.5rem;
 }
 
 /* ==========================================================================
- * 16. Reset butonu
+ * 18. Reset butonu
  * ========================================================================== */
 .btn-reset {
   width: 100%;
   min-block-size: 40px;
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 3px solid var(--__border-mid);
   border-radius: 8px;
-  color: rgba(241,245,249,0.8);
+  color: var(--__text);
   background: transparent;
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
   transition: background 150ms, border-color 150ms;
+  opacity: 0.8;
 }
 
 .btn-reset:hover {
-  background: rgba(255,255,255,0.07);
-  border-color: rgba(255,255,255,0.3);
+  background: var(--__card);
+  border-color: var(--blakfy-a11y-primary);
+  opacity: 1;
 }
 
 .btn-reset[data-confirm="true"] {
   background: #dc2626;
   border-color: #dc2626;
   color: #fff;
+  opacity: 1;
 }
 
 .btn-reset:focus-visible {
@@ -632,13 +756,14 @@ button {
 }
 
 /* ==========================================================================
- * 17. Disclaimer + branding
+ * 19. Disclaimer + branding
  * ========================================================================== */
 .disclaimer {
+  margin-top: 0.75rem;
   font-size: clamp(9px, 1.5vw, 11px);
   font-style: italic;
   line-height: 1.45;
-  color: rgba(241,245,249,0.35);
+  color: var(--__muted-dim);
 }
 
 .panel-branding {
@@ -667,17 +792,17 @@ button {
 .panel-branding-powered {
   font-size: 11px;
   font-weight: 400;
-  color: rgba(241,245,249,0.5);
+  color: var(--__muted);
 }
 
 .panel-branding-name {
   font-size: 11.5px;
   font-weight: 700;
-  color: #3b82f6;
+  color: var(--blakfy-a11y-primary);
 }
 
 /* ==========================================================================
- * 18. Animations — slide in/out (sidebar)
+ * 20. Animations — slide in/out (sidebar)
  * ========================================================================== */
 @keyframes blakfy-fade-in {
   from { opacity: 0; }
@@ -700,7 +825,7 @@ button {
 }
 
 /* ==========================================================================
- * 19. Reduced motion
+ * 21. Reduced motion
  * ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -713,7 +838,7 @@ button {
 }
 
 /* ==========================================================================
- * 20. Responsive (≤480px) — sidebar daha dar
+ * 22. Responsive (≤480px) — sidebar daha dar
  * ========================================================================== */
 @media (max-width: 480px) {
   .fab {
@@ -726,7 +851,7 @@ button {
 }
 
 /* ==========================================================================
- * 21. Forced colors / Windows High Contrast
+ * 23. Forced colors / Windows High Contrast
  * ========================================================================== */
 @media (forced-colors: active) {
   .fab,

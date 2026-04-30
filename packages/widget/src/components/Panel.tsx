@@ -88,14 +88,26 @@ function ProfileIcon({ profileKey }: { profileKey: ProfileKey }): JSX.Element {
   return icons[profileKey];
 }
 
+const InfoBtn = ({ text, note }: { text: string; note?: string }): JSX.Element => (
+  <span class="info-wrap">
+    <button type="button" class="info-btn" tabIndex={0} aria-label="bilgi">i</button>
+    <span class="info-tooltip" role="tooltip">
+      {text}
+      {note ? <em class="info-tooltip-note">{note}</em> : null}
+    </span>
+  </span>
+);
+
 const StepperRow = ({
   title,
+  description,
   value,
   options,
   labels,
   onChange,
 }: {
   title: string;
+  description: string;
   value: string;
   options: string[];
   labels: string[];
@@ -106,7 +118,10 @@ const StepperRow = ({
   const canInc = idx < options.length - 1;
   return (
     <div class="stepper-row">
-      <span class="stepper-row-title">{title}</span>
+      <div class="stepper-row-header">
+        <span class="stepper-row-title">{title}</span>
+        <InfoBtn text={description} />
+      </div>
       <div class="stepper">
         <button
           type="button"
@@ -248,6 +263,7 @@ export function Panel({ translation, locale, currentTheme, onClose, onThemeChang
       {/* Stepper: fontScale */}
       <StepperRow
         title={t.preferences.fontScale.title}
+        description={t.preferences.fontScale.description}
         value={String(prefs.fontScale)}
         options={['100', '110', '125']}
         labels={['100', '110', '125'].map((v) => t.preferences.fontScale.values[v as '100' | '110' | '125'])}
@@ -257,6 +273,7 @@ export function Panel({ translation, locale, currentTheme, onClose, onThemeChang
       {/* Stepper: lineHeight */}
       <StepperRow
         title={t.preferences.lineHeight.title}
+        description={t.preferences.lineHeight.description}
         value={prefs.lineHeight}
         options={LINE_HEIGHTS}
         labels={LINE_HEIGHTS.map((v) => t.preferences.lineHeight.values[v])}
@@ -266,6 +283,7 @@ export function Panel({ translation, locale, currentTheme, onClose, onThemeChang
       {/* Stepper: letterSpacing */}
       <StepperRow
         title={t.preferences.letterSpacing.title}
+        description={t.preferences.letterSpacing.description}
         value={prefs.letterSpacing}
         options={LETTER_SPACINGS}
         labels={LETTER_SPACINGS.map((v) => t.preferences.letterSpacing.values[v])}
@@ -273,8 +291,9 @@ export function Panel({ translation, locale, currentTheme, onClose, onThemeChang
       />
 
       {/* textAlign opt buttons */}
-      <div style="padding: 0 1rem 0.25rem">
+      <div class="opt-label-row">
         <p class="opt-section-title">{t.preferences.textAlign.title}</p>
+        <InfoBtn text={t.preferences.textAlign.description} />
       </div>
       <div class="opt-buttons">
         {TEXT_ALIGNS.map((opt) => (
@@ -313,8 +332,9 @@ export function Panel({ translation, locale, currentTheme, onClose, onThemeChang
         checked={prefs.contrast === 'high'}
         onChange={(v) => update('contrast', v ? 'high' : 'normal')}
       />
-      <div style="padding: 0 1rem 0.25rem">
+      <div class="opt-label-row">
         <p class="opt-section-title">{t.preferences.saturation.title}</p>
+        <InfoBtn text={t.preferences.saturation.description} />
       </div>
       <div class="opt-buttons">
         {SATURATIONS.map((opt) => (
@@ -344,8 +364,9 @@ export function Panel({ translation, locale, currentTheme, onClose, onThemeChang
         checked={prefs.linkUnderline}
         onChange={(v) => update('linkUnderline', v)}
       />
-      <div style="padding: 0 1rem 0.25rem">
+      <div class="opt-label-row">
         <p class="opt-section-title">{t.preferences.cursorSize.title}</p>
+        <InfoBtn text={t.preferences.cursorSize.description} />
       </div>
       <div class="opt-buttons">
         {CURSOR_SIZES.map((opt, i) => (
@@ -416,10 +437,7 @@ export function Panel({ translation, locale, currentTheme, onClose, onThemeChang
         >
           {resetConfirm ? `${t.reset}?` : t.reset}
         </button>
-        <p
-          class="disclaimer"
-          style="margin-top:0.75rem; font-size:10px; color:rgba(241,245,249,0.35); font-style:italic; line-height:1.5"
-        >
+        <p class="disclaimer">
           {t.disclaimer}
         </p>
         <a

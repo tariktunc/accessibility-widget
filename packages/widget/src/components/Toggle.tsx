@@ -1,7 +1,6 @@
 /**
- * One row of preference: title + description (+ optional note) + Switch.
- * Generates a stable id pair so the Switch can reference both
- * via aria-labelledby / aria-describedby.
+ * One row of preference: title + info-tooltip button + Switch.
+ * Description is hidden behind the "i" button — shown on hover/focus.
  */
 import { useId } from 'preact/hooks';
 import type { JSX } from 'preact';
@@ -23,13 +22,23 @@ export function Toggle({ title, description, note, checked, onChange }: Props): 
   return (
     <div class="toggle-row">
       <div class="toggle-text">
-        <p class="toggle-title" id={titleId}>
-          {title}
-        </p>
-        <p class="toggle-desc" id={descId}>
-          {description}
-        </p>
-        {note ? <p class="toggle-note">{note}</p> : null}
+        <div class="toggle-title-row">
+          <p class="toggle-title" id={titleId}>{title}</p>
+          <span class="info-wrap">
+            <button
+              type="button"
+              class="info-btn"
+              tabIndex={0}
+              aria-label={title + ' hakkında bilgi'}
+            >
+              i
+            </button>
+            <span class="info-tooltip" id={descId} role="tooltip">
+              {description}
+              {note ? <em class="info-tooltip-note">{note}</em> : null}
+            </span>
+          </span>
+        </div>
       </div>
       <Switch
         checked={checked}
