@@ -1,0 +1,34 @@
+{
+  "fab": { "label": "Accessibility preferences" },
+  "panel": {
+    "title": "Accessibility Preferences",
+    "description": "Adjust your viewing preferences. This panel offers personal preference controls in addition to the site's structural accessibility.",
+    "reset": "Reset",
+    "close": "Close",
+    "disclaimer": "This panel provides user preference controls; structural accessibility is built into the site itself.",
+    "theme": {
+      "label": "Display Theme",
+      "auto": "Auto",
+      "light": "Light",
+      "dark": "Dark"
+    },
+    "branding": "Powered by Blakfy Studio",
+    "preferences": {
+      "fontScale": {
+        "title": "Font Size",
+        "description": "Increase or decrease text size.",
+        "values": { "100": "Normal", "110": "Large", "125": "Extra Large" }
+      },
+      "contrast": { "title": "High Contrast", "description": "Black background + yellow links (AAA 7:1)." },
+      "focusRing": { "title": "Enhanced Focus Ring", "description": "Show keyboard focus with a prominent 4px blue ring." },
+      "linkUnderline": { "title": "Underline Links", "description": "Add underline to all links." },
+      "motion": { "title": "Reduce Motion", "description": "Disable animations and transitions." },
+      "dyslexiaFont": {
+        "title": "Dyslexia-Friendly Font",
+        "description": "Use the OpenDyslexic font family.",
+        "note": "Some readers prefer this; research has not shown universal benefit."
+      },
+      "readingMode": { "title": "Reading Mode", "description": "Hide sidebars and distracting areas." }
+    }
+  }
+}

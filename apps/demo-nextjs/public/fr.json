@@ -1,0 +1,27 @@
+{
+  "fab": { "label": "Preferences d'accessibilite" },
+  "panel": {
+    "title": "Preferences d'accessibilite",
+    "description": "Ajustez vos preferences d'affichage. Ce panneau offre des controles de preferences personnelles en plus de l'accessibilite structurelle du site.",
+    "reset": "Reinitialiser",
+    "close": "Fermer",
+    "disclaimer": "Ce panneau fournit des controles de preferences utilisateur; l'accessibilite structurelle est integree au site lui-meme.",
+    "preferences": {
+      "fontScale": {
+        "title": "Taille de police",
+        "description": "Augmenter ou diminuer la taille du texte.",
+        "values": { "100": "Normal", "110": "Grand", "125": "Tres grand" }
+      },
+      "contrast": { "title": "Contraste eleve", "description": "Fond noir + liens jaunes (AAA 7:1)." },
+      "focusRing": { "title": "Anneau de focus renforce", "description": "Afficher le focus clavier avec un anneau bleu de 4px." },
+      "linkUnderline": { "title": "Souligner les liens", "description": "Souligner tous les liens." },
+      "motion": { "title": "Reduire le mouvement", "description": "Desactiver les animations et transitions." },
+      "dyslexiaFont": {
+        "title": "Police adaptee a la dyslexie",
+        "description": "Utiliser la famille de polices OpenDyslexic.",
+        "note": "Certains lecteurs preferent cette option; la recherche n'a pas montre de benefice universel."
+      },
+      "readingMode": { "title": "Mode lecture", "description": "Masquer les barres laterales et zones distrayantes." }
+    }
+  }
+}

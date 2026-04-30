@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Blakfy Accessibility Widget — Vanilla Demo</title>
+
+    <!-- SSR FOUC fix: tercih cookie'sini ilk paint'ten önce uygula. -->
+    <script>
+      (function () {
+        try {
+          var m = document.cookie.match(/blakfy_a11y_prefs=([^;]+)/);
+          if (!m) return;
+          var record = JSON.parse(decodeURIComponent(m[1]));
+          if (!record || !record.prefs) return;
+          var p = record.prefs;
+          var h = document.documentElement;
+          h.setAttribute('data-a11y-fontscale', String(p.fontScale != null ? p.fontScale : 100));
+          h.setAttribute('data-a11y-contrast', p.contrast || 'normal');
+          h.setAttribute('data-a11y-focus', p.focusRing ? 'enhanced' : 'default');
+          h.setAttribute('data-a11y-links', p.linkUnderline ? 'underline' : 'default');
+          h.setAttribute('data-a11y-motion', p.motion || 'auto');
+          h.setAttribute('data-a11y-dyslexia', String(!!p.dyslexiaFont));
+          h.setAttribute('data-a11y-reading', String(!!p.readingMode));
+        } catch (e) {
+          /* sessizce başarısız ol */
+        }
+      })();
+    </script>
+
+    <!-- jsDelivr preconnect (opsiyonel, performans için) -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+
+    <style>
+      :root {
+        font-family: system-ui, -apple-system, sans-serif;
+        line-height: 1.6;
+        color: #171717;
+        background: #ffffff;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          color: #fafafa;
+          background: #0a0a0a;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+      }
+      h1 {
+        font-size: clamp(1.75rem, 4vw, 2.5rem);
+      }
+      h2 {
+        font-size: clamp(1.25rem, 3vw, 1.75rem);
+        margin-top: 2rem;
+      }
+      a {
+        color: #2563eb;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+      a:hover {
+        color: #1d4ed8;
+      }
+      a:focus-visible {
+        outline: 2px solid #2563eb;
+        outline-offset: 2px;
+      }
+      button {
+        min-height: 44px;
+        padding: 0.5rem 1rem;
+        background: #2563eb;
+        color: white;
+        border: none;
+        border-radius: 0.375rem;
+        cursor: pointer;
+        font: inherit;
+      }
+      button:hover {
+        background: #1d4ed8;
+      }
+      button:focus-visible {
+        outline: 2px solid #2563eb;
+        outline-offset: 2px;
+      }
+      pre {
+        background: #f5f5f5;
+        padding: 1rem;
+        border-radius: 0.375rem;
+        overflow-x: auto;
+      }
+      code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      }
+      kbd {
+        display: inline-block;
+        padding: 0.125rem 0.375rem;
+        font: 0.875em ui-monospace, SFMono-Regular, monospace;
+        background: #f5f5f5;
+        border: 1px solid #d4d4d4;
+        border-bottom-width: 2px;
+        border-radius: 0.25rem;
+        color: #171717;
+      }
+      footer {
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #e5e5e5;
+      }
+
+      /* Widget tercihlerine örnek bağlantı (STABLE-API §3) */
+      :root[data-a11y-fontscale='110'] body {
+        font-size: 1.1rem;
+      }
+      :root[data-a11y-fontscale='125'] body {
+        font-size: 1.25rem;
+      }
+      :root[data-a11y-contrast='high'] {
+        color: #000;
+        background: #fff;
+      }
+      :root[data-a11y-contrast='high'] a {
+        color: #b45309;
+      }
+      :root[data-a11y-links='underline'] a {
+        text-decoration: underline !important;
+      }
+      :root[data-a11y-motion='reduce'] * {
+        animation: none !important;
+        transition: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <h1>Blakfy Accessibility Widget — Vanilla Demo</h1>
+      <p>
+        Bu sayfa hiçbir framework olmadan, sadece HTML + tek script tag ile widget'ı entegre eder.
+      </p>
+
+      <section>
+        <h2>Test Adımları</h2>
+        <ol>
+          <li>Sol-altta FAB butonu görünür</li>
+          <li>Tıklayın veya <kbd>Alt</kbd> + <kbd>0</kbd> ile panel açılır</li>
+          <li>Tercih değiştirin, refresh sonrası korunmalı</li>
+          <li>Sağ-altta "Powered by Blakfy Studio" rozeti</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>Programatik API</h2>
+        <button type="button" onclick="window.BlakfyA11y && window.BlakfyA11y.open && window.BlakfyA11y.open()">
+          Erişilebilirlik Tercihleri
+        </button>
+        <p style="margin-top: 1rem">DevTools console:</p>
+        <pre><code>window.BlakfyA11y.diagnostics()</code></pre>
+      </section>
+
+      <section>
+        <h2>Örnek İçerik</h2>
+        <p>
+          Yazı ölçeği değişince bu paragraf büyür. Yüksek kontrast modunda
+          <a href="#ornek">linkler sarı</a> olur.
+        </p>
+        <p>
+          Hareket azaltma modunda animasyonlar durur. Disleksi font modunda OpenDyslexic kullanılır
+          (CDN yüklüyse).
+        </p>
+      </section>
+
+      <footer>
+        <button type="button" onclick="window.BlakfyA11y && window.BlakfyA11y.open && window.BlakfyA11y.open()">
+          Erişilebilirlik
+        </button>
+      </footer>
+    </main>
+
+    <!-- Widget — auto-mount via script tag data-* attributes -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@blakfy/accessibility-widget@v1/dist/widget.js"
+      data-locale="tr"
+      data-theme="auto"
+      data-position="bottom-left"
+      defer
+    ></script>
+  </body>
+</html>

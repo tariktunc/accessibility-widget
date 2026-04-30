@@ -1,240 +1,269 @@
-# AI Installation Guide — accessibility-widget
+# AI Installation Guide — @blakfy/accessibility-widget v2
 
-> **AI agent'lar (Claude, GPT, Cursor, Copilot) icin yazildi.**
-> Insan okumasi: [INSTALL.md](./INSTALL.md)
+> AI agent'lar (Claude, GPT, Cursor, Copilot) için deterministik kurulum rehberi.
+> İnsan okuması: [README.md](./README.md).
 
 ---
 
-## 0. ON KOSULLAR (yaml check)
+## 0. Önkoşullar (YAML)
 
 ```yaml
 required:
-  framework: Next.js >= 14 (App Router)
-  language: TypeScript >= 5
-  styling: Tailwind CSS >= 3 (opsiyonel ama onerilen)
-peer_deps_install:
-  - "@radix-ui/react-dialog"
-  - "@radix-ui/react-switch"
+  framework: Next.js >= 14 OR vanilla HTML/JS
+  language: TypeScript >= 5 (Next.js için)
+distribution_options:
+  - cdn (önerilen): jsDelivr — sıfır npm install gerekir
+  - npm: "@blakfy/accessibility-widget-next" — Next.js helpers ile
 optional:
-  tokens_path: src/lib/design-system/tokens.config.ts
   open_dyslexic_cdn: https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/open-dyslexic-regular.css
+forbidden:
+  - "Script tag with @latest URL"
+  - "FloatingBadge'i CSS ile gizleme"
+  - "WCAG/ADA 'compliant' rozeti ekleme"
 ```
 
 ---
 
-## 1. PRE-FLIGHT (kullaniciya tek mesajda sor)
+## 1. Pre-flight (kullanıcıya tek mesajda sor)
 
 ```
-1. DIL: Hangi dilleri dahil etmek istiyorsunuz? (default: tr)
+1. DİL (default: tr)
    Mevcut: tr, en, de, fr, es, it, ar, he, ru
 
-2. VARSAYILAN DIL: (default: tr)
+2. TEMA: light / dark / auto (default: auto)
 
-3. TEMA: light / dark / auto (default: auto)
+3. FAB KONUMU: bottom-left / bottom-right / top-left / top-right
+   default: bottom-left
+   Not: sağ-altta marka rozeti olduğu için sol-alt önerilir;
+        ayrıca cookie banner / live chat genelde sağ-altta olur.
 
-4. FAB KONUMU: bottom-left / bottom-right / top-left / top-right (default: bottom-left)
-   Not: bottom-right'da cookie banner / chat olabilir, bottom-left tercih edin
+4. YAZI TİPİ (default: sistem fontları, "inherit" kabul edilir)
 
-5. YAZI TIPI: (default: Poppins, tokens.config.ts varsa onu oner)
+5. DİSLEKSİ FONT YÜKLE? (yes/no, default: no)
+   Yes ise <head>'e OpenDyslexic CDN linki eklenir.
 
-6. BUTON STILI:
-   - borderWidth (default: 3px)
-   - borderRadius (default: 0.5rem)
-
-7. DISLEKSI FONT YUKLE? (yes/no)
-   Yes ise layout'a OpenDyslexic CDN linki ekle
+6. KURULUM YÖNTEMİ:
+   a) CDN script tag (önerilen — npm install yok, framework-agnostic)
+   b) NPM helpers (@blakfy/accessibility-widget-next, sadece Next.js için)
 ```
 
 ---
 
-## 2. KURULUM ADIMLARI (deterministik)
+## 2. Kurulum adımları (deterministik)
 
-### 2.1 — degit ile cek
-```bash
-npx degit tariktunc/accessibility-widget src/components/a11y
+### Senaryo A — CDN (default)
+
+#### Adım 1 — `<head>`'e preconnect
+
+`app/layout.tsx` (Next.js) veya `index.html` (vanilla):
+
+```html
+<link rel="preconnect" href="https://cdn.jsdelivr.net" />
 ```
 
-### 2.2 — Bagimliliklar
-```bash
-npm i @radix-ui/react-dialog @radix-ui/react-switch
+#### Adım 2 — SSR FOUC inline snippet (`<head>` içinde)
+
+```html
+<script>
+  (function() {
+    try {
+      var c = document.cookie.split('; ').find(function(r){return r.indexOf('blakfy_a11y_prefs=')===0;});
+      if (!c) return;
+      var p = JSON.parse(decodeURIComponent(c.split('=')[1])).prefs;
+      var h = document.documentElement;
+      h.setAttribute('data-a11y-fontscale', p.fontScale || '100');
+      h.setAttribute('data-a11y-contrast', p.contrast || 'normal');
+      h.setAttribute('data-a11y-focus', p.focusRing ? 'enhanced' : 'default');
+      h.setAttribute('data-a11y-links', p.linkUnderline ? 'underline' : 'default');
+      h.setAttribute('data-a11y-motion', p.motion || 'auto');
+      h.setAttribute('data-a11y-dyslexia', String(!!p.dyslexiaFont));
+      h.setAttribute('data-a11y-reading', String(!!p.readingMode));
+    } catch (e) {}
+  })();
+</script>
 ```
 
-### 2.3 — Setup script
-```bash
-cd src/components/a11y && node setup.mjs
-```
+Next.js'te bu snippet'i `<head>` içinde inline `<script dangerouslySetInnerHTML={{__html: '...'}} />` ile koy.
 
-### 2.4 — CSS import
-**`src/app/globals.css`** sonuna ekle (Tailwind layer'larindan SONRA):
-```css
-@import "@/components/a11y/styles.css";
-```
+#### Adım 3 — `<body>` sonuna widget tag
 
-### 2.5 — Layout entegrasyonu
-`src/app/layout.tsx` (veya `[locale]/layout.tsx`):
-
-**`<head>` icine:**
+**Next.js**:
 ```tsx
-{/* Poppins font (varsayilan) */}
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" />
+import Script from 'next/script';
 
-{/* Disleksi font destegi (kullanici onayladiysa) */}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/open-dyslexic-regular.css" />
+<Script
+  src="https://cdn.jsdelivr.net/npm/@blakfy/accessibility-widget@v1/dist/widget.js"
+  strategy="lazyOnload"
+  data-locale="<LOCALE>"
+  data-theme="<THEME>"
+  data-position="<POSITION>"
+/>
 ```
 
-**`<body>` sonuna:**
-```tsx
-import { AccessibilityWidget } from '@/components/a11y';
-
-<AccessibilityWidget locale="<DEFAULT_LOCALE>" theme="<THEME>" position="<POSITION>" />
+**Vanilla HTML**:
+```html
+<script
+  src="https://cdn.jsdelivr.net/npm/@blakfy/accessibility-widget@v1/dist/widget.js"
+  data-locale="<LOCALE>"
+  data-theme="<THEME>"
+  data-position="<POSITION>"
+  defer
+></script>
 ```
 
-### 2.6 — SSR FOUC korumasi (ZORUNLU)
-`<html>` etiketine cookie'den okunan data-attribute'lari ekle:
+### Senaryo B — NPM + Next.js helpers
+
+#### Adım 1 — Install
+
+```bash
+npm i @blakfy/accessibility-widget-next
+```
+
+#### Adım 2 — `<A11yServerHelper />` `<html>`'e
+
+`app/layout.tsx`:
 
 ```tsx
-import { cookies } from 'next/headers';
+import { A11yServerHelper, A11yScript } from '@blakfy/accessibility-widget-next';
 
-export default async function RootLayout({ children }) {
-  const c = await cookies();
-  const cookieValue = c.get('wf_a11y_prefs')?.value;
-  let prefs = null;
-  try { prefs = cookieValue ? JSON.parse(cookieValue).prefs : null; } catch {}
-
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="<DEFAULT_LOCALE>"
-      data-a11y-fontscale={prefs?.fontScale ?? '100'}
-      data-a11y-contrast={prefs?.contrast ?? 'normal'}
-      data-a11y-focus={prefs?.focusRing ? 'enhanced' : 'default'}
-      data-a11y-links={prefs?.linkUnderline ? 'underline' : 'default'}
-      data-a11y-motion={prefs?.motion ?? 'auto'}
-      data-a11y-dyslexia={String(prefs?.dyslexiaFont ?? false)}
-      data-a11y-reading={String(prefs?.readingMode ?? false)}
-    >
-      <body>{children}<AccessibilityWidget /></body>
-    </html>
+    <A11yServerHelper lang="<LOCALE>">
+      <body>
+        {children}
+        <A11yScript locale="<LOCALE>" theme="<THEME>" position="<POSITION>" />
+      </body>
+    </A11yServerHelper>
   );
 }
 ```
 
-### 2.7 — Footer'a re-open linki
-```tsx
-import { openA11yPanel } from '@/components/a11y';
+`A11yServerHelper` async server component'tir — cookie'yi okur, `<html>`'e `data-a11y-*` yazar (SSR FOUC engellenir).
 
-<button onClick={openA11yPanel}>Erisilebilirlik Tercihleri</button>
-```
+#### Adım 3 — `<A11yScript />` `<body>` sonuna
+
+Yukarıdaki örnekte ikisi de aynı `RootLayout` içinde. `A11yScript` jsDelivr CDN URL'iyle `<Script>` tag'i render eder.
 
 ---
 
-## 3. DOGRULAMA
+## 3. Doğrulama
 
 ```yaml
 checks:
-  - file_exists: src/components/a11y/AccessibilityWidget.tsx
-  - file_exists: src/components/a11y/styles.css
-  - globals_css_imports: '@/components/a11y/styles.css'
-  - layout_renders: <AccessibilityWidget />
-  - typecheck: npm run typecheck → 0 error
-  - lint: npm run lint → 0 warning
-  - dev: npm run dev → 200 OK
-  - fab_visible: bottom-left'te FAB butonu gorunur
-  - panel_opens: FAB tiklandiginda Radix Dialog acilir
-  - 7_prefs_visible: panel'de 7 tercih (font/contrast/focus/link/motion/dyslexia/reading)
-  - persists: tercih kaydedip refresh'te korunur
-  - ssr_no_fouc: ilk paint'te font olcegi dogru
-  - axe_zero_violations: panel acik durumda axe-core 0 violation
+  - file_or_marker: "Script tag at app/layout.tsx with src containing 'jsdelivr.net'"
+  - typecheck: "pnpm typecheck → 0 error"
+  - dev: "pnpm dev → 200 OK, FAB sol-altta görünür"
+  - panel_opens: "FAB tıklandığında panel açılır (focus trap aktif)"
+  - persists: "tercih kaydedip refresh'te korunur"
+  - badge_visible: "sağ-altta 'Powered by Blakfy Studio' rozeti"
+  - no_console_errors: "DevTools console temiz (sadece [blakfy-a11y] info log'u olabilir)"
+  - axe_zero_violations: "axe-core paneli açıkken 0 violation"
+  - keyboard_flow: "FAB → Tab × 9 → ESC çalışır, fokus FAB'a döner"
+  - rtl_smoke: "locale=ar/he ise panel aynalanır (yön: rtl)"
 ```
 
 ---
 
-## 4. ANTI-PATTERN'LAR (KESINLIKLE YAPMA)
+## 4. Anti-pattern'lar (KESİNLİKLE YAPMA)
 
-| Yanlis | Sebep |
-|--------|-------|
-| "WCAG compliant" / "ADA compliant" rozeti ekle | FTC suclamasi (accessiBe $1M ceza) |
-| Otomatik ARIA enjeksiyonu (DOM patch) | Real SR'lari bozar |
-| "Screen reader" toggle ekle | Anti-pattern, gercek SR var zaten |
-| Alt text otomatik uretme | Hatali alt text > yok alt text |
-| Widget'i a11y stratejisinin yerine koy | Yasal risk + yanlis pazarlama |
-| `<html>` etiketine cookie'siz render | SSR FOUC olusur (fontScale 1 paint, sonra 1.25) |
-| `styles.css` import'u Tailwind layer'larindan ONCE | Specificity bozulur |
-| `position="bottom-right"` zorla | Cookie banner / chat ile cakisir |
+| Yanlış | Sebep |
+|---|---|
+| `strategy="beforeInteractive"` | LCP'yi geciktirir; widget non-critical |
+| Cookie banner ile aynı pozisyon | UX çakışması — `bottom-left` önerilir |
+| `<Script>` tag'ini `<head>` içinde | DOM hazır olmadan mount denenir |
+| FloatingBadge'i CSS ile gizleme | İş kuralı ihlali (non-removable, STABLE-API §9) |
+| URL'de `@latest` kullanma | 7-gün TTL + breaking change riski; `@v1` veya `@1.0.0` kullan |
+| `wf_a11y_prefs` cookie key'ini varsay | v2'de key `blakfy_a11y_prefs` |
+| `@/components/a11y` import yolu varsay | v1 deseniydi, v2'de geçersiz — CDN script tag veya `@blakfy/accessibility-widget-next` |
+| "WCAG compliant" rozeti ekleme | FTC vs accessiBe (2025) — yasal risk |
+| Otomatik ARIA enjeksiyonu yapma | Anti-pattern, gerçek SR'leri bozar |
+| Profil preset'leri ekleme (Epilepsy/Blind) | Pazarlama uydurması |
 
 ---
 
-## 5. CIKTI RAPORU SABLONU
+## 5. Çıktı raporu şablonu
 
 ```
-✅ accessibility-widget v1.0.0 kuruldu
+✅ @blakfy/accessibility-widget v2.x.x kuruldu
 
-📁 Olusturulan dosyalar:
-   - src/components/a11y/* (degit ile cekildi)
-
-🔧 Konfigurasyon:
-   - Diller: <X, Y, Z>
-   - Varsayilan: <X>
-   - Tema: <auto/light/dark>
+📁 Yöntem: <CDN | NPM>
+🔧 Konfigürasyon:
+   - Dil: <tr>
+   - Tema: <auto>
    - Konum: <bottom-left>
-   - Font: <font>
-   - Border: <Npx solid>
+   - Marka rozeti: sağ-alt (sürekli, gizlenemez)
 
 ✅ Eklenen:
-   - globals.css'e import
-   - layout.tsx'e <AccessibilityWidget />
-   - <html> etiketine SSR FOUC koruma data-attribute'lari
-   - Poppins font preconnect+stylesheet
+   - Preconnect to jsDelivr (<link rel="preconnect">)
+   - SSR FOUC pre-paint script (<head> inline)
+   - Widget script tag (<body> sonu)
    - (Opsiyonel) OpenDyslexic CDN
 
-📋 Yapilacaklar:
-   1. Footer'a "Erisilebilirlik Tercihleri" linki ekle
-   2. Test: npm run dev → bottom-left'te FAB gorunmeli
-   3. axe-core ile dogrula: 0 violation
-   4. WCAG 2.2 AA uyumu IICIN sitenin kendisinde:
-      - Renk kontrasti AA (4.5:1)
-      - Semantic HTML (h1-h6 hiyerarsi)
-      - Klavye navigasyonu
-      - alt text tum gorseller
-      - focus-visible tum interaktif elemanlar
-   5. Bu widget structural a11y'in YERINE GECMEZ — sitenin kendisinde a11y olmali
+📋 Yapılacaklar (kullanıcı için):
+   1. Footer'a "Erişilebilirlik" linki:
+      <button onclick="BlakfyA11y.open()">Erişilebilirlik</button>
+   2. WCAG 2.2 AA için sitenin kendisinde:
+      - Renk kontrastı 4.5:1 (text), 3:1 (non-text)
+      - Semantic HTML (h1-h6 hiyerarşi)
+      - Klavye navigasyonu (Tab order)
+      - alt text tüm görseller
+      - focus-visible tüm interaktif elemanlar
+   3. Bu widget structural a11y'in YERİNE GEÇMEZ — site kodunda da a11y olmalı
 
-🔗 Linkler:
-   - Repo: https://github.com/tariktunc/accessibility-widget
-   - Docs: ./README.md
+🔗 Referanslar:
+   - README: ./README.md
+   - STABLE-API: ./docs/STABLE-API.md
    - WCAG 2.2: https://www.w3.org/TR/WCAG22/
 ```
 
 ---
 
-## 6. SORUN GIDERME
+## 6. Sorun giderme
 
-| Sorun | Cozum |
-|-------|-------|
-| FAB gorunmuyor | `<AccessibilityWidget />` body'de mi? |
-| Tercihler uygulanmiyor | `globals.css`'te `@import` var mi? |
-| SSR FOUC | `<html>` cookie'den data-attribute alıyor mu? |
-| Modal acilmiyor | Radix Dialog kurulu mu? |
-| Disleksi font yuklenmiyor | OpenDyslexic CDN linki head'de mi? |
-| Hydration error | `'use client'` var mi (zaten var)? |
+| Sorun | Çözüm |
+|---|---|
+| FAB görünmüyor | `<Script>` tag'i `<body>` sonunda mı? Console'da `[blakfy-a11y]` log'u var mı? |
+| Tercihler uygulanmıyor | `<html>` üzerinde `data-a11y-*` attribute'ları var mı? Pre-paint snippet eklendi mi? |
+| SSR FOUC (ilk paint'te yanlış font ölçeği) | Pre-paint snippet `<head>` içinde mi (en üst, defer/async olmadan)? |
+| Hydration mismatch | Next.js'te `A11yServerHelper` kullanın VEYA cookie'yi server'da oku ve `<html data-a11y-*>` yaz |
+| Disleksi font yüklenmiyor | OpenDyslexic CDN linki `<head>`'de mi? `BlakfyA11y.diagnostics()` ile `OPENDYSLEXIC_CDN_MISSING` issue'sunu kontrol et |
+| Modal açılmıyor | `BlakfyA11y` global'i mevcut mu? `console.log(window.BlakfyA11y)` |
+| Console kirli (info log'lar prod'da) | `data-debug="false"` (default) kullan; `?a11y-debug=1` query'yi kaldır |
+| CSS çakışması | Widget Shadow DOM içinde — host CSS sızamaz. Tema için 15 CSS variable kullan ([README §Tema](./README.md)) |
+| Yanlış pozisyon | `data-position` attribute'unu kontrol et; CSS ile override etmeyin |
+| Bundle ≥18 KB | CDN'den yüklendiyse impossible — kontrol et: `Network` tab'de `widget.js` boyutu ≤18 KB gz |
 
 ---
 
-## 7. TAMAMLANMA KRITERLERI
+## 7. Tamamlanma kriterleri (`done_when`)
 
 ```yaml
 done_when:
-  - npm run dev → bottom-left'te FAB butonu gorunur
-  - FAB tiklandiginda panel acilir (Radix Dialog)
-  - 7 tercih hepsi gorunur ve toggle calisir
-  - "Yazi olcegi" 110% sectiginde body font-size dogru artar
-  - "Yuksek kontrast" actiginda body siyah arka olur
-  - "Hareketi azalt" actiginda animasyonlar durur
-  - Refresh sonrasi tercihler korunur (localStorage + cookie)
-  - "Sifirla" butonu hepsini default'a doner
-  - axe-core panel uzerinde 0 violation
-  - Lighthouse a11y > 95 (sitenin kendisi)
-  - 280px ekranda yatay scroll yok
-  - Klavye ile FAB → panel → toggle → close erisilebilir
+  - script_tag_present: "src='https://cdn.jsdelivr.net/npm/@blakfy/accessibility-widget@v1/...' OR @blakfy/accessibility-widget-next imported"
+  - preconnect_present: "<link rel='preconnect' href='https://cdn.jsdelivr.net'>"
+  - pre_paint_snippet: "<head> içinde inline cookie-read script VEYA A11yServerHelper kullanımı"
+  - dev_server_runs: "pnpm dev → http 200, no errors"
+  - fab_visible: "bottom-left'te 48x48 FAB butonu görünür"
+  - panel_opens: "FAB tıklandığında panel açılır, focus trap aktif"
+  - 7_prefs_visible: "panel'de 7 tercih (fontScale/contrast/focusRing/linkUnderline/motion/dyslexiaFont/readingMode)"
+  - persists_localstorage: "tercih kaydedip refresh sonrası korunur (key: blakfy_a11y_prefs)"
+  - persists_cookie: "cookie 'blakfy_a11y_prefs' var, SameSite=Lax, 365 gün"
+  - reset_works: "Sıfırla butonu hepsini default'a döner"
+  - badge_present: "sağ-altta 'Powered by Blakfy Studio' linki, blakfy.com'a, target=_blank"
+  - keyboard_accessible: "Tab → FAB → Enter → panel → toggle'lar → ESC → fokus FAB'a döner"
+  - axe_zero_violations: "panel açıkken axe-core 0 violation"
+  - bundle_size: "widget.js ≤18 KB gz (Network tab)"
+  - api_global_ready: "window.BlakfyA11y mevcut, methods: open, close, getPreferences, setPreferences, reset, onChange, configure, diagnostics"
 ```
+
+---
+
+## 8. Özet
+
+- **Default install**: CDN script tag, `@v1` URL, `data-locale="tr"`, `data-position="bottom-left"`, `strategy="lazyOnload"`.
+- **NPM yolu** sadece Next.js helpers istenirse.
+- **Pre-paint snippet** SSR FOUC için zorunlu (helper kullanılmıyorsa).
+- **Asla** `@latest`, asla DOM patch, asla "compliant" iddiası.
+- **Marka rozeti** non-removable (iş kuralı).
+
+Detay: [README.md](./README.md), [docs/STABLE-API.md](./docs/STABLE-API.md), [docs/ADR/](./docs/ADR/).

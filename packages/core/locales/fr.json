@@ -1,0 +1,34 @@
+{
+  "fab": { "label": "Préférences d'accessibilité" },
+  "panel": {
+    "title": "Préférences d'accessibilité",
+    "description": "Ajustez vos préférences d'affichage. Ce panneau offre des contrôles de préférences personnelles en plus de l'accessibilité structurelle du site.",
+    "reset": "Réinitialiser",
+    "close": "Fermer",
+    "disclaimer": "Ce panneau fournit des contrôles de préférences utilisateur; l'accessibilité structurelle est intégrée au site lui-même.",
+    "theme": {
+      "label": "Thème d'affichage",
+      "auto": "Automatique",
+      "light": "Clair",
+      "dark": "Sombre"
+    },
+    "branding": "Propulsé par Blakfy Studio",
+    "preferences": {
+      "fontScale": {
+        "title": "Taille de police",
+        "description": "Augmenter ou diminuer la taille du texte.",
+        "values": { "100": "Normal", "110": "Grand", "125": "Très grand" }
+      },
+      "contrast": { "title": "Contraste élevé", "description": "Fond noir + liens jaunes (AAA 7:1)." },
+      "focusRing": { "title": "Anneau de focus renforcé", "description": "Afficher le focus clavier avec un anneau bleu de 4px." },
+      "linkUnderline": { "title": "Souligner les liens", "description": "Souligner tous les liens." },
+      "motion": { "title": "Réduire le mouvement", "description": "Désactiver les animations et transitions." },
+      "dyslexiaFont": {
+        "title": "Police adaptée à la dyslexie",
+        "description": "Utiliser la famille de polices OpenDyslexic.",
+        "note": "Certains lecteurs préfèrent cette option; la recherche n'a pas montré de bénéfice universel."
+      },
+      "readingMode": { "title": "Mode lecture", "description": "Masquer les barres latérales et zones distrayantes." }
+    }
+  }
+}

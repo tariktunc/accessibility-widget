@@ -1,0 +1,117 @@
+# Required GitHub secrets:
+#   NPM_TOKEN          - npm automation token with publish access to @blakfy scope
+#   GITHUB_TOKEN       - auto-provided by GitHub Actions
+#
+# Release flow per docs/ADR/006-versioning-auto-update.md:
+#   1. Push to main triggers this workflow.
+#   2. changesets/action either opens a "Version Packages" PR (collecting
+#      pending .changeset/*.md entries) OR, if the working tree contains
+#      no pending changesets and versions were just bumped, runs `pnpm release`
+#      which builds + `changeset publish` to npm with provenance.
+#   3. After a successful publish, the purge-cdn job hits jsDelivr's purge
+#      endpoint for @v1 and @latest URLs so the new bundle propagates fast.
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: release-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
+env:
+  NODE_VERSION: '20.x'
+  PNPM_VERSION: '9.15.0'
+
+jobs:
+  release:
+    name: Version & publish
+    runs-on: ubuntu-latest
+    outputs:
+      published: ${{ steps.changesets.outputs.published }}
+      publishedPackages: ${{ steps.changesets.outputs.publishedPackages }}
+    steps:
+      - name: Checkout (full history for changesets)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build packages
+        run: pnpm build
+
+      - name: Run unit tests
+        run: pnpm test
+
+      - name: Bundle size gate
+        run: pnpm size
+
+      - name: Create release PR or publish
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          publish: pnpm release
+          version: pnpm version
+          commit: 'chore(release): version packages'
+          title: 'chore(release): version packages'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  purge-cdn:
+    name: Purge jsDelivr cache
+    runs-on: ubuntu-latest
+    needs: release
+    if: needs.release.outputs.published == 'true'
+    steps:
+      - name: Purge jsDelivr cache for @v1 and @latest URLs
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          packages=(
+            "@blakfy/accessibility-widget"
+            "@blakfy/a11y-core"
+            "@blakfy/accessibility-widget-next"
+          )
+
+          # Asset paths per package. The widget package ships IIFE + ESM +
+          # web-component element bundles; core/next ship index ESM only.
+          declare -A assets
+          assets["@blakfy/accessibility-widget"]="dist/widget.js dist/widget.esm.js dist/widget-element.js"
+          assets["@blakfy/a11y-core"]="dist/index.js"
+          assets["@blakfy/accessibility-widget-next"]="dist/index.js"
+
+          tags=("v1" "latest")
+
+          for pkg in "${packages[@]}"; do
+            for tag in "${tags[@]}"; do
+              for asset in ${assets[$pkg]}; do
+                url="https://purge.jsdelivr.net/npm/${pkg}@${tag}/${asset}"
+                echo "PURGE ${url}"
+                curl -fsSL --retry 3 --retry-delay 5 "${url}"
+                echo
+              done
+            done
+          done

@@ -1,0 +1,27 @@
+{
+  "fab": { "label": "Preferencias de accesibilidad" },
+  "panel": {
+    "title": "Preferencias de accesibilidad",
+    "description": "Ajuste sus preferencias de visualizacion. Este panel ofrece controles de preferencias personales ademas de la accesibilidad estructural del sitio.",
+    "reset": "Restablecer",
+    "close": "Cerrar",
+    "disclaimer": "Este panel proporciona controles de preferencias del usuario; la accesibilidad estructural esta integrada en el sitio.",
+    "preferences": {
+      "fontScale": {
+        "title": "Tamano de fuente",
+        "description": "Aumentar o disminuir el tamano del texto.",
+        "values": { "100": "Normal", "110": "Grande", "125": "Muy grande" }
+      },
+      "contrast": { "title": "Alto contraste", "description": "Fondo negro + enlaces amarillos (AAA 7:1)." },
+      "focusRing": { "title": "Anillo de foco mejorado", "description": "Mostrar el foco del teclado con un anillo azul de 4px." },
+      "linkUnderline": { "title": "Subrayar enlaces", "description": "Subrayar todos los enlaces." },
+      "motion": { "title": "Reducir movimiento", "description": "Desactivar animaciones y transiciones." },
+      "dyslexiaFont": {
+        "title": "Fuente para dislexia",
+        "description": "Usar la familia tipografica OpenDyslexic.",
+        "note": "Algunos lectores la prefieren; la investigacion no muestra beneficio universal."
+      },
+      "readingMode": { "title": "Modo lectura", "description": "Ocultar barras laterales y areas distractoras." }
+    }
+  }
+}

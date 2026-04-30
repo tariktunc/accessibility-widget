@@ -1,0 +1,63 @@
+{
+  "name": "@blakfy/accessibility-widget",
+  "version": "2.0.0-alpha.0",
+  "description": "Native accessibility preferences panel for Next.js + vanilla sites. Auto-updates via jsDelivr CDN.",
+  "type": "module",
+  "main": "./dist/widget.esm.js",
+  "module": "./dist/widget.esm.js",
+  "types": "./dist/widget.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/widget.d.ts",
+      "import": "./dist/widget.esm.js"
+    },
+    "./element": {
+      "types": "./dist/widget-element.d.ts",
+      "import": "./dist/widget-element.js"
+    }
+  },
+  "unpkg": "./dist/widget.js",
+  "jsdelivr": "./dist/widget.js",
+  "files": ["dist", "README.md", "LICENSE"],
+  "scripts": {
+    "build": "cross-env BUILD_TARGET=iife vite build && cross-env BUILD_TARGET=esm vite build && cross-env BUILD_TARGET=element vite build",
+    "build:iife": "cross-env BUILD_TARGET=iife vite build",
+    "build:esm": "cross-env BUILD_TARGET=esm vite build",
+    "build:element": "cross-env BUILD_TARGET=element vite build",
+    "dev": "cross-env BUILD_TARGET=esm vite build --watch",
+    "test": "vitest run",
+    "test:contract": "vitest run --config vitest.contract.config.ts",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@blakfy/a11y-core": "workspace:*",
+    "preact": "^10.24.3"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.0",
+    "@playwright/test": "^1.48.2",
+    "@preact/preset-vite": "^2.9.1",
+    "cross-env": "^7.0.3",
+    "http-server": "^14.1.1",
+    "vite": "^5.4.10",
+    "vite-plugin-dts": "^4.3.0",
+    "vite-plugin-static-copy": "^1.0.6",
+    "vitest": "^2.1.4"
+  },
+  "keywords": [
+    "accessibility",
+    "a11y",
+    "wcag",
+    "wcag-2.2",
+    "preferences",
+    "preact",
+    "web-component",
+    "blakfy"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

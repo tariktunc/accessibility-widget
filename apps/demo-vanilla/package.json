@@ -1,0 +1,13 @@
+{
+  "name": "@blakfy/demo-vanilla",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Vanilla HTML demo for @blakfy/accessibility-widget (jsDelivr CDN auto-mount)",
+  "scripts": {
+    "dev": "http-server public -p 3001 -c-1 -o",
+    "preview": "http-server public -p 3001 -o"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

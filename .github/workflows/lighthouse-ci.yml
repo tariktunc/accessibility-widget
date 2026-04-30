@@ -1,0 +1,57 @@
+# Required GitHub secrets:
+#   GITHUB_TOKEN       - auto-provided by GitHub Actions
+#   LHCI_GITHUB_APP_TOKEN (optional) - for inline status checks via Lighthouse CI app
+#
+# Runs Lighthouse CI against apps/demo-nextjs on every PR.
+#
+# TODO: Once apps/demo-nextjs is implemented (Phase 10), remove continue-on-error
+# and enforce LCP/CLS/INP budgets per R3 research.
+name: Lighthouse CI
+
+on:
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: lhci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: '20.x'
+  PNPM_VERSION: '9.15.0'
+
+jobs:
+  lighthouse:
+    name: Lighthouse audit (demo-nextjs)
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build demo (best-effort, demo may not exist yet)
+        continue-on-error: true
+        run: pnpm --filter @blakfy/demo-nextjs build
+
+      - name: Run Lighthouse CI
+        # TODO (Phase 10): drop continue-on-error and enforce CWV budgets.
+        continue-on-error: true
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          configPath: ./lighthouserc.json
+          uploadArtifacts: true
+          temporaryPublicStorage: true

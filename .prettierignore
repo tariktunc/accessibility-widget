@@ -1,0 +1,16 @@
+dist
+node_modules
+*.md
+pnpm-lock.yaml
+
+# Legacy v1 root files — frozen, do not reformat
+AccessibilityWidget.tsx
+AccessibilityPanel.tsx
+BlakfyBadge.tsx
+A11yServerHelper.tsx
+preferences-store.ts
+types.ts
+styles.css
+translations.json
+index.ts
+setup.mjs

@@ -1,0 +1,27 @@
+{
+  "fab": { "label": "Erisilebilirlik tercihleri" },
+  "panel": {
+    "title": "Erisilebilirlik Tercihleri",
+    "description": "Sayfa goruntuleme tercihlerinizi ayarlayin. Bu panel sitenin temel erisilebilirligine ek olarak kisisel tercih kontrolleri sunar.",
+    "reset": "Sifirla",
+    "close": "Kapat",
+    "disclaimer": "Bu panel kullanici tercih kontrolu sunar; sitenin teknik erisilebilirligi yapi seviyesinde saglanmistir.",
+    "preferences": {
+      "fontScale": {
+        "title": "Yazi Olcegi",
+        "description": "Tum metinleri buyutur veya kucultur.",
+        "values": { "100": "Normal", "110": "Buyuk", "125": "Cok Buyuk" }
+      },
+      "contrast": { "title": "Yuksek Kontrast", "description": "Siyah arka plan + sari linkler (AAA 7:1)." },
+      "focusRing": { "title": "Belirgin Fokus Halkasi", "description": "Klavye odagi 4px belirgin mavi halka ile gosterilir." },
+      "linkUnderline": { "title": "Link Altcizgisi", "description": "Tum linklerde altcizgi gosterir." },
+      "motion": { "title": "Hareketi Azalt", "description": "Animasyonlari ve gecisleri devre disi birakir." },
+      "dyslexiaFont": {
+        "title": "Disleksi Dostu Yazi Tipi",
+        "description": "OpenDyslexic font ailesini kullanir.",
+        "note": "Bazi okuyucular bunu tercih eder; arastirmalar evrensel etki gostermemistir."
+      },
+      "readingMode": { "title": "Okuma Modu", "description": "Sidebar ve dikkat dagitici alanlari gizler." }
+    }
+  }
+}

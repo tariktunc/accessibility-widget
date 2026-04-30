@@ -1,41 +1,46 @@
 {
-  "name": "accessibility-widget",
-  "version": "1.1.0",
-  "description": "WCAG 2.2 AA uyumlu, native preferences panel — overlay degil, kullanici tercih kontrolu. 7 tercih (font/kontrast/fokus/link/motion/dyslexia/reading), 9 dil, light/dark, OS prefers-reduced-motion + prefers-contrast saygisi. Powered by Blakfy.",
+  "name": "@blakfy/accessibility-widget-monorepo",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Monorepo for @blakfy/accessibility-widget v2 — CDN-distributed accessibility preferences widget for Next.js + vanilla sites",
   "license": "MIT",
-  "author": "Tarık Tunç",
+  "author": "Tarık Tunç (Blakfy Studio)",
   "homepage": "https://github.com/tariktunc/accessibility-widget",
   "repository": {
     "type": "git",
     "url": "https://github.com/tariktunc/accessibility-widget.git"
   },
-  "keywords": [
-    "accessibility",
-    "a11y",
-    "wcag",
-    "wcag-2.2",
-    "react",
-    "nextjs",
-    "radix-ui",
-    "tailwind",
-    "preferences",
-    "blakfy"
-  ],
-  "main": "./index.ts",
-  "types": "./index.ts",
-  "files": [
-    "*.tsx",
-    "*.ts",
-    "*.css",
-    "*.json",
-    "*.md",
-    "LICENSE"
-  ],
-  "peerDependencies": {
-    "@radix-ui/react-dialog": "^1.0.0",
-    "@radix-ui/react-switch": "^1.0.0",
-    "next": ">=14",
-    "react": ">=18",
-    "react-dom": ">=18"
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "scripts": {
+    "build": "pnpm -r --filter './packages/*' build",
+    "dev": "pnpm -r --parallel --filter './packages/*' dev",
+    "test": "pnpm -r --filter './packages/*' test",
+    "test:contract": "pnpm -r --filter './packages/*' test:contract",
+    "test:e2e": "pnpm -r --filter './packages/*' test:e2e",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "eslint . --max-warnings=0",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "size": "size-limit",
+    "size:why": "size-limit --why",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "pnpm build && changeset publish",
+    "clean": "pnpm -r exec rm -rf dist .turbo node_modules/.vite",
+    "clean:all": "pnpm clean && rm -rf node_modules"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.9",
+    "@size-limit/preset-small-lib": "^11.1.6",
+    "@types/node": "^22.7.0",
+    "eslint": "^9.13.0",
+    "prettier": "^3.3.3",
+    "size-limit": "^11.1.6",
+    "typescript": "^5.6.3"
   }
 }

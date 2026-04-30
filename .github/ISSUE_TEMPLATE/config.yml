@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Erişilebilirlik raporu
+    url: https://github.com/tariktunc/accessibility-widget/discussions
+    about: Sitenizdeki erişilebilirlik sorunu için (widget bug değil)
+  - name: Güvenlik açığı
+    url: https://github.com/tariktunc/accessibility-widget/security
+    about: Güvenlik açığı bildirme

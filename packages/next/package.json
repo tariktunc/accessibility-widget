@@ -1,0 +1,40 @@
+{
+  "name": "@blakfy/accessibility-widget-next",
+  "version": "2.0.0-alpha.0",
+  "description": "Next.js helpers for @blakfy/accessibility-widget — A11yServerHelper, A11yScript with FOUC protection",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": ["dist", "README.md"],
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "next": ">=14.0.0 <16.0.0",
+    "react": ">=18.0.0"
+  },
+  "dependencies": {
+    "@blakfy/a11y-core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "next": "^15.0.2",
+    "react": "^18.3.1",
+    "vite": "^5.4.10",
+    "vite-plugin-dts": "^4.3.0",
+    "vitest": "^2.1.4"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

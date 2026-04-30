@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Widget E2E Fixture</title>
+    <style>
+      :root { color-scheme: light; }
+      body { margin: 0; font-family: system-ui, sans-serif; padding: 1rem; }
+      main { max-width: 60ch; margin: 0 auto; }
+      a { color: #2563eb; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Test Page</h1>
+      <p>Sample content for testing the accessibility widget.</p>
+      <p>
+        <a href="#anchor">Sample link</a>
+        — opens an in-page anchor.
+      </p>
+      <button type="button" id="external-trigger">External trigger</button>
+    </main>
+    <!--
+      Fixture-side configuration is read from the URL search params.
+      `?locale=ar` overrides the script's `data-locale` so we can run a
+      single fixture across all 9 locales without duplicating the file.
+    -->
+    <script>
+      (function () {
+        var p = new URLSearchParams(location.search);
+        var theme = p.get('theme');
+        var locale = p.get('locale');
+        var position = p.get('position');
+        if (theme || locale || position) {
+          window.__BLAKFY_A11Y__ = window.__BLAKFY_A11Y__ || {};
+          if (locale) window.__BLAKFY_A11Y__.locale = locale;
+          if (theme) window.__BLAKFY_A11Y__.theme = theme;
+          if (position) window.__BLAKFY_A11Y__.position = position;
+        }
+      })();
+    </script>
+    <script src="../../../dist/widget.js" data-locale="tr"></script>
+  </body>
+</html>

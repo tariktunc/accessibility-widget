@@ -1,0 +1,34 @@
+{
+  "fab": { "label": "Barrierefreiheit-Einstellungen" },
+  "panel": {
+    "title": "Barrierefreiheit-Einstellungen",
+    "description": "Passen Sie Ihre Anzeigeeinstellungen an. Dieses Panel bietet persönliche Präferenzkontrollen zusätzlich zur strukturellen Barrierefreiheit der Website.",
+    "reset": "Zurücksetzen",
+    "close": "Schließen",
+    "disclaimer": "Dieses Panel bietet Nutzerpräferenzen; die strukturelle Barrierefreiheit ist in der Website selbst integriert.",
+    "theme": {
+      "label": "Anzeigedesign",
+      "auto": "Automatisch",
+      "light": "Hell",
+      "dark": "Dunkel"
+    },
+    "branding": "Powered by Blakfy Studio",
+    "preferences": {
+      "fontScale": {
+        "title": "Schriftgröße",
+        "description": "Textgröße erhöhen oder verringern.",
+        "values": { "100": "Normal", "110": "Groß", "125": "Sehr Groß" }
+      },
+      "contrast": { "title": "Hoher Kontrast", "description": "Schwarzer Hintergrund + gelbe Links (AAA 7:1)." },
+      "focusRing": { "title": "Verstärkter Fokusring", "description": "Tastaturfokus mit auffälligem 4px blauen Ring anzeigen." },
+      "linkUnderline": { "title": "Links Unterstreichen", "description": "Alle Links unterstreichen." },
+      "motion": { "title": "Bewegung Reduzieren", "description": "Animationen und Übergänge deaktivieren." },
+      "dyslexiaFont": {
+        "title": "Legasthenie-freundliche Schrift",
+        "description": "OpenDyslexic-Schriftfamilie verwenden.",
+        "note": "Einige Leser bevorzugen dies; die Forschung zeigt keinen universellen Nutzen."
+      },
+      "readingMode": { "title": "Lesemodus", "description": "Seitenleisten und Ablenkungen ausblenden." }
+    }
+  }
+}

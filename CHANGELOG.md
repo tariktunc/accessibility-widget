@@ -1,5 +1,43 @@
 # Changelog
 
+## [Unreleased] — v2.0.0
+
+### Added
+- CDN distribution via jsDelivr (auto-update, `@v1` floating tag, `@1.0.0` immutable pin)
+- Web Component + Shadow DOM (CSS isolation; `<blakfy-a11y>` custom element)
+- 15 CSS custom properties for theming (`--blakfy-a11y-*`)
+- `@blakfy/accessibility-widget-next` (Next.js helpers: `<A11yServerHelper />`, `<A11yScript />`)
+- Diagnostics API (`window.BlakfyA11y.diagnostics()`)
+- Auto-detection: OpenDyslexic CDN missing, host CSS `!important` conflict, OS `prefers-*` signals
+- Custom events: `blakfy:a11y:ready`, `blakfy:a11y:change`, `blakfy:a11y:open`, `blakfy:a11y:close`
+- Configuration priority: `BlakfyA11y.configure()` > `window.__BLAKFY_A11Y__` > `data-*` attrs
+- Storage migration: schema versioning + auto-merge for new preference fields
+- `data-dev-pipe` for Next.js dev terminal log streaming (`?a11y-debug=1` query support)
+- 14 RED LINE CI tests (axe-core, focus trap, contrast, target size, RTL, bundle size, etc.)
+- Locked public API contract (STABLE-API.md, ADR-004)
+- Migration guide v1 → v2
+
+### Changed (BREAKING)
+- Distribution model: `npx degit` → CDN script tag / NPM package
+- Public API: scattered named exports → `window.BlakfyA11y` namespace
+- Storage key: `wf_a11y_prefs` → `blakfy_a11y_prefs`
+- UI framework: React 18 + Radix UI → Preact + Shadow DOM (custom Dialog/Switch ARIA APG)
+- CSS approach: Tailwind utility classes + `!important` → 15 CSS custom properties (Shadow DOM scoped)
+- Component prop config: React props (`<AccessibilityWidget font="..." />`) → `data-*` script attrs / `window.__BLAKFY_A11Y__` global
+- Open dispatcher: `openA11yPanel()` → `window.BlakfyA11y.open()`
+- Preference change: `onPreferencesChange` prop → `window.__BLAKFY_A11Y__.onPreferencesChange` OR `blakfy:a11y:change` event
+
+### Removed (BREAKING)
+- npm package v1 export structure (`@/components/a11y` import path no longer applies)
+- `setup.mjs` interactive script (no longer needed — CDN install is zero-config)
+- React peer dependencies (`@radix-ui/react-dialog`, `@radix-ui/react-switch`)
+- `borderWidth` / `borderRadius` direct prop control (locked to design tokens for v1 stability)
+
+### Migration
+See [MIGRATION-v1-to-v2.md](./MIGRATION-v1-to-v2.md).
+
+---
+
 ## [1.1.0] — 2026-04-26
 
 ### Added

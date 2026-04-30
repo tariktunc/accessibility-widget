@@ -1,0 +1,17 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@3.0.0/schema.json",
+  "changelog": "@changesets/cli/changelog",
+  "commit": false,
+  "fixed": [],
+  "linked": [
+    [
+      "@blakfy/accessibility-widget",
+      "@blakfy/a11y-core",
+      "@blakfy/accessibility-widget-next"
+    ]
+  ],
+  "access": "public",
+  "baseBranch": "main",
+  "updateInternalDependencies": "patch",
+  "ignore": ["@blakfy/demo-nextjs", "@blakfy/demo-vanilla"]
+}
