@@ -208,15 +208,22 @@ export function Panel({ translation, locale, currentTheme, onClose, onThemeChang
 
       <p class="disclaimer">{t.disclaimer}</p>
 
-      <p class="panel-branding">
-        <a
-          href="https://blakfy.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {t.branding}
-        </a>
-      </p>
+      <a
+        class="panel-branding"
+        href="https://blakfy.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Blakfy Studio — blakfy.com"
+      >
+        <span class="panel-branding-badge" aria-hidden="true">B</span>
+        <span class="panel-branding-text">
+          <span class="panel-branding-powered">Powered by</span>
+          <span class="panel-branding-name">Blakfy Studio</span>
+        </span>
+        <svg class="panel-branding-arrow" aria-hidden="true" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2.5 6h7M7 3.5l2.5 2.5L7 8.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
     </>
   );
 }
