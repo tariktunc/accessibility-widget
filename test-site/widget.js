@@ -177,7 +177,7 @@ button {
   pointer-events: auto;
 }
 .badge:hover, .badge:focus-visible { opacity: 1; color: var(--__text); }
-.badge:focus-visible { outline: 2px solid var(--blakfy-a11y-focus-ring); outline-offset: 2px; border-radius: 4px; }
+.badge:focus-visible { outline: 2px solid var(--blakfy-a11y-focus-ring); outline-offset: 2px; border-radius: 3px; }
 .badge strong { font-weight: 700; }
 .badge svg { width: 12px; height: 12px; }
 
@@ -245,7 +245,7 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 8px;
+  border-radius: 3px;
   color: var(--__muted);
   transition: background 150ms ease, color 150ms ease;
   flex-shrink: 0;
@@ -321,7 +321,7 @@ button {
   gap: 0.875rem;
   padding: 0.75rem 1rem;
   background: var(--__card);
-  border-radius: 10px;
+  border-radius: 3px;
   cursor: pointer;
   border: none;
   outline: 2px solid transparent;
@@ -369,7 +369,7 @@ button {
   justify-content: space-between;
   padding: 0.625rem 1rem;
   background: var(--__card);
-  border-radius: 10px;
+  border-radius: 3px;
   margin: 0 1.25rem 0.375rem;
 }
 
@@ -389,7 +389,7 @@ button {
   display: flex;
   align-items: center;
   background: var(--__bg);
-  border-radius: 8px;
+  border-radius: 3px;
   border: 1px solid var(--__divide);
 }
 
@@ -405,7 +405,7 @@ button {
   border: none;
   background: transparent;
   cursor: pointer;
-  border-radius: 7px;
+  border-radius: 3px;
   flex-shrink: 0;
   transition: background 120ms ease;
 }
@@ -431,7 +431,7 @@ button {
   justify-content: space-between;
   gap: 0.875rem;
   background: var(--__card);
-  border-radius: 10px;
+  border-radius: 3px;
   padding: 0.75rem 1rem;
   margin: 0 1.25rem 0.25rem;
   transition: background 150ms ease;
@@ -497,7 +497,7 @@ button {
   inset-block-start: calc(100% + 6px);
   background: var(--__card);
   border: 1px solid var(--__divide);
-  border-radius: 10px;
+  border-radius: 3px;
   padding: 0.625rem 0.75rem;
   font-size: 11.5px;
   font-weight: 400;
@@ -546,7 +546,7 @@ button {
   font-size: 12.5px;
   font-weight: 500;
   border: 1px solid var(--__divide);
-  border-radius: 8px;
+  border-radius: 3px;
   color: var(--__text);
   white-space: nowrap;
   flex: 1;
@@ -580,7 +580,7 @@ button {
   width: 100%;
   min-block-size: 42px;
   border: 1px solid var(--__divide);
-  border-radius: 10px;
+  border-radius: 3px;
   color: var(--blakfy-a11y-primary);
   background: transparent;
   font-size: 14px;
@@ -619,13 +619,13 @@ button {
   gap: 0.3rem;
   margin-block-start: 1rem;
   padding: 0.45rem 0.75rem;
-  border-radius: 8px;
+  border-radius: 3px;
   text-decoration: none;
   color: inherit;
   transition: background 150ms ease;
 }
 .panel-branding:hover { background: rgba(59,130,246,0.07); }
-.panel-branding:focus-visible { outline: 2px solid var(--blakfy-a11y-focus-ring); outline-offset: 2px; border-radius: 8px; }
+.panel-branding:focus-visible { outline: 2px solid var(--blakfy-a11y-focus-ring); outline-offset: 2px; border-radius: 3px; }
 
 .panel-branding-powered {
   font-size: 11px;
