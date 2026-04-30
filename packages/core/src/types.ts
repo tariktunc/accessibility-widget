@@ -9,6 +9,21 @@ export type Contrast = 'normal' | 'high';
 /** Motion preference. */
 export type Motion = 'auto' | 'reduce';
 
+/** Line height preference. */
+export type LineHeight = 'normal' | 'medium' | 'large';
+
+/** Letter spacing preference. */
+export type LetterSpacing = 'normal' | 'medium' | 'large';
+
+/** Text alignment preference. */
+export type TextAlign = 'default' | 'left' | 'center' | 'right';
+
+/** Color saturation filter. */
+export type Saturation = 'normal' | 'high' | 'low' | 'none';
+
+/** Custom cursor size. */
+export type CursorSize = 'default' | 'large-dark' | 'large-light';
+
 /** Locked locale codes shipped with v1. */
 export type Locale = 'tr' | 'en' | 'de' | 'fr' | 'es' | 'it' | 'ar' | 'he' | 'ru';
 
@@ -21,7 +36,7 @@ export type Position = 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right'
 /** FAB icon style preset. */
 export type IconStyle = 'walking' | 'access' | 'eye';
 
-/** End-user accessibility preferences (locked v1 surface). */
+/** End-user accessibility preferences. */
 export interface Preferences {
   fontScale: FontScale;
   contrast: Contrast;
@@ -30,6 +45,13 @@ export interface Preferences {
   motion: Motion;
   dyslexiaFont: boolean;
   readingMode: boolean;
+  lineHeight: LineHeight;
+  letterSpacing: LetterSpacing;
+  textAlign: TextAlign;
+  highlightHeadings: boolean;
+  saturation: Saturation;
+  cursorSize: CursorSize;
+  hideImages: boolean;
 }
 
 /** Persisted preferences envelope written to localStorage and cookie. */
@@ -71,10 +93,18 @@ export interface Translation {
     };
     branding: string;
     sections: {
+      profiles: string;
       text: string;
       vision: string;
       navigation: string;
       motion: string;
+    };
+    profiles: {
+      epilepsy: { name: string; description: string };
+      vision: { name: string; description: string };
+      cognitive: { name: string; description: string };
+      adhd: { name: string; description: string };
+      blindness: { name: string; description: string };
     };
     preferences: {
       fontScale: {
@@ -82,12 +112,39 @@ export interface Translation {
         description: string;
         values: { '100': string; '110': string; '125': string };
       };
+      lineHeight: {
+        title: string;
+        description: string;
+        values: { normal: string; medium: string; large: string };
+      };
+      letterSpacing: {
+        title: string;
+        description: string;
+        values: { normal: string; medium: string; large: string };
+      };
+      textAlign: {
+        title: string;
+        description: string;
+        values: { default: string; left: string; center: string; right: string };
+      };
+      highlightHeadings: { title: string; description: string };
       contrast: { title: string; description: string };
+      saturation: {
+        title: string;
+        description: string;
+        values: { normal: string; high: string; low: string; none: string };
+      };
       focusRing: { title: string; description: string };
       linkUnderline: { title: string; description: string };
+      cursorSize: {
+        title: string;
+        description: string;
+        values: { default: string; largeDark: string; largeLight: string };
+      };
       motion: { title: string; description: string };
       dyslexiaFont: { title: string; description: string; note: string };
       readingMode: { title: string; description: string };
+      hideImages: { title: string; description: string };
     };
   };
 }
@@ -163,6 +220,13 @@ export const DEFAULT_PREFS: Preferences = {
   motion: 'auto',
   dyslexiaFont: false,
   readingMode: false,
+  lineHeight: 'normal',
+  letterSpacing: 'normal',
+  textAlign: 'default',
+  highlightHeadings: false,
+  saturation: 'normal',
+  cursorSize: 'default',
+  hideImages: false,
 };
 
 /** Locked ordered list of supported locale codes. */

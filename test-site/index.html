@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blakfy Accessibility Widget — Bağımsız Test Sitesi</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --card-bg: #f9fafb;
+      --card-border: #e5e7eb;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+    }
+
+    [data-theme="dark"] {
+      --bg: #0f172a;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --accent: #60a5fa;
+      --accent-hover: #93c5fd;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    header {
+      background: var(--accent);
+      color: #fff;
+      padding: 1.25rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header h1 { font-size: 1.25rem; font-weight: 700; }
+    header nav a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+    header nav a:hover { opacity: 1; text-decoration: underline; }
+
+    main { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 6rem; }
+
+    .hero {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+    }
+    .hero h2 { font-size: 2rem; font-weight: 800; margin-bottom: 0.75rem; }
+    .hero p { color: var(--muted); font-size: 1.1rem; max-width: 560px; margin: 0 auto 1.5rem; }
+
+    .badge {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+
+    .controls {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .btn {
+      padding: 0.625rem 1.25rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .btn:active { transform: scale(0.97); }
+
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent-hover); }
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 2px solid var(--card-border);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: border-color 0.15s;
+    }
+    .card:hover { border-color: var(--accent); }
+    .card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .card p { font-size: 0.875rem; color: var(--muted); line-height: 1.55; }
+
+    .card-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: var(--accent);
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem;
+      margin-bottom: 0.875rem;
+    }
+
+    section { margin-top: 3rem; }
+    section > h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--card-border);
+    }
+
+    .demo-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 480px;
+    }
+    .demo-form label { font-weight: 600; font-size: 0.875rem; }
+    .demo-form input,
+    .demo-form textarea {
+      width: 100%;
+      padding: 0.625rem 0.875rem;
+      border: 1.5px solid var(--card-border);
+      border-radius: 8px;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 0.875rem;
+      transition: border-color 0.15s;
+    }
+    .demo-form input:focus,
+    .demo-form textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
+    }
+    .demo-form textarea { resize: vertical; min-height: 100px; }
+
+    .theme-toggle-row {
+      display: flex; align-items: center; gap: 1rem;
+      margin-top: 1.5rem;
+      padding: 1rem 1.25rem;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+    }
+    .theme-toggle-row span { font-size: 0.9rem; flex: 1; }
+    .theme-toggle-row strong { color: var(--accent); }
+
+    .kbd {
+      display: inline-block;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-bottom-width: 2px;
+      border-radius: 4px;
+      padding: 0.15rem 0.45rem;
+      font-family: monospace;
+      font-size: 0.8rem;
+    }
+
+    .text-sample {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .text-sample h3 { font-size: 1.1rem; margin-bottom: 0.75rem; }
+    .text-sample p { color: var(--muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 0.5rem; }
+    .text-sample a { color: var(--accent); }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      border-top: 1px solid var(--card-border);
+      margin-top: 4rem;
+    }
+
+    #theme-status {
+      font-weight: 700;
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>♿ Blakfy A11y Widget</h1>
+    <nav>
+      <a href="#ozellikler">Özellikler</a>
+      <a href="#form-demo">Form</a>
+      <a href="#icerik">İçerik</a>
+      <a href="#tema-koprusu">Tema Köprüsü</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="badge">v2.0.0-alpha · CDN Entegrasyonu</div>
+      <h2>Bağımsız Test Sayfası</h2>
+      <p>
+        Widget, tek bir <code>&lt;script&gt;</code> etiketi ile her HTML sayfasına entegre edilir.
+        Bu sayfa, tüm özellikleri bir Next.js uygulaması olmadan test eder.
+      </p>
+      <div class="controls">
+        <button class="btn btn-primary" onclick="window.BlakfyA11y?.open()">
+          Paneli Aç (API)
+        </button>
+        <button class="btn btn-outline" onclick="window.BlakfyA11y?.close()">
+          Paneli Kapat (API)
+        </button>
+        <button class="btn btn-outline" onclick="resetAndLog()">
+          Tercihleri Sıfırla
+        </button>
+      </div>
+      <p style="margin-top:1rem; font-size:0.8rem; color:var(--muted);">
+        Klavye kısayolu: <kbd class="kbd">Alt</kbd> + <kbd class="kbd">0</kbd>
+      </p>
+    </section>
+
+    <section id="ozellikler">
+      <h2>Widget Özellikleri</h2>
+      <div class="grid">
+        <div class="card">
+          <div class="card-icon">🔤</div>
+          <h3>Yazı Boyutu</h3>
+          <p>4 kademeli büyütme (Normal → +50%). localStorage'da kalıcı olarak saklanır.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🌓</div>
+          <h3>Yüksek Kontrast</h3>
+          <p>WCAG AA ve AAA uyumlu yüksek kontrast modu. Renk körlerine özel mavi ton kullanır.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🎯</div>
+          <h3>Odak Halkası</h3>
+          <p>Geliştirilmiş klavye odak göstergesi. Motor engelliler için kritik kullanılabilirlik.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🔗</div>
+          <h3>Link Altı Çizgi</h3>
+          <p>Renk körü kullanıcılar için tüm bağlantılara otomatik alt çizgi ekler.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🎬</div>
+          <h3>Hareket Azaltma</h3>
+          <p>Animasyonları devre dışı bırakır. Vestibüler bozukluğu olan kullanıcılar için.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">📖</div>
+          <h3>Disleksi Fontu</h3>
+          <p>OpenDyslexic fontunu uygular. Disleksisi olan okuyucular için okunabilirliği artırır.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">☀️</div>
+          <h3>Tema Seçici</h3>
+          <p>Panel içinde Otomatik / Açık / Koyu tema seçimi. Ana siteyle köprü kurar.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🏢</div>
+          <h3>Blakfy Branding</h3>
+          <p>Panel alt kısmında "Blakfy Studio tarafından geliştirildi" imzası yer alır.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="form-demo">
+      <h2>Form Demo — Erişilebilirlik Testi</h2>
+      <p style="margin-bottom:1.25rem; color:var(--muted); font-size:0.9rem;">
+        Widget açıkken bu formu test edin: yazı büyütme, yüksek kontrast, klavye navigasyonu.
+      </p>
+      <form class="demo-form" onsubmit="return false;">
+        <div>
+          <label for="demo-name">Ad Soyad</label>
+          <input id="demo-name" type="text" placeholder="Adınızı girin" />
+        </div>
+        <div>
+          <label for="demo-email">E-posta</label>
+          <input id="demo-email" type="email" placeholder="email@ornek.com" />
+        </div>
+        <div>
+          <label for="demo-msg">Mesaj</label>
+          <textarea id="demo-msg" placeholder="Mesajınızı yazın..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="align-self:flex-start;">
+          Gönder
+        </button>
+      </form>
+    </section>
+
+    <section id="icerik">
+      <h2>Metin İçeriği — Okuma Testi</h2>
+      <div class="text-sample">
+        <h3>Web Erişilebilirliği Neden Önemli?</h3>
+        <p>
+          Dünya nüfusunun yaklaşık %15'i bir tür engelle yaşamaktadır. Web erişilebilirliği,
+          bu kullanıcıların dijital içeriklere eşit biçimde erişebilmesini sağlar.
+        </p>
+        <p>
+          <strong>WCAG 2.2</strong> standartları; görme, işitme, motor ve bilişsel engelleri
+          olan kullanıcılar için minimum gereksinimler tanımlar. AA seviyesi için metin
+          kontrast oranı en az <strong>4.5:1</strong> olmalıdır.
+        </p>
+        <p>
+          Daha fazla bilgi: <a href="#">WCAG 2.2 Rehberi</a> ·
+          <a href="#">ARIA Authoring Practices</a> ·
+          <a href="#">WebAIM Kontrast Kontrolü</a>
+        </p>
+      </div>
+    </section>
+
+    <section id="tema-koprusu">
+      <h2>Host Tema Köprüsü Testi</h2>
+      <p style="margin-bottom:1rem; color:var(--muted); font-size:0.9rem;">
+        Widget "Otomatik" modundayken, ana sayfanın teması değiştiğinde widget de otomatik güncellenir.
+        Aşağıdaki düğmeler <code>&lt;html data-theme&gt;</code> attribute'unu değiştirir.
+      </p>
+
+      <div class="theme-toggle-row">
+        <span>Şu anki tema: <strong id="theme-status">light</strong></span>
+        <button class="btn btn-outline" onclick="switchTheme('light')">☀️ Açık</button>
+        <button class="btn btn-outline" onclick="switchTheme('dark')">🌙 Koyu</button>
+        <button class="btn btn-outline" onclick="switchTheme('auto')">🔄 OS Otomatik</button>
+      </div>
+
+      <p style="margin-top:1rem; font-size:0.825rem; color:var(--muted);">
+        Not: Widget panelindeki tema seçicisi (Otomatik/Açık/Koyu) ayrıca widget'ın kendi
+        görünümünü yönetir. İkisi birlikte çalışır.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    Blakfy Studio · Bağımsız Widget Test Sayfası · v2.0.0-alpha
+  </footer>
+
+  <!-- Blakfy Accessibility Widget — script tag entegrasyonu -->
+  <script
+    src="./widget.js"
+    data-locale="tr"
+    data-theme="auto"
+    data-position="bottom-left"
+  ></script>
+
+  <script>
+    // Tema köprüsü demo fonksiyonları
+    function switchTheme(theme) {
+      const html = document.documentElement;
+      if (theme === 'auto') {
+        html.removeAttribute('data-theme');
+        document.getElementById('theme-status').textContent = 'auto (OS)';
+      } else {
+        html.setAttribute('data-theme', theme);
+        document.getElementById('theme-status').textContent = theme;
+      }
+      // Sitenin kendi stillerini de güncelle
+      document.body.style.transition = 'background 0.25s, color 0.25s';
+    }
+
+    // Tercih sıfırlama + sayfa yenileme
+    function resetAndLog() {
+      if (window.BlakfyA11y) {
+        const before = window.BlakfyA11y.storage;
+        console.log('[Test] Sıfırlamadan önce:', before);
+        window.BlakfyA11y.reset();
+        console.log('[Test] Tercihler sıfırlandı.');
+      } else {
+        console.warn('[Test] BlakfyA11y API henüz yüklenmedi.');
+      }
+    }
+
+    // Widget hazır olduğunda konsola bilgi yaz
+    document.addEventListener('blakfy:ready', function(e) {
+      console.log('[Test] Widget hazır:', e.detail);
+      console.log('[Test] Public API:', window.BlakfyA11y);
+    });
+
+    // Tercih değişimlerini izle
+    window.__BLAKFY_A11Y__ = {
+      onPreferencesChange: function(record) {
+        console.log('[Test] Tercih değişti:', record.key, '=', record.value);
+      }
+    };
+  </script>
+</body>
+</html>

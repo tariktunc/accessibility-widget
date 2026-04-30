@@ -5,12 +5,17 @@ import {
   LOCALE_CODES,
   STORAGE_VERSION,
   type Contrast,
+  type CursorSize,
   type FontScale,
+  type LetterSpacing,
+  type LineHeight,
   type Locale,
   type Motion,
   type Position,
   type Preferences,
   type PreferencesRecord,
+  type Saturation,
+  type TextAlign,
   type Theme,
   type WidgetOptions,
 } from './types';
@@ -42,6 +47,26 @@ function pickBoolean(v: unknown, fallback: boolean): boolean {
 
 function pickMotion(v: unknown): Motion {
   return v === 'auto' || v === 'reduce' ? v : DEFAULT_PREFS.motion;
+}
+
+function pickLineHeight(v: unknown): LineHeight {
+  return v === 'normal' || v === 'medium' || v === 'large' ? v : DEFAULT_PREFS.lineHeight;
+}
+
+function pickLetterSpacing(v: unknown): LetterSpacing {
+  return v === 'normal' || v === 'medium' || v === 'large' ? v : DEFAULT_PREFS.letterSpacing;
+}
+
+function pickTextAlign(v: unknown): TextAlign {
+  return v === 'default' || v === 'left' || v === 'center' || v === 'right' ? v : DEFAULT_PREFS.textAlign;
+}
+
+function pickSaturation(v: unknown): Saturation {
+  return v === 'normal' || v === 'high' || v === 'low' || v === 'none' ? v : DEFAULT_PREFS.saturation;
+}
+
+function pickCursorSize(v: unknown): CursorSize {
+  return v === 'default' || v === 'large-dark' || v === 'large-light' ? v : DEFAULT_PREFS.cursorSize;
 }
 
 function pickLocale(v: unknown): Locale {
@@ -81,6 +106,13 @@ export function safeMergePrefs(input: unknown): Preferences {
     motion: pickMotion(input.motion),
     dyslexiaFont: pickBoolean(input.dyslexiaFont, DEFAULT_PREFS.dyslexiaFont),
     readingMode: pickBoolean(input.readingMode, DEFAULT_PREFS.readingMode),
+    lineHeight: pickLineHeight(input.lineHeight),
+    letterSpacing: pickLetterSpacing(input.letterSpacing),
+    textAlign: pickTextAlign(input.textAlign),
+    highlightHeadings: pickBoolean(input.highlightHeadings, DEFAULT_PREFS.highlightHeadings),
+    saturation: pickSaturation(input.saturation),
+    cursorSize: pickCursorSize(input.cursorSize),
+    hideImages: pickBoolean(input.hideImages, DEFAULT_PREFS.hideImages),
   };
 }
 

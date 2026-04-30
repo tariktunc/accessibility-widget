@@ -68,12 +68,10 @@ function _mapHtmlLang(lang: string): Locale | undefined {
   const base = lang.toLowerCase().split(/[-_]/)[0] ?? '';
   const MAP: Record<string, Locale> = {
     tr: 'tr', en: 'en', de: 'de', fr: 'fr',
-    es: 'es', it: 'it', ar: 'ar', he: 'iw', ru: 'ru',
-    iw: 'he', // legacy Hebrew code
+    es: 'es', it: 'it', ar: 'ar', he: 'he', ru: 'ru',
+    iw: 'he', // legacy Hebrew ISO 639-1 code
   };
-  // 'iw' → 'he'
-  const mapped = MAP[base];
-  return mapped === 'iw' ? 'he' : mapped;
+  return MAP[base];
 }
 
 /** Detect locale from <html lang> when data-locale is not set. */
@@ -85,16 +83,17 @@ function _detectLocale(): Locale {
 
 function _readScriptDataAttrs(): Partial<WidgetOptions> & { devPipe?: string; version?: string } {
   if (typeof document === 'undefined') return {};
-  let script: HTMLScriptElement | null = null;
-  const current = document.currentScript as HTMLScriptElement | null;
-  if (current && current.dataset) {
-    script = current;
-  } else {
-    // Fallback: find any <script> whose src includes accessibility-widget
+  // Prefer the element captured synchronously at module-eval time;
+  // fall back to currentScript (non-null only during inline execution),
+  // then scan all <script src> tags for a recognisable widget URL.
+  let script: HTMLScriptElement | null =
+    _CAPTURED_SCRIPT ??
+    (document.currentScript as HTMLScriptElement | null);
+  if (!script) {
     const all = document.querySelectorAll<HTMLScriptElement>('script[src]');
     for (let i = 0; i < all.length; i++) {
       const s = all[i];
-      if (s && s.src && /accessibility[-_]widget|blakfy/i.test(s.src)) {
+      if (s && s.src && /accessibility[-_]widget|blakfy|widget\.js$/i.test(s.src)) {
         script = s;
         break;
       }
@@ -173,12 +172,16 @@ function _baseFromScriptSrc(src: string): string {
   }
 }
 
-// Captured synchronously at module-eval time so the value survives the
+// Both captured synchronously at module-eval time so they survive the
 // wait for DOMContentLoaded — `document.currentScript` is null inside
-// async callbacks, which broke locale lazy-load.
+// async callbacks, which broke data-locale and base-URL detection.
+const _CAPTURED_SCRIPT = typeof document !== 'undefined'
+  ? (document.currentScript as HTMLScriptElement | null)
+  : null;
+
 const _CAPTURED_BASE_URL: string =
   typeof document !== 'undefined'
-    ? _baseFromScriptSrc((document.currentScript as HTMLScriptElement | null)?.src ?? '')
+    ? _baseFromScriptSrc(_CAPTURED_SCRIPT?.src ?? '')
     : '';
 
 /** Derive CDN base from `currentScript.src` so locales can be lazy-loaded. */
