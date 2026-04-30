@@ -2,7 +2,6 @@
  * Top-level widget shell. Composes:
  *  - FabButton (toggle)
  *  - Dialog → Panel
- *  - FloatingBadge (always visible)
  *  - Listens to EVENT_NAMES.OPEN/CLOSE so window.BlakfyA11y.open() works
  *  - Optional Alt+0 keyboard shortcut
  */
@@ -20,7 +19,6 @@ import {
 import { FabButton } from './FabButton';
 import { Dialog } from './Dialog';
 import { Panel } from './Panel';
-import { FloatingBadge } from './FloatingBadge';
 
 type Props = {
   config: WidgetOptions;
@@ -109,7 +107,6 @@ export function Widget({
           descriptionId={descriptionId}
         />
       </Dialog>
-      <FloatingBadge />
     </>
   );
 }
