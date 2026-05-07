@@ -7,6 +7,7 @@
 - Web Component + Shadow DOM (CSS isolation; `<blakfy-a11y>` custom element)
 - 15 CSS custom properties for theming (`--blakfy-a11y-*`)
 - `@blakfy/accessibility-widget-next` (Next.js helpers: `<A11yServerHelper />`, `<A11yScript />`)
+- `@blakfy/accessibility-widget-react` (React 18 / Vite: `<A11yWidget />` bileşeni + `useA11yPreferences()` hook)
 - Diagnostics API (`window.BlakfyA11y.diagnostics()`)
 - Auto-detection: OpenDyslexic CDN missing, host CSS `!important` conflict, OS `prefers-*` signals
 - Custom events: `blakfy:a11y:ready`, `blakfy:a11y:change`, `blakfy:a11y:open`, `blakfy:a11y:close`
@@ -16,6 +17,7 @@
 - 14 RED LINE CI tests (axe-core, focus trap, contrast, target size, RTL, bundle size, etc.)
 - Locked public API contract (STABLE-API.md, ADR-004)
 - Migration guide v1 → v2
+- 7 yeni tercih alanı: `lineHeight`, `letterSpacing`, `textAlign`, `highlightHeadings`, `saturation`, `cursorSize`, `hideImages`
 
 ### Changed (BREAKING)
 - Distribution model: `npx degit` → CDN script tag / NPM package
