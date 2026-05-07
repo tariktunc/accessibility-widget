@@ -118,13 +118,6 @@ SSH: `git@github.com:tariktunc/accessibility-widget.git`
 
 ---
 
-## Bilinen Sorunlar
-
-- `examples/nextjs/contact/page.tsx` → Event handler'ı Server Component içinde, prerender hatası.
-  Yayınlanan paketleri etkilemez. Sonraki geliştirmede düzeltilecek.
-
----
-
 ## Versiyon Durumu (Mayıs 2026)
 
 | Paket | npm Versiyonu |
@@ -134,3 +127,13 @@ SSH: `git@github.com:tariktunc/accessibility-widget.git`
 | `@blakfy/accessibility-widget-next` | 2.0.0-alpha.1 |
 
 Stable release için `2.0.0` hedefleniyor. Alpha'da breaking change beklenir.
+
+---
+
+## Stable 2.0.0 Release Hazırlık Adımları
+
+1. `@blakfy/accessibility-widget` versiyonunu `2.0.0-alpha.1`'e çek
+2. `pnpm api:update` — API Extractor baseline güncelle
+3. `pnpm changeset` ile `2.0.0` major bump hazırla
+4. CHANGELOG.md `[Unreleased]` bölümünü `[2.0.0]` olarak kilitle
+5. Push → GitHub Actions `release.yml` OIDC ile yayınlar
