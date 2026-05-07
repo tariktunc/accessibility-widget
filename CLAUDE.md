@@ -6,12 +6,13 @@ Bu dosya Claude Code oturumlarına proje bağlamı sağlar.
 
 ## Proje Özeti
 
-TypeScript monorepo. Üç yayınlanan paket + iki örnek uygulama.
+TypeScript monorepo. Dört yayınlanan paket + iki örnek uygulama.
 
-**Amaç:** Next.js ve vanilla HTML siteleri için WCAG 2.2 uyumlu erişilebilirlik tercih paneli widget'ı.
+**Amaç:** Next.js, plain React (Vite) ve vanilla HTML siteleri için WCAG 2.2 uyumlu erişilebilirlik tercih paneli widget'ı.
 
 **CDN dağıtımı:** `@blakfy/accessibility-widget` jsDelivr üzerinden IIFE olarak yüklenir.
 **Next.js entegrasyonu:** `@blakfy/accessibility-widget-next` → `A11yScript` + `A11yServerHelper`.
+**React entegrasyonu:** `@blakfy/accessibility-widget-react` → `<A11yWidget>` bileşeni + `useA11yPreferences` hook.
 
 ---
 
@@ -19,9 +20,10 @@ TypeScript monorepo. Üç yayınlanan paket + iki örnek uygulama.
 
 ```
 packages/
-  core/     → @blakfy/a11y-core           (framework-agnostic: i18n, schema, events)
-  widget/   → @blakfy/accessibility-widget (Preact UI + IIFE/ESM/Web Component)
-  next/     → @blakfy/accessibility-widget-next (Next.js SSR helpers)
+  core/     → @blakfy/a11y-core                    (framework-agnostic: i18n, schema, events)
+  widget/   → @blakfy/accessibility-widget          (Preact UI + IIFE/ESM/Web Component)
+  next/     → @blakfy/accessibility-widget-next     (Next.js SSR helpers)
+  react/    → @blakfy/accessibility-widget-react    (React 18 hook + bileşen — Vite/CRA)
 
 examples/
   nextjs/        → Next.js 15 tam örnek
@@ -125,6 +127,7 @@ SSH: `git@github.com:tariktunc/accessibility-widget.git`
 | `@blakfy/a11y-core` | 2.0.0-alpha.1 |
 | `@blakfy/accessibility-widget` | 2.0.0-alpha.0 |
 | `@blakfy/accessibility-widget-next` | 2.0.0-alpha.1 |
+| `@blakfy/accessibility-widget-react` | 2.0.0-alpha.0 |
 
 Stable release için `2.0.0` hedefleniyor. Alpha'da breaking change beklenir.
 

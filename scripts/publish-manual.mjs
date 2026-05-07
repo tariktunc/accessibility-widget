@@ -19,6 +19,7 @@ const PACKAGES = [
   'packages/core',
   'packages/widget',
   'packages/next',
+  'packages/react',
 ];
 
 const args = process.argv.slice(2);

@@ -3,6 +3,7 @@
   "references": [
     { "path": "./packages/core" },
     { "path": "./packages/widget" },
-    { "path": "./packages/next" }
+    { "path": "./packages/next" },
+    { "path": "./packages/react" }
   ]
 }

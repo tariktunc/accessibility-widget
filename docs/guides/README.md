@@ -7,6 +7,7 @@ Görev odaklı (Diátaxis "how-to") rehberler. Her dosya tek bir entegrasyon sen
 | Kılavuz | Açıklama |
 |---|---|
 | [nextjs-quickstart.md](./nextjs-quickstart.md) | Next.js App Router — `A11yServerHelper` + `A11yScript` entegrasyonu |
+| [react-quickstart.md](./react-quickstart.md) | Vite + React 18 + TypeScript — `<A11yWidget>` + `useA11yPreferences` |
 | [vanilla-html-quickstart.md](./vanilla-html-quickstart.md) | Vanilla HTML / static site — CDN script tag + FOUC koruması |
 
 ## Planlanan

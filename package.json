@@ -33,8 +33,8 @@
     "version": "changeset version",
     "release": "pnpm build && changeset publish",
     "release:manual": "node scripts/publish-manual.mjs",
-    "api:check": "pnpm -r --filter \"@blakfy/a11y-core\" --filter \"@blakfy/accessibility-widget\" --filter \"@blakfy/accessibility-widget-next\" --workspace-concurrency=1 api:check",
-    "api:update": "pnpm -r --filter \"@blakfy/a11y-core\" --filter \"@blakfy/accessibility-widget\" --filter \"@blakfy/accessibility-widget-next\" --workspace-concurrency=1 api:update",
+    "api:check": "pnpm -r --filter \"@blakfy/a11y-core\" --filter \"@blakfy/accessibility-widget\" --filter \"@blakfy/accessibility-widget-next\" --filter \"@blakfy/accessibility-widget-react\" --workspace-concurrency=1 api:check",
+    "api:update": "pnpm -r --filter \"@blakfy/a11y-core\" --filter \"@blakfy/accessibility-widget\" --filter \"@blakfy/accessibility-widget-next\" --filter \"@blakfy/accessibility-widget-react\" --workspace-concurrency=1 api:update",
     "docs:reference": "typedoc",
     "clean": "pnpm -r exec rm -rf dist .turbo node_modules/.vite",
     "clean:all": "pnpm clean && rm -rf node_modules"

@@ -8,6 +8,9 @@ import type {
   WidgetOptions,
 } from './types';
 
+// process may be injected by Node or bundlers; declare minimally to satisfy TS without @types/node.
+declare const process: { env: Record<string, string | undefined> } | undefined;
+
 // __VERSION__ is replaced at build time by Vite's `define` (see vite.config.ts).
 // Outside the build (vitest, raw tsc) the symbol is absent, hence the
 // `typeof` guard which is safe even when the identifier is not declared.
