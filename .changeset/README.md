@@ -12,10 +12,10 @@ This directory holds [changesets](https://github.com/changesets/changesets) — 
 3. Commit the generated `.md` file alongside your PR.
 4. On merge to `main`, the release workflow (Phase 8) consumes these files to bump versions and publish to npm.
 
-## Bump policy (see `docs/ADR/004` and `docs/ADR/006`)
+## Bump policy (see `docs/adr/004` and `docs/adr/006`)
 
 - **patch** — bug fix, perf, internal refactor; `STABLE-API.md` unchanged
 - **minor** — additive only (new preference, new locale, new CSS var, new event)
 - **major** — breaking change to any locked surface in `STABLE-API.md`
 
-Major bumps require an entry in `docs/MIGRATION-vN-to-vN+1.md` and 30-day pre-announcement.
+Major bumps require an entry in `docs/migration/vN-to-vN+1.md` and 30-day pre-announcement.

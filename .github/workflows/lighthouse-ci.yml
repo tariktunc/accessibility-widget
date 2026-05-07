@@ -2,9 +2,9 @@
 #   GITHUB_TOKEN       - auto-provided by GitHub Actions
 #   LHCI_GITHUB_APP_TOKEN (optional) - for inline status checks via Lighthouse CI app
 #
-# Runs Lighthouse CI against apps/demo-nextjs on every PR.
+# Runs Lighthouse CI against examples/nextjs on every PR.
 #
-# TODO: Once apps/demo-nextjs is implemented (Phase 10), remove continue-on-error
+# TODO: Once examples/nextjs is implemented (Phase 10), remove continue-on-error
 # and enforce LCP/CLS/INP budgets per R3 research.
 name: Lighthouse CI
 
@@ -22,7 +22,7 @@ env:
 
 jobs:
   lighthouse:
-    name: Lighthouse audit (demo-nextjs)
+    name: Lighthouse audit (example-nextjs)
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
@@ -45,7 +45,7 @@ jobs:
 
       - name: Build demo (best-effort, demo may not exist yet)
         continue-on-error: true
-        run: pnpm --filter @blakfy/demo-nextjs build
+        run: pnpm --filter @blakfy/example-nextjs build
 
       - name: Run Lighthouse CI
         # TODO (Phase 10): drop continue-on-error and enforce CWV budgets.

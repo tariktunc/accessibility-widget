@@ -13,6 +13,8 @@ coverage/
 .idea/
 playwright-report/
 test-results/
+test-site/widget.js
+test-site/locales/
 .changeset/*.md
 !.changeset/README.md
 !.changeset/config.json

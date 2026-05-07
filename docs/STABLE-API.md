@@ -1,6 +1,6 @@
 # Stable API — v1 Kilitli Yüzey
 
-> **Bu dosya v1 boyunca asla geriye dönük kırılmaz.** Buradaki her sembol/property/event/CSS-var/storage-key tema müşterilerinin kullanabileceği bir kontrattır. Politika için `docs/ADR/004-locked-contracts.md`.
+> **Bu dosya v1 boyunca asla geriye dönük kırılmaz.** Buradaki her sembol/property/event/CSS-var/storage-key tema müşterilerinin kullanabileceği bir kontrattır. Politika için `docs/adr/004-locked-contracts.md`.
 
 **Sürüm**: 1.0.0
 **Son güncelleme**: 2026-04-30
@@ -329,7 +329,7 @@ Hepsi snapshot-based. Snapshot değişmesi PR'da görünür → semver kararı v
 
 ## 13. WCAG/EAA RED LINE testleri
 
-Aşağıdaki 14 madde her release'de geçer (CI gate). Detaylar `docs/ADR/`'de R2 araştırma referansı.
+Aşağıdaki 14 madde her release'de geçer (CI gate). Detaylar `docs/adr/`'de R2 araştırma referansı.
 
 1. axe-core 0 violation (FAB closed + modal open)
 2. Klavye-only flow (FAB → Tab×9 → ESC → odak FAB'a döner)

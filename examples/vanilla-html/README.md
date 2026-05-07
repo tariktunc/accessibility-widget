@@ -1,4 +1,4 @@
-# @blakfy/demo-vanilla
+# @blakfy/example-vanilla-html
 
 Vanilla HTML demo — `@blakfy/accessibility-widget` jsDelivr CDN ile entegrasyon.
 
@@ -6,7 +6,7 @@ Vanilla HTML demo — `@blakfy/accessibility-widget` jsDelivr CDN ile entegrasyo
 
 ```bash
 pnpm install
-pnpm --filter @blakfy/demo-vanilla dev
+pnpm --filter @blakfy/example-vanilla-html dev
 ```
 
 http://localhost:3001 (otomatik açılır)

@@ -34,7 +34,7 @@
 - `borderWidth` / `borderRadius` direct prop control (locked to design tokens for v1 stability)
 
 ### Migration
-See [MIGRATION-v1-to-v2.md](./MIGRATION-v1-to-v2.md).
+See [docs/migration/v1-to-v2.md](./docs/migration/v1-to-v2.md).
 
 ---
 

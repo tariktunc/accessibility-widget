@@ -6,7 +6,7 @@
 [![npm core](https://img.shields.io/npm/v/@blakfy/a11y-core.svg?label=core)](https://www.npmjs.com/package/@blakfy/a11y-core)
 [![npm next](https://img.shields.io/npm/v/@blakfy/accessibility-widget-next.svg?label=next)](https://www.npmjs.com/package/@blakfy/accessibility-widget-next)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
-[![Bundle ≤18 KB gz](https://img.shields.io/badge/bundle-%E2%89%A418KB%20gz-brightgreen.svg)](./docs/ADR/002-preact-web-component.md)
+[![Bundle ≤18 KB gz](https://img.shields.io/badge/bundle-%E2%89%A418KB%20gz-brightgreen.svg)](./docs/adr/002-preact-web-component.md)
 [![WCAG 2.2 AA](https://img.shields.io/badge/WCAG-2.2%20AA-blueviolet.svg)](https://www.w3.org/TR/WCAG22/)
 
 > **⚠️ Alpha:** Şu anki sürüm `2.0.0-alpha.x` — public API kilitli **değildir**, breaking change gelebilir. Üretimde kullanmadan önce stabil sürümü (`2.0.0`) bekleyin veya tam sürüm pinleyin (`@2.0.0-alpha.0`). Stabil sürümle birlikte aşağıda anlatılan `@v2` floating tag desteklenecek.
@@ -313,7 +313,7 @@ Custom Element variant'ı kullanın:
 <blakfy-a11y locale="tr" theme="auto" position="bottom-left"></blakfy-a11y>
 ```
 
-Custom Element framework-agnostiktir; HTML embed alanı olan tüm platformlar destekler. Detay: [ADR-002](./docs/ADR/002-preact-web-component.md).
+Custom Element framework-agnostiktir; HTML embed alanı olan tüm platformlar destekler. Detay: [ADR-002](./docs/adr/002-preact-web-component.md).
 
 ---
 
@@ -374,7 +374,7 @@ Tam kontrat: [`docs/STABLE-API.md` §6](./docs/STABLE-API.md).
 
 ## Tema özelleştirme
 
-Widget Shadow DOM içindedir — host CSS sızamaz. Tema sadece **15 CSS custom property** üzerinden değiştirilir. Detay: [ADR-003](./docs/ADR/003-shadow-dom-isolation.md).
+Widget Shadow DOM içindedir — host CSS sızamaz. Tema sadece **15 CSS custom property** üzerinden değiştirilir. Detay: [ADR-003](./docs/adr/003-shadow-dom-isolation.md).
 
 ### Tüm değişkenler
 
@@ -432,7 +432,7 @@ Widget Shadow DOM içindedir — host CSS sızamaz. Tema sadece **15 CSS custom 
 }
 ```
 
-CSS custom property'ler stabil v2'den itibaren major-bump'a kadar **kilitli olacak** ([ADR-004](./docs/ADR/004-locked-contracts.md)). Alpha aşamasında değişebilir; stabil sürüme dek kilit yok.
+CSS custom property'ler stabil v2'den itibaren major-bump'a kadar **kilitli olacak** ([ADR-004](./docs/adr/004-locked-contracts.md)). Alpha aşamasında değişebilir; stabil sürüme dek kilit yok.
 
 ---
 
@@ -529,7 +529,7 @@ Alpha pre-release sürümleri **kırılma değişiklikleri içerebilir**, bu ned
 <script src="https://cdn.jsdelivr.net/npm/@blakfy/accessibility-widget@2.0.0/dist/widget.js" defer></script>
 ```
 
-`@v2` URL'iyle yeni patch ve minor sürümler 7 gün içinde otomatik gelir. Breaking change asla — major bump (v3) ayrı opt-in URL gerektirir. Detay: [ADR-006](./docs/ADR/006-versioning-auto-update.md).
+`@v2` URL'iyle yeni patch ve minor sürümler 7 gün içinde otomatik gelir. Breaking change asla — major bump (v3) ayrı opt-in URL gerektirir. Detay: [ADR-006](./docs/adr/006-versioning-auto-update.md).
 
 > **Tavsiye edilmeyen**: `@latest`. Major bump'ları otomatik alır → breaking change riski yüksektir.
 
@@ -578,7 +578,7 @@ export async function POST(req: Request) {
 }
 ```
 
-Client log'lar `npm run dev` terminalinde görünür. Prod'da silent fail. Detay: [ADR-005](./docs/ADR/005-diagnostics-logging.md).
+Client log'lar `npm run dev` terminalinde görünür. Prod'da silent fail. Detay: [ADR-005](./docs/adr/005-diagnostics-logging.md).
 
 ---
 
@@ -652,14 +652,14 @@ MIT — bkz. [LICENSE](./LICENSE).
 ### İç dokümantasyon
 
 - [STABLE-API.md](./docs/STABLE-API.md) — kilitli public yüzey envanteri
-- [ADR-001 — CDN dağıtım](./docs/ADR/001-cdn-distribution.md)
-- [ADR-002 — Preact + Web Component](./docs/ADR/002-preact-web-component.md)
-- [ADR-003 — Shadow DOM izolasyonu](./docs/ADR/003-shadow-dom-isolation.md)
-- [ADR-004 — Kilitli kontratlar](./docs/ADR/004-locked-contracts.md)
-- [ADR-005 — Diagnostics ve logging](./docs/ADR/005-diagnostics-logging.md)
-- [ADR-006 — Sürümleme ve auto-update](./docs/ADR/006-versioning-auto-update.md)
-- [AI_INSTALL.md](./AI_INSTALL.md) — AI agent'lar için deterministik kurulum
-- [MIGRATION-v1-to-v2.md](./MIGRATION-v1-to-v2.md) — v1 → v2 geçiş rehberi
+- [ADR-001 — CDN dağıtım](./docs/adr/001-cdn-distribution.md)
+- [ADR-002 — Preact + Web Component](./docs/adr/002-preact-web-component.md)
+- [ADR-003 — Shadow DOM izolasyonu](./docs/adr/003-shadow-dom-isolation.md)
+- [ADR-004 — Kilitli kontratlar](./docs/adr/004-locked-contracts.md)
+- [ADR-005 — Diagnostics ve logging](./docs/adr/005-diagnostics-logging.md)
+- [ADR-006 — Sürümleme ve auto-update](./docs/adr/006-versioning-auto-update.md)
+- [docs/AI_INSTALL.md](./docs/AI_INSTALL.md) — AI agent'lar için deterministik kurulum
+- [docs/migration/v1-to-v2.md](./docs/migration/v1-to-v2.md) — v1 → v2 geçiş rehberi
 - [CHANGELOG.md](./CHANGELOG.md)
 - [docs/CONTRIBUTING.md](./docs/CONTRIBUTING.md)
 - [docs/SECURITY.md](./docs/SECURITY.md)

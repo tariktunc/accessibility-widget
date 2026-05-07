@@ -1,8 +1,8 @@
 # Release Flow
 
 @blakfy/accessibility-widget v2 sürüm süreci. Politika için
-[ADR-006](./ADR/006-versioning-auto-update.md) ve
-[ADR-004](./ADR/004-locked-contracts.md) referanstır. Bu doküman **operasyonel**
+[ADR-006](./adr/006-versioning-auto-update.md) ve
+[ADR-004](./adr/004-locked-contracts.md) referanstır. Bu doküman **operasyonel**
 adımları açıklar.
 
 ## Yayımlanan paketler
@@ -126,8 +126,8 @@ Secret'ları GitHub repo > Settings > Secrets and variables > Actions üzerinden
 
 ## Referanslar
 
-- [ADR-001 — CDN dağıtım](./ADR/001-cdn-distribution.md)
-- [ADR-004 — Kilitli kontratlar](./ADR/004-locked-contracts.md)
-- [ADR-006 — Sürümleme disiplini](./ADR/006-versioning-auto-update.md)
+- [ADR-001 — CDN dağıtım](./adr/001-cdn-distribution.md)
+- [ADR-004 — Kilitli kontratlar](./adr/004-locked-contracts.md)
+- [ADR-006 — Sürümleme disiplini](./adr/006-versioning-auto-update.md)
 - [Changesets docs](https://github.com/changesets/changesets)
 - [jsDelivr purge API](https://www.jsdelivr.com/documentation#id-purge-cache)

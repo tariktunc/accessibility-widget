@@ -1,5 +1,5 @@
 {
-  "name": "@blakfy/demo-vanilla",
+  "name": "@blakfy/example-vanilla-html",
   "version": "0.0.0",
   "private": true,
   "description": "Vanilla HTML demo for @blakfy/accessibility-widget (jsDelivr CDN auto-mount)",

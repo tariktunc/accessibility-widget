@@ -70,7 +70,7 @@ README'de **iki kurulum yolu** dokümante edilir:
 Major bump yıkıcı potansiyele sahip. Disiplin:
 
 1. **Önceden duyuru**: 30 gün önce GitHub Discussions + README banner + CHANGELOG warning
-2. **Migration guide**: `docs/MIGRATION-v1-to-v2.md` zorunlu
+2. **Migration guide**: `docs/migration/v1-to-v2.md` zorunlu
 3. **Codemod (mümkünse)**: Otomatik migration script
 4. **Eski sürüm dondurma**: `@v1` URL'i çalışmaya devam eder, sadece security patch alır
 5. **Sunset takvimi**: v1 yaklaşık 12 ay sonra deprecated, 18 ay sonra unmaintained

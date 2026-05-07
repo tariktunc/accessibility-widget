@@ -33,7 +33,8 @@ pnpm install
 Monorepo yapısı (pnpm workspaces):
 - `packages/widget` — core CDN bundle (Preact + Web Component)
 - `packages/widget-next` — Next.js helpers (`A11yServerHelper`, `A11yScript`)
-- `apps/playground` — local development sandbox
+- `examples/nextjs` — Next.js App Router demo
+- `examples/vanilla-html` — vanilla HTML CDN demo
 - `tests/` — unit, e2e (Playwright), contract (snapshot)
 
 ---
@@ -81,7 +82,7 @@ pnpm --filter playground dev
 
 ### 14 RED LINE testi
 
-Her release'de geçer (CI gate). Detay: [`docs/STABLE-API.md` §13](./STABLE-API.md).
+Her release'de geçer (CI gate). Detay: [`docs/STABLE-API.md` §13](../docs/STABLE-API.md).
 
 1. axe-core 0 violation (FAB closed + modal open)
 2. Klavye-only flow (FAB → Tab × 9 → ESC → fokus FAB'a döner)
@@ -121,7 +122,7 @@ CI gate'ler:
 - Contract snapshot değiştiyse manuel onay gerekir
 - `dist/` manuel commit edilmiş PR'lar bloke (sadece release workflow yazabilir)
 
-Detay: [ADR-006](./ADR/006-versioning-auto-update.md).
+Detay: [ADR-006](../docs/adr/006-versioning-auto-update.md).
 
 ---
 
@@ -148,10 +149,10 @@ TypeScript strict — `any` ve `@ts-ignore` PR review'da reddedilir (justified c
 3. **Test geç** — `pnpm test && pnpm test:e2e && pnpm test:contract`
 4. **Lint geç** — `pnpm lint && pnpm format:check`
 5. **Bundle bütçe** — ≤18 KB gz
-6. **STABLE-API güncellemesi** — kilitli yüzey değiştiyse [STABLE-API.md](./STABLE-API.md) güncel olmalı, CHANGELOG.md güncel olmalı
-7. **Major bump** — extra code review + 30 gün önceden duyuru ([ADR-006](./ADR/006-versioning-auto-update.md))
+6. **STABLE-API güncellemesi** — kilitli yüzey değiştiyse [STABLE-API.md](../docs/STABLE-API.md) güncel olmalı, CHANGELOG.md güncel olmalı
+7. **Major bump** — extra code review + 30 gün önceden duyuru ([ADR-006](../docs/adr/006-versioning-auto-update.md))
 
-Locked contract politikası: [ADR-004](./ADR/004-locked-contracts.md).
+Locked contract politikası: [ADR-004](../docs/adr/004-locked-contracts.md).
 
 ---
 

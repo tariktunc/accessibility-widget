@@ -1,4 +1,4 @@
-# @blakfy/demo-nextjs
+# @blakfy/example-nextjs
 
 Next.js 15 App Router demo — `@blakfy/accessibility-widget` entegrasyonu.
 
@@ -6,7 +6,7 @@ Next.js 15 App Router demo — `@blakfy/accessibility-widget` entegrasyonu.
 
 ```bash
 pnpm install
-pnpm --filter @blakfy/demo-nextjs dev
+pnpm --filter @blakfy/example-nextjs dev
 ```
 
 http://localhost:3000
@@ -19,4 +19,4 @@ http://localhost:3000
 
 ## Üretim
 
-`pnpm --filter @blakfy/demo-nextjs build` sonrası static export veya Vercel/Netlify deploy edilebilir.
+`pnpm --filter @blakfy/example-nextjs build` sonrası static export veya Vercel/Netlify deploy edilebilir.

@@ -2,7 +2,7 @@
   "ci": {
     "collect": {
       "url": ["http://localhost:3000/"],
-      "startServerCommand": "pnpm --filter @blakfy/demo-nextjs start",
+      "startServerCommand": "pnpm --filter @blakfy/example-nextjs start",
       "numberOfRuns": 3
     },
     "assert": {

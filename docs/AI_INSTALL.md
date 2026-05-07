@@ -1,7 +1,7 @@
 # AI Installation Guide — @blakfy/accessibility-widget v2
 
 > AI agent'lar (Claude, GPT, Cursor, Copilot) için deterministik kurulum rehberi.
-> İnsan okuması: [README.md](./README.md).
+> İnsan okuması: [README.md](../README.md).
 
 ---
 
@@ -211,8 +211,8 @@ checks:
    3. Bu widget structural a11y'in YERİNE GEÇMEZ — site kodunda da a11y olmalı
 
 🔗 Referanslar:
-   - README: ./README.md
-   - STABLE-API: ./docs/STABLE-API.md
+   - README: ../README.md
+   - STABLE-API: ./STABLE-API.md
    - WCAG 2.2: https://www.w3.org/TR/WCAG22/
 ```
 
@@ -266,4 +266,4 @@ done_when:
 - **Asla** `@latest`, asla DOM patch, asla "compliant" iddiası.
 - **Marka rozeti** non-removable (iş kuralı).
 
-Detay: [README.md](./README.md), [docs/STABLE-API.md](./docs/STABLE-API.md), [docs/ADR/](./docs/ADR/).
+Detay: [README.md](../README.md), [STABLE-API.md](./STABLE-API.md), [adr/](./adr/).

@@ -49,7 +49,7 @@ E-postanızda lütfen şunları belirtin:
 
 ### Major sürüm sunset takvimi
 
-[ADR-006](./ADR/006-versioning-auto-update.md) gereği:
+[ADR-006](../docs/adr/006-versioning-auto-update.md) gereği:
 
 - **v1 → v2 release tarihinden itibaren**:
   - 12 ay: v1 deprecated, sadece security patch
@@ -101,11 +101,11 @@ Credit: raporlayan kişi advisory'de credit alır (anonim talep edilirse aksi be
 ## Privacy ve tedarik zinciri
 
 Bu widget:
-- Hiçbir telemetri toplamaz ([ADR-005](./ADR/005-diagnostics-logging.md))
+- Hiçbir telemetri toplamaz ([ADR-005](../docs/adr/005-diagnostics-logging.md))
 - Hiçbir AT (assistive tech) fingerprinting yapmaz
 - Hiçbir 3rd-party analytics çağırmaz
 - jsDelivr CDN üzerinden dağıtılır (npm + jsDelivr tedarik zinciri)
-- npm publish `--provenance` ile imzalanır ([ADR-006](./ADR/006-versioning-auto-update.md))
+- npm publish `--provenance` ile imzalanır ([ADR-006](../docs/adr/006-versioning-auto-update.md))
 
 Privacy ihlali olarak değerlendirilen davranış kasıtlıysa **major bug**, kasıtsızsa **patch**.
 
@@ -121,4 +121,4 @@ Henüz CVE yayınlanmadı. Tüm güvenlik düzeltmeleri [CHANGELOG.md](../CHANGE
 
 - **Security**: blakfy@hotmail.com
 - **GitHub**: [github.com/tariktunc/accessibility-widget/security](https://github.com/tariktunc/accessibility-widget/security)
-- **General**: [docs/CONTRIBUTING.md](./CONTRIBUTING.md)
+- **General**: [CONTRIBUTING.md](./CONTRIBUTING.md)
