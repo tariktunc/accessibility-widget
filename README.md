@@ -2,10 +2,14 @@
 
 > Next.js + vanilla siteler için doğal erişilebilirlik tercih paneli — jsDelivr CDN üzerinden otomatik güncellenir.
 
-[![npm version](https://img.shields.io/badge/npm-v1.0.0-blue.svg)](https://www.npmjs.com/package/@blakfy/accessibility-widget)
+[![npm version](https://img.shields.io/npm/v/@blakfy/accessibility-widget.svg?label=widget)](https://www.npmjs.com/package/@blakfy/accessibility-widget)
+[![npm core](https://img.shields.io/npm/v/@blakfy/a11y-core.svg?label=core)](https://www.npmjs.com/package/@blakfy/a11y-core)
+[![npm next](https://img.shields.io/npm/v/@blakfy/accessibility-widget-next.svg?label=next)](https://www.npmjs.com/package/@blakfy/accessibility-widget-next)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
 [![Bundle ≤18 KB gz](https://img.shields.io/badge/bundle-%E2%89%A418KB%20gz-brightgreen.svg)](./docs/ADR/002-preact-web-component.md)
 [![WCAG 2.2 AA](https://img.shields.io/badge/WCAG-2.2%20AA-blueviolet.svg)](https://www.w3.org/TR/WCAG22/)
+
+> **⚠️ Alpha:** Şu anki sürüm `2.0.0-alpha.x` — public API kilitli **değildir**, breaking change gelebilir. Üretimde kullanmadan önce stabil sürümü (`2.0.0`) bekleyin veya tam sürüm pinleyin (`@2.0.0-alpha.0`). Stabil sürümle birlikte aşağıda anlatılan `@v2` floating tag desteklenecek.
 
 **Overlay değil, kullanıcı tercih paneli. DOM patch yok, sahte WCAG iddiası yok, telemetri yok.**
 
@@ -48,7 +52,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         {children}
         <Script
-          src="https://cdn.jsdelivr.net/npm/@blakfy/accessibility-widget@v1/dist/widget.js"
+          src="https://cdn.jsdelivr.net/npm/@blakfy/accessibility-widget@2.0.0-alpha.0/dist/widget.js"
           strategy="lazyOnload"
           data-locale="tr"
           data-theme="auto"
@@ -72,7 +76,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <!-- içerik -->
 
     <script
-      src="https://cdn.jsdelivr.net/npm/@blakfy/accessibility-widget@v1/dist/widget.js"
+      src="https://cdn.jsdelivr.net/npm/@blakfy/accessibility-widget@2.0.0-alpha.0/dist/widget.js"
       data-locale="tr"
       data-theme="auto"
       defer
@@ -154,7 +158,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         {children}
         <Script
-          src="https://cdn.jsdelivr.net/npm/@blakfy/accessibility-widget@v1/dist/widget.js"
+          src="https://cdn.jsdelivr.net/npm/@blakfy/accessibility-widget@2.0.0-alpha.0/dist/widget.js"
           strategy="lazyOnload"
           data-locale="tr"
           data-theme="auto"
@@ -289,7 +293,7 @@ Tam dosya örneği:
 
     <!-- Widget mount -->
     <script
-      src="https://cdn.jsdelivr.net/npm/@blakfy/accessibility-widget@v1/dist/widget.js"
+      src="https://cdn.jsdelivr.net/npm/@blakfy/accessibility-widget@2.0.0-alpha.0/dist/widget.js"
       data-locale="tr"
       data-theme="auto"
       data-position="bottom-left"
@@ -304,7 +308,7 @@ Tam dosya örneği:
 Custom Element variant'ı kullanın:
 
 ```html
-<script type="module" src="https://cdn.jsdelivr.net/npm/@blakfy/accessibility-widget@v1/dist/widget-element.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@blakfy/accessibility-widget@2.0.0-alpha.0/dist/widget-element.js"></script>
 
 <blakfy-a11y locale="tr" theme="auto" position="bottom-left"></blakfy-a11y>
 ```
@@ -340,7 +344,7 @@ Tam kontrat: [`docs/STABLE-API.md` §6](./docs/STABLE-API.md).
 
 **Sade — sadece dil**:
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@blakfy/accessibility-widget@v1/dist/widget.js"
+<script src="https://cdn.jsdelivr.net/npm/@blakfy/accessibility-widget@2.0.0-alpha.0/dist/widget.js"
         data-locale="tr" defer></script>
 ```
 
@@ -356,7 +360,7 @@ Tam kontrat: [`docs/STABLE-API.md` §6](./docs/STABLE-API.md).
     }
   };
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@blakfy/accessibility-widget@v1/dist/widget.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@blakfy/accessibility-widget@2.0.0-alpha.0/dist/widget.js" defer></script>
 ```
 
 **Runtime — footer butonu**:
@@ -428,7 +432,7 @@ Widget Shadow DOM içindedir — host CSS sızamaz. Tema sadece **15 CSS custom 
 }
 ```
 
-CSS custom property'ler v1 boyunca **kilitlidir** ([ADR-004](./docs/ADR/004-locked-contracts.md)). Kaldırılmaz, yeniden adlandırılmaz.
+CSS custom property'ler stabil v2'den itibaren major-bump'a kadar **kilitli olacak** ([ADR-004](./docs/ADR/004-locked-contracts.md)). Alpha aşamasında değişebilir; stabil sürüme dek kilit yok.
 
 ---
 
@@ -506,17 +510,26 @@ Custom Elements + Shadow DOM gereklidir. **IE11 desteklenmez.** Polyfill öneril
 
 ## Sürümleme ve otomatik güncelleme
 
-İki kurulum URL'i.
+### Alpha aşamasında (şu an)
 
 ```html
-<!-- ÖNERILEN — auto-update, 7-gün CDN cache TTL -->
-<script src="https://cdn.jsdelivr.net/npm/@blakfy/accessibility-widget@v1/dist/widget.js" defer></script>
-
-<!-- PIN — kaya gibi sabit, 1-yıl immutable cache -->
-<script src="https://cdn.jsdelivr.net/npm/@blakfy/accessibility-widget@1.0.0/dist/widget.js" defer></script>
+<!-- Tam sürüm pin — ZORUNLU, alpha boyunca otomatik güncelleme yok -->
+<script src="https://cdn.jsdelivr.net/npm/@blakfy/accessibility-widget@2.0.0-alpha.0/dist/widget.js" defer></script>
 ```
 
-`@v1` URL'iyle yeni patch ve minor sürümler 7 gün içinde otomatik gelir. Breaking change asla — major bump (v2) ayrı opt-in URL gerektirir. Detay: [ADR-006](./docs/ADR/006-versioning-auto-update.md).
+Alpha pre-release sürümleri **kırılma değişiklikleri içerebilir**, bu nedenle floating tag ile auto-update **desteklenmez**. Yeni alpha sürüm çıktığında README ve CHANGELOG takip edilmelidir.
+
+### Stabil sürüm sonrası (`2.0.0` yayınlandığında)
+
+```html
+<!-- ÖNERİLEN — auto-update, 7-gün CDN cache TTL -->
+<script src="https://cdn.jsdelivr.net/npm/@blakfy/accessibility-widget@v2/dist/widget.js" defer></script>
+
+<!-- PIN — kaya gibi sabit, 1-yıl immutable cache -->
+<script src="https://cdn.jsdelivr.net/npm/@blakfy/accessibility-widget@2.0.0/dist/widget.js" defer></script>
+```
+
+`@v2` URL'iyle yeni patch ve minor sürümler 7 gün içinde otomatik gelir. Breaking change asla — major bump (v3) ayrı opt-in URL gerektirir. Detay: [ADR-006](./docs/ADR/006-versioning-auto-update.md).
 
 > **Tavsiye edilmeyen**: `@latest`. Major bump'ları otomatik alır → breaking change riski yüksektir.
 
@@ -528,7 +541,7 @@ Custom Elements + Shadow DOM gereklidir. **IE11 desteklenmez.** Polyfill öneril
 
 ### Console log prefix
 
-Tüm log'lar `[blakfy-a11y v1.x.y]` prefix'i ile basılır. Seviyeler:
+Tüm log'lar `[blakfy-a11y v2.x.y]` prefix'i ile basılır (alpha sırasında `2.0.0-alpha.x`). Seviyeler:
 - `info` — sadece dev mod (`?a11y-debug=1` query param VEYA `data-debug="true"`)
 - `warn` / `error` — daima
 
