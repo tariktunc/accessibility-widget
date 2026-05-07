@@ -30,11 +30,11 @@
   "devDependencies": {
     "@testing-library/react": "^16.0.0",
     "@types/react": "^18.3.12",
-    "jsdom": "^25.0.1",
+    "jsdom": "^29.1.1",
     "react": "^18.3.1",
     "vite": "^5.4.10",
     "vite-plugin-dts": "^4.3.0",
-    "vitest": "^2.1.4"
+    "vitest": "^4.1.5"
   },
   "keywords": [
     "accessibility",
