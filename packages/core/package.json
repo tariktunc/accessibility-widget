@@ -19,7 +19,9 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:contract": "vitest run --config vitest.contract.config.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "api:check": "api-extractor run",
+    "api:update": "api-extractor run --local"
   },
   "dependencies": {},
   "devDependencies": {

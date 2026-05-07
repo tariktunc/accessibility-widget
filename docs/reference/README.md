@@ -2,14 +2,24 @@
 
 Otomatik üretilen API referansı. Diátaxis "reference" çeyreği — tam, sistematik, açıklamasız.
 
-## Durum
+## Üretmek için
 
-> Henüz oluşturulmadı. Şu an için public API kontrat olarak [`docs/STABLE-API.md`](../STABLE-API.md) ve TypeScript tip tanımları (her paketin `dist/index.d.ts`'i) referans alınmalıdır.
+```bash
+pnpm docs:reference
+```
 
-## Planlanan altyapı
+Bu komut [TypeDoc](https://typedoc.org/) + `typedoc-plugin-markdown` ile bu klasörün altına Markdown formatında modül bazlı API referansı üretir. Çıktı .gitignore'lı — her release için yeniden üretilir.
 
-[Microsoft API Extractor](https://api-extractor.com/) ile her paket için `etc/<package>.api.md` üretilmesi planlanıyor — bu yöntemde public yüzeydeki her değişiklik PR'da diff olarak görünür ve semver disiplini fiziksel olarak zorlanır.
+## Kapsam
 
-[TypeDoc](https://typedoc.org/) ile bu klasörün altına HTML/Markdown referans çıktısı üretilecek.
+| Paket | Entry point |
+|---|---|
+| `@blakfy/a11y-core` | `packages/core/src/index.ts` |
+| `@blakfy/accessibility-widget` | `packages/widget/src/public-api.ts` |
+| `@blakfy/accessibility-widget-next` | `packages/next/src/index.ts` |
 
-İlerleme: [issue tracker](https://github.com/tariktunc/accessibility-widget/issues).
+## Tamamlayıcı dokümanlar
+
+- [`STABLE-API.md`](../STABLE-API.md) — kilitli public yüzey kontratı (insan dostu)
+- `packages/*/etc/*.api.md` — [API Extractor](https://api-extractor.com/) çıktısı; PR'larda kontrat değişimini diff olarak gösterir (`pnpm api:check` CI gate)
+- TypeScript tip tanımları — yayınlanan paketlerde `dist/index.d.ts`

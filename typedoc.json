@@ -1,0 +1,24 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": [
+    "packages/core/src/index.ts",
+    "packages/widget/src/public-api.ts",
+    "packages/next/src/index.ts"
+  ],
+  "entryPointStrategy": "expand",
+  "out": "docs/reference",
+  "plugin": ["typedoc-plugin-markdown"],
+  "readme": "none",
+  "githubPages": false,
+  "hideGenerator": true,
+  "excludePrivate": true,
+  "excludeInternal": true,
+  "skipErrorChecking": true,
+  "tsconfig": "./tsconfig.base.json",
+  "name": "@blakfy/accessibility-widget API Reference",
+  "includeVersion": true,
+  "navigation": {
+    "includeCategories": true,
+    "includeGroups": true
+  }
+}

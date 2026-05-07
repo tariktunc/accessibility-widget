@@ -15,6 +15,9 @@ playwright-report/
 test-results/
 test-site/widget.js
 test-site/locales/
+**/temp/
+docs/reference/*
+!docs/reference/README.md
 .changeset/*.md
 !.changeset/README.md
 !.changeset/config.json

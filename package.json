@@ -31,16 +31,23 @@
     "changeset": "changeset",
     "version": "changeset version",
     "release": "pnpm build && changeset publish",
+    "release:manual": "node scripts/publish-manual.mjs",
+    "api:check": "pnpm -r --filter \"@blakfy/a11y-core\" --filter \"@blakfy/accessibility-widget\" --filter \"@blakfy/accessibility-widget-next\" --workspace-concurrency=1 api:check",
+    "api:update": "pnpm -r --filter \"@blakfy/a11y-core\" --filter \"@blakfy/accessibility-widget\" --filter \"@blakfy/accessibility-widget-next\" --workspace-concurrency=1 api:update",
+    "docs:reference": "typedoc",
     "clean": "pnpm -r exec rm -rf dist .turbo node_modules/.vite",
     "clean:all": "pnpm clean && rm -rf node_modules"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.9",
+    "@microsoft/api-extractor": "^7.58.7",
     "@size-limit/preset-small-lib": "^11.1.6",
     "@types/node": "^22.7.0",
     "eslint": "^9.13.0",
     "prettier": "^3.3.3",
     "size-limit": "^11.1.6",
+    "typedoc": "^0.28.19",
+    "typedoc-plugin-markdown": "^4.11.0",
     "typescript": "^5.6.3"
   }
 }

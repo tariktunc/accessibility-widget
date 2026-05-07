@@ -1,6 +1,6 @@
 {
   "name": "@blakfy/accessibility-widget-next",
-  "version": "2.0.0-alpha.0",
+  "version": "2.0.0-alpha.1",
   "description": "Next.js helpers for @blakfy/accessibility-widget — A11yServerHelper, A11yScript with FOUC protection",
   "type": "module",
   "main": "./dist/index.js",
@@ -16,7 +16,9 @@
     "build": "vite build",
     "dev": "vite build --watch",
     "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "api:check": "api-extractor run",
+    "api:update": "api-extractor run --local"
   },
   "peerDependencies": {
     "next": ">=14.0.0 <16.0.0",

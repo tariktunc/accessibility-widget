@@ -30,7 +30,9 @@
     "test:contract": "vitest run --config vitest.contract.config.ts",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "api:check": "api-extractor run",
+    "api:update": "api-extractor run --local"
   },
   "dependencies": {
     "@blakfy/a11y-core": "workspace:*",
