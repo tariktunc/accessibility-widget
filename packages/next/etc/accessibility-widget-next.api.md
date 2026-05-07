@@ -39,6 +39,13 @@ export type ServerSideAttrs = {
     'data-a11y-motion': string;
     'data-a11y-dyslexia': string;
     'data-a11y-reading': string;
+    'data-a11y-lineheight': string;
+    'data-a11y-letterspacing': string;
+    'data-a11y-textalign': string;
+    'data-a11y-headings': string;
+    'data-a11y-saturation': string;
+    'data-a11y-cursor': string;
+    'data-a11y-hideimages': string;
 };
 
 export { Theme }
