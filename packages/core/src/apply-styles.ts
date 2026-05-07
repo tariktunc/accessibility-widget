@@ -195,9 +195,9 @@ export function detectHostCSSConflicts(): boolean {
   for (let i = 0; i < sheets.length; i++) {
     const sheet = sheets[i];
     if (!sheet) continue;
-    let rules: CSSRuleList | null = null;
+    let rules: CSSRuleList | undefined;
     try {
-      rules = sheet.cssRules ?? null;
+      rules = sheet.cssRules ?? undefined;
     } catch {
       continue;
     }
@@ -224,7 +224,7 @@ export function detectHostCSSConflicts(): boolean {
 
 function _selectorHits(selector: string): boolean {
   const lower = selector.toLowerCase();
-  return /(^|[\s,>+~])(body|a)([\s,:.\[#>+~]|$)/.test(lower);
+  return /(^|[\s,>+~])(body|a)([\s,:.#[>+~]|$)/.test(lower);
 }
 
 /**

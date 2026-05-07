@@ -15,6 +15,13 @@ const DEFAULT_ATTRS = {
   'data-a11y-motion': 'auto',
   'data-a11y-dyslexia': 'false',
   'data-a11y-reading': 'false',
+  'data-a11y-lineheight': 'normal',
+  'data-a11y-letterspacing': 'normal',
+  'data-a11y-textalign': 'default',
+  'data-a11y-headings': 'false',
+  'data-a11y-saturation': 'normal',
+  'data-a11y-cursor': 'default',
+  'data-a11y-hideimages': 'false',
 };
 
 function buildCookie(prefs: unknown): string {
@@ -48,6 +55,7 @@ describe('parseServerCookie', () => {
     });
 
     expect(parseServerCookie(cookie)).toEqual({
+      ...DEFAULT_ATTRS,
       'data-a11y-fontscale': '125',
       'data-a11y-contrast': 'high',
       'data-a11y-focus': 'enhanced',
@@ -138,6 +146,7 @@ describe('parseServerCookie', () => {
     });
     const cookie = encodeURIComponent(raw);
     expect(parseServerCookie(cookie)).toEqual({
+      ...DEFAULT_ATTRS,
       'data-a11y-fontscale': '110',
       'data-a11y-contrast': 'normal',
       'data-a11y-focus': 'enhanced',

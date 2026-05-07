@@ -69,7 +69,6 @@ export function loadIIFE(): void {
   const src = _readBundle();
   // Use Function() to evaluate in global scope. Eval would also work but
   // Function() avoids accidental closure over caller scope.
-  // eslint-disable-next-line @typescript-eslint/no-implied-eval
   new Function(src)();
 }
 

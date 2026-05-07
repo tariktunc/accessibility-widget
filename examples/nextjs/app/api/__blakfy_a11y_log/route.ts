@@ -12,7 +12,6 @@ export async function POST(req: NextRequest) {
   }
   try {
     const body = await req.json();
-    // eslint-disable-next-line no-console
     console.log('[blakfy-a11y]', body.level, body.code, body.msg);
   } catch {
     // sessizce başarısız ol — dev pipe non-critical

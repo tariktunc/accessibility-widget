@@ -35,7 +35,6 @@ export default async function setup(): Promise<void> {
     stale = srcMtime > distMtime;
   }
   if (!existsSync(DIST_FILE) || stale) {
-    // eslint-disable-next-line no-console
     console.log('[contract] Building widget IIFE for contract tests...');
     execSync('pnpm --filter @blakfy/accessibility-widget build:iife', {
       stdio: 'inherit',

@@ -28,6 +28,13 @@ export type ServerSideAttrs = {
   'data-a11y-motion': string;
   'data-a11y-dyslexia': string;
   'data-a11y-reading': string;
+  'data-a11y-lineheight': string;
+  'data-a11y-letterspacing': string;
+  'data-a11y-textalign': string;
+  'data-a11y-headings': string;
+  'data-a11y-saturation': string;
+  'data-a11y-cursor': string;
+  'data-a11y-hideimages': string;
 };
 
 function isFontScale(v: unknown): v is Preferences['fontScale'] {
@@ -40,6 +47,26 @@ function isContrast(v: unknown): v is Preferences['contrast'] {
 
 function isMotion(v: unknown): v is Preferences['motion'] {
   return v === 'auto' || v === 'reduce';
+}
+
+function isLineHeight(v: unknown): v is Preferences['lineHeight'] {
+  return v === 'normal' || v === 'medium' || v === 'large';
+}
+
+function isLetterSpacing(v: unknown): v is Preferences['letterSpacing'] {
+  return v === 'normal' || v === 'medium' || v === 'large';
+}
+
+function isTextAlign(v: unknown): v is Preferences['textAlign'] {
+  return v === 'default' || v === 'left' || v === 'center' || v === 'right';
+}
+
+function isSaturation(v: unknown): v is Preferences['saturation'] {
+  return v === 'normal' || v === 'high' || v === 'low' || v === 'none';
+}
+
+function isCursorSize(v: unknown): v is Preferences['cursorSize'] {
+  return v === 'default' || v === 'large-dark' || v === 'large-light';
 }
 
 function isBoolean(v: unknown): v is boolean {
@@ -63,6 +90,21 @@ function _validatePrefs(input: unknown): Preferences {
     readingMode: isBoolean(raw.readingMode)
       ? raw.readingMode
       : DEFAULT_PREFS.readingMode,
+    lineHeight: isLineHeight(raw.lineHeight) ? raw.lineHeight : DEFAULT_PREFS.lineHeight,
+    letterSpacing: isLetterSpacing(raw.letterSpacing)
+      ? raw.letterSpacing
+      : DEFAULT_PREFS.letterSpacing,
+    textAlign: isTextAlign(raw.textAlign) ? raw.textAlign : DEFAULT_PREFS.textAlign,
+    highlightHeadings: isBoolean(raw.highlightHeadings)
+      ? raw.highlightHeadings
+      : DEFAULT_PREFS.highlightHeadings,
+    saturation: isSaturation(raw.saturation)
+      ? raw.saturation
+      : DEFAULT_PREFS.saturation,
+    cursorSize: isCursorSize(raw.cursorSize)
+      ? raw.cursorSize
+      : DEFAULT_PREFS.cursorSize,
+    hideImages: isBoolean(raw.hideImages) ? raw.hideImages : DEFAULT_PREFS.hideImages,
   };
 }
 
@@ -75,6 +117,13 @@ function _toAttrs(prefs: Preferences): ServerSideAttrs {
     'data-a11y-motion': prefs.motion,
     'data-a11y-dyslexia': prefs.dyslexiaFont ? 'true' : 'false',
     'data-a11y-reading': prefs.readingMode ? 'true' : 'false',
+    'data-a11y-lineheight': prefs.lineHeight,
+    'data-a11y-letterspacing': prefs.letterSpacing,
+    'data-a11y-textalign': prefs.textAlign,
+    'data-a11y-headings': String(prefs.highlightHeadings),
+    'data-a11y-saturation': prefs.saturation,
+    'data-a11y-cursor': prefs.cursorSize,
+    'data-a11y-hideimages': String(prefs.hideImages),
   };
 }
 

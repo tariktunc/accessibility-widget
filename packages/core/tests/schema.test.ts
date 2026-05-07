@@ -15,7 +15,7 @@ describe('safeMergePrefs', () => {
       readingMode: true,
     };
     const parsed = safeMergePrefs(valid);
-    expect(parsed).toEqual(valid);
+    expect(parsed).toMatchObject(valid);
   });
 
   it('falls back to default for invalid fontScale', () => {

@@ -280,7 +280,7 @@ export function mount(opts: Partial<WidgetOptions> = {}): MountResult {
     onPreferencesChange?: (record: import('@blakfy/a11y-core').PreferencesRecord) => void;
   };
   const merged = safeMergeOptions({ ...scriptCfg, ...winGlobal, ...opts });
-  let config: WidgetOptions = merged;
+  const config: WidgetOptions = merged;
 
   // 2. Apply persisted prefs immediately. Before mutating <html>, sample
   //    any server-rendered data-a11y-* to detect SSR hydration mismatch.
