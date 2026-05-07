@@ -22,6 +22,13 @@
           h.setAttribute('data-a11y-motion', p.motion || 'auto');
           h.setAttribute('data-a11y-dyslexia', String(!!p.dyslexiaFont));
           h.setAttribute('data-a11y-reading', String(!!p.readingMode));
+          h.setAttribute('data-a11y-lineheight', p.lineHeight || 'normal');
+          h.setAttribute('data-a11y-letterspacing', p.letterSpacing || 'normal');
+          h.setAttribute('data-a11y-textalign', p.textAlign || 'default');
+          h.setAttribute('data-a11y-headings', String(!!p.highlightHeadings));
+          h.setAttribute('data-a11y-saturation', p.saturation || 'normal');
+          h.setAttribute('data-a11y-cursor', p.cursorSize || 'default');
+          h.setAttribute('data-a11y-hideimages', String(!!p.hideImages));
         } catch (e) {
           /* sessizce başarısız ol */
         }
@@ -187,7 +194,7 @@
 
     <!-- Widget — auto-mount via script tag data-* attributes -->
     <script
-      src="https://cdn.jsdelivr.net/npm/@blakfy/accessibility-widget@v1/dist/widget.js"
+      src="https://cdn.jsdelivr.net/npm/@blakfy/accessibility-widget@2.0.0-alpha.0/dist/widget.js"
       data-locale="tr"
       data-theme="auto"
       data-position="bottom-left"

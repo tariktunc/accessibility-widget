@@ -1,3 +1,4 @@
+'use client';
 // Demo: İletişim sayfası — form ile widget'ın farklı sayfada çalışmasını test eder
 export default function ContactPage() {
   return (

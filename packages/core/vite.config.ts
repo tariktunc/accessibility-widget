@@ -21,6 +21,6 @@ export default defineConfig({
     dts({ rollupTypes: true, tsconfigPath: './tsconfig.json' }),
   ],
   define: {
-    __VERSION__: JSON.stringify('2.0.0-alpha.0'),
+    __VERSION__: JSON.stringify('2.0.0-alpha.1'),
   },
 });

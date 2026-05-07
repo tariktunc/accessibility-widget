@@ -103,7 +103,7 @@ jobs:
           assets["@blakfy/a11y-core"]="dist/index.js"
           assets["@blakfy/accessibility-widget-next"]="dist/index.js"
 
-          tags=("v1" "latest")
+          tags=("v1" "v2" "latest")
 
           for pkg in "${packages[@]}"; do
             for tag in "${tags[@]}"; do
