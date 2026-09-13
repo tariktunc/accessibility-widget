@@ -139,7 +139,7 @@ Bu attribute'lar widget tarafından `<html>` elementine yazılır. Müşteri CSS
 
 ## 4. CSS Custom Properties (15 adet — kilitli)
 
-Müşteri tema customization'ı için. `:root` veya widget'in dış container'ına yazılır → Shadow DOM içine yayılır.
+Müşteri tema customization'ı için değişkenleri doğrudan `blakfy-a11y-root` host elementine yazın. `:host` varsayılanları, `:root` veya dış container'dan miras alınan değerlerin önüne geçer.
 
 | Variable | Default | Açıklama | Sürüm |
 |---|---|---|---|
@@ -173,7 +173,7 @@ Müşteri tema customization'ı için. `:root` veya widget'in dış container'ı
 ### Tema örneği — Stripe-vari mor
 
 ```css
-:root {
+blakfy-a11y-root {
   --blakfy-a11y-primary: #635bff;
   --blakfy-a11y-primary-hover: #524bff;
   --blakfy-a11y-focus-ring: #635bff;
@@ -184,7 +184,7 @@ Müşteri tema customization'ı için. `:root` veya widget'in dış container'ı
 ### Tema örneği — Vercel-vari siyah-beyaz
 
 ```css
-:root {
+blakfy-a11y-root {
   --blakfy-a11y-primary: #000000;
   --blakfy-a11y-primary-hover: #333333;
   --blakfy-a11y-toggle-on: #000000;
@@ -192,13 +192,14 @@ Müşteri tema customization'ı için. `:root` veya widget'in dış container'ı
 }
 ```
 
-### Token adapter recipe — map your own 3 brand values in one block
+### Token adapter recipe — map your own brand tokens in one block
 
-Most integrations only need to set primary color, radius, and hover shade. Copy this block,
-replace the three `--your-brand-*` values with your site's own tokens:
+Map your site's primary color and radius to the widget host using this block.
+Replace the two `--your-brand-*` references with your site's tokens; the hover shade
+is derived from the primary color:
 
 ```css
-:root {
+blakfy-a11y-root {
   --blakfy-a11y-primary: var(--your-brand-primary, #000000);
   --blakfy-a11y-primary-hover: color-mix(in srgb, var(--your-brand-primary, #000000) 85%, white);
   --blakfy-a11y-toggle-on: var(--your-brand-primary, #000000);
