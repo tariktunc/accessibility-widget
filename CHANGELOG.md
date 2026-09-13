@@ -12,6 +12,9 @@
 
 ## [Unreleased] — v2.0.0
 
+### Fixed
+- Bilgi düğmeleri 16×16 yerine 44×44 CSS px hedef sunar. Panel kontrol boyutları 280/350/758/1200 px genişliklerde test edilir. Diğer panel düğmeleri/anahtarları için alt sınır 24×24; tüm kontroller için 44×44 iddiası yoktur.
+
 ### Added
 - CDN distribution via jsDelivr (auto-update, `@v1` floating tag, `@1.0.0` immutable pin)
 - Web Component + Shadow DOM (CSS isolation; `<blakfy-a11y>` custom element)
@@ -81,7 +84,7 @@ See [docs/migration/v1-to-v2.md](./docs/migration/v1-to-v2.md).
 - prefers-reduced-motion ve prefers-contrast OS sinyallerine saygi
 - Disleksi font notu: arastirma karisik (Wery 2017 etkisiz, Broadbent 2023 %58 prefer) — dürüst etiket
 - Disclaimer: "Bu panel kullanici tercih kontrolu sunar; teknik a11y yapi seviyesinde saglanmistir"
-- WCAG 2.2 AA: 44x44px touch target, focus-visible, klavye erisilebilirligi, semantic HTML
+- Hedef boyutu notu: 44×44, WCAG SC 2.5.5'in geliştirilmiş (AAA) hedefidir; SC 2.5.8 (AA) 24×24 minimumunu ve istisnaları tanımlar. Güncel v2 kontrol boyutları için [README](./README.md#kontrol-hedef-boyutları).
 - Light / Dark / Auto tema (OS prefers-color-scheme takibi)
 - Akiskan tipografi (clamp, min 10px max 18px)
 - 280px responsive

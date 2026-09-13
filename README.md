@@ -586,6 +586,20 @@ Client log'lar `npm run dev` terminalinde görünür. Prod'da silent fail. Detay
 
 ## Erişilebilirlik beyanı
 
+### Kontrol hedef boyutları
+
+V2 panel düğmeleri ve anahtarları için proje alt sınırı 24×24 CSS px'tir;
+FAB ve bilgi düğmeleri 44×44 CSS px veya daha büyüktür. Bütün kontrollerin
+44×44 olduğu iddia edilmez. Boyut ve yatay taşma kontrolleri 280, 350, 758 ve
+1200 px genişliklerde E2E testleriyle ölçülür.
+
+[WCAG 2.2 SC 2.5.8 (AA)](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html)
+24×24 minimumunu ve aralık dahil istisnaları tanımlar;
+[SC 2.5.5 (AAA)](https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced.html)
+44×44 geliştirilmiş hedefi tanımlar. Testlerimiz doğrudan kontrol sınırlarını
+ölçer; tek başına tüm şekil/aralık istisnalarını veya sitenin WCAG uygunluğunu
+değerlendirmez.
+
 ### Bu widget yapar
 
 - ✅ WCAG 2.2 AA uyumlu UI sunar (panel, FAB, switch'ler test edilmiştir)

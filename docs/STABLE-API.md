@@ -336,7 +336,7 @@ Aşağıdaki 14 madde her release'de geçer (CI gate). Detaylar `docs/adr/`'de R
 3. Focus trap (Tab/Shift-Tab cycle)
 4. `role="switch"` + `aria-checked` her toggle'da
 5. Kontrast ≥4.5:1 text, ≥3:1 non-text (light + dark + auto)
-6. Target size ≥24×24 her interactive element
+6. Target size ≥24×24 her interactive element; FAB ve bilgi düğmeleri ≥44×44 CSS px. Panel düğmeleri/anahtarları için boyut ve yatay taşma: 280/350/758/1200 px E2E kontrolleri. [Boyut politikası ve WCAG kapsamı](../README.md#kontrol-hedef-boyutları).
 7. Reflow 320×256 (yatay scroll yok)
 8. RTL smoke (ar/he aynalanma)
 9. `prefers-reduced-motion` saygısı
