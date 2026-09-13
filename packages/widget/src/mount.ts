@@ -278,11 +278,13 @@ function _getOrCreateHost(): HTMLElement {
   return el;
 }
 
-let _activeUnmount: (() => void) | null = null;
+let _activeMount: MountResult | null = null;
+let _activeHost: HTMLElement | null = null;
 
 /**
  * Mount the widget. Idempotent: a second call returns the same result and
- * does not re-render.
+ * does not re-render. Unmount before mounting with different options, or use
+ * the public configure() method to update the active widget.
  */
 export function mount(opts: Partial<WidgetOptions> = {}): MountResult {
   const startTime = typeof performance !== 'undefined' ? performance.now() : Date.now();
@@ -290,16 +292,11 @@ export function mount(opts: Partial<WidgetOptions> = {}): MountResult {
   if (typeof document === 'undefined') {
     return { unmount: () => undefined };
   }
-
-  // Idempotency guard (fixes #44): a second mount() call while already
-  // mounted must be a true no-op, matching the documented contract above.
-  // Callers who need to change live options must use the returned
-  // configure() instead of calling mount() again. Only treat it as "still
-  // mounted" when the host element is actually still in the DOM — if it
-  // was removed externally (page script, dev tools), _activeUnmount is
-  // stale and a fresh mount must proceed instead of silently no-oping.
-  if (_activeUnmount && document.querySelector(ROOT_TAG)) {
-    return { unmount: _activeUnmount };
+  if (_activeMount) {
+    if (_activeHost && document.contains(_activeHost)) return _activeMount;
+    // A page may remove or replace the host without calling unmount().
+    // Release that instance's subscriptions before creating a new one.
+    _activeMount.unmount();
   }
 
   // 1. Resolve config: defaults < script data-* < window globals < opts
@@ -493,25 +490,29 @@ export function mount(opts: Partial<WidgetOptions> = {}): MountResult {
     },
   });
 
-  // 10. Emit ready
-  addIssue('info', 'INITIALIZED', `Widget mounted in ${mountTimeMs.toFixed(1)}ms`);
-  emit(EVENT_NAMES.READY, { version: VERSION });
-
-  // 11. Unmount
+  // 10. Register cleanup before ready handlers can call mount again.
   const unmount = (): void => {
+    if (_activeMount !== result) return;
+    _activeMount = null;
+    _activeHost = null;
     offOSChanges();
     offHostTheme();
     if (offChangeForwarder) offChangeForwarder();
     render(null, shadowRoot);
     if (host.parentNode) host.parentNode.removeChild(host);
-    _activeUnmount = null;
   };
-  _activeUnmount = unmount;
+  const result: MountResult = { unmount };
+  _activeMount = result;
+  _activeHost = host;
 
-  return { unmount };
+  // 11. Emit ready
+  addIssue('info', 'INITIALIZED', `Widget mounted in ${mountTimeMs.toFixed(1)}ms`);
+  emit(EVENT_NAMES.READY, { version: VERSION });
+
+  return result;
 }
 
 /** Test helper: re-export for unmount-from-anywhere semantics. */
 export function _getActiveUnmount(): (() => void) | null {
-  return _activeUnmount;
+  return _activeMount?.unmount ?? null;
 }
