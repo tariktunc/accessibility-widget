@@ -33,7 +33,7 @@
   --__card-hover:  #eeeeee;
   --__card-active: #e8e8e8;
   --__text:        #111111;
-  --__muted:       rgba(17,17,17,0.45);
+  --__muted:       rgba(17,17,17,0.6);
   --__muted-dim:   rgba(17,17,17,0.3);
   --__divide:      rgba(0,0,0,0.07);
   --__switch-off:  #d0d0d0;
@@ -57,7 +57,7 @@
   --__card-hover:  #252525;
   --__card-active: #1a2540;
   --__text:        #ffffff;
-  --__muted:       rgba(255,255,255,0.45);
+  --__muted:       rgba(255,255,255,0.6);
   --__muted-dim:   rgba(255,255,255,0.28);
   --__divide:      rgba(255,255,255,0.07);
   --__switch-off:  #3a3a3a;
