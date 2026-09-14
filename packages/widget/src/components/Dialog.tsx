@@ -16,7 +16,7 @@
  *
  * Lives inside Shadow DOM — focus queries must run against the shadow tree.
  */
-import { useEffect, useRef } from 'preact/hooks';
+import { useEffect, useLayoutEffect, useRef } from 'preact/hooks';
 import type { ComponentChildren, JSX } from 'preact';
 
 type Props = {
@@ -83,7 +83,8 @@ export function Dialog({
   }, [open]);
 
   // Focus management + ESC + Tab trap
-  useEffect(() => {
+  // Install keyboard handling before the newly rendered dialog is painted.
+  useLayoutEffect(() => {
     if (!open) return;
     if (typeof document === 'undefined') return;
 
