@@ -6,7 +6,9 @@ export interface OSPreferences {
   reducedMotion: boolean;
   contrast: 'normal' | 'more' | 'less';
   colorScheme: 'light' | 'dark' | 'no-preference';
+  /** `prefers-reduced-transparency: reduce` — translucent surfaces should be opaque. */
   reducedTransparency: boolean;
+  /** `prefers-reduced-data: reduce` — the user asked for fewer bytes over the network. */
   reducedData: boolean;
 }
 
@@ -288,14 +290,29 @@ export function detectOSPreferences(): OSPreferences {
   try {
     reducedTransparency = window.matchMedia('(prefers-reduced-transparency: reduce)').matches;
   } catch {
-    /* not supported in all engines yet — Safari/iOS only as of writing */
+    /* Safari/Chromium ship it; engines that do not, keep the default */
   }
   try {
     reducedData = window.matchMedia('(prefers-reduced-data: reduce)').matches;
   } catch {
-    /* Chrome-only, behind a flag in some versions — expect frequent no-op */
+    /* Chromium ships it; engines that do not, keep the default */
   }
   return { reducedMotion, contrast, colorScheme, reducedTransparency, reducedData };
+}
+
+/**
+ * Reflect the OS-level signals that have no widget toggle of their own onto
+ * `<html>`, so a host stylesheet can react to them the same way it reacts to
+ * the `data-a11y-*` attributes written by `applyPreferences`. The widget's own
+ * stylesheet is scoped to its shadow root and reads them off the host element
+ * instead (`mount.ts` mirrors them there). SSR-safe.
+ */
+export function applyOSPreferences(osPrefs: OSPreferences): void {
+  if (typeof document === 'undefined') return;
+  const html = document.documentElement;
+  if (!html) return;
+  html.setAttribute('data-a11y-reduced-transparency', String(osPrefs.reducedTransparency));
+  html.setAttribute('data-a11y-reduced-data', String(osPrefs.reducedData));
 }
 
 /**
@@ -357,6 +374,8 @@ export function subscribeToOSChanges(cb: (osPrefs: OSPreferences) => void): () =
     '(prefers-contrast: less)',
     '(prefers-color-scheme: dark)',
     '(prefers-color-scheme: light)',
+    '(prefers-reduced-transparency: reduce)',
+    '(prefers-reduced-data: reduce)',
   ];
   const lists: MediaQueryList[] = [];
   const handler = (): void => {
