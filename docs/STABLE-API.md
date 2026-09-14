@@ -322,8 +322,9 @@ Tip: `Partial<WidgetOptions> & { onPreferencesChange?: (record: PreferencesRecor
 
 ## 8a. Panel Quick-Preset "Profiller" (UI-only)
 
-Panelde 5 hazır profil butonu var (`Panel.tsx` `PROFILE_PRESETS`). Tıklandığında ilgili
-tercih demeti mevcut tercihlerin ÜSTÜNE merge edilir — diğer alanları sıfırlamaz.
+Panelde 5 hazır profil butonu var (`Panel.tsx` `PROFILE_PRESETS`). Etkin olmayan bir
+profile tıklandığında ilgili tercih demeti mevcut tercihlerin ÜSTÜNE merge edilir —
+diğer alanları sıfırlamaz.
 
 | Profil anahtarı | Etiket (tr) | Uyguladığı tercihler |
 |---|---|---|
@@ -332,6 +333,21 @@ tercih demeti mevcut tercihlerin ÜSTÜNE merge edilir — diğer alanları sıf
 | `cognitive` | Bilişsel Engellilik | `readingMode: true`, `lineHeight: 'medium'`, `motion: 'reduce'` |
 | `adhd` | DEHB Dostu | `motion: 'reduce'`, `hideImages: true` |
 | `blindness` | Ekran Okuyucu | `focusRing: true`, `linkUnderline: true`, `highlightHeadings: true` |
+
+Bir profilin bütün alanları tablodaki değerlerle eşleşiyorsa düğme etkin görünür
+(`aria-pressed="true"`). Alanlar tek tek ayarlanmış olsa da aynı kural geçerlidir;
+ayrı bir seçili profil kaydı tutulmaz. Etkin profile tekrar tıklamak yalnızca o
+profilin alanlarını `DEFAULT_PREFS` değerlerine döndürür; önceki özel değerleri
+geri yüklemez.
+
+Profiller birbirini dışlamaz. Örneğin `epilepsy` ve `cognitive`, `motion: 'reduce'`
+alanını paylaşır. İkisi etkinken birini kapatmak `motion` alanını varsayılana
+döndürür ve diğerini de etkin olmaktan çıkarır; diğer profilin kalan alanları
+değişmez. Genel sıfırlama bütün tercihleri varsayılanlara döndürür.
+
+Etiketler güvenlik veya uygunluk garantisi değildir. "Ekran Okuyucu" bir ekran
+okuyucu başlatmaz; yalnızca tabloda belirtilen üç tercihi ayarlar. Bu kısayollar
+sitenin yapısal erişilebilirlik sorunlarını gidermez.
 
 **Karar (2026-09-13):** Bu profiller **sadece panel UI'sinde** yaşar — `applyProfile`/
 `PROFILE_PRESETS` `Panel.tsx`'e internal'dır, `window.BlakfyA11y` üzerinde public bir API
