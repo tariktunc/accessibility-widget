@@ -37,6 +37,7 @@
 - readingWidth preference: constrains text block width (default/narrow/narrower) for easier line-tracking (WCAG 1.4.8)
 
 ### Fixed
+- Correct contradictory README profile claims and document preset active-state, toggle-off, and shared-field behavior in STABLE-API.
 - `.info-btn` tap target enlarged from 16x16 to a real 24x24 (WCAG 2.2 AA SC 2.5.8 Target Size Minimum) — was a genuine AA violation, visual dot unchanged via `::before` (#63). Note: `.stepper-btn`/`.opt-btn`/`.switch`/`.btn-reset` still fall short of the stronger 44x44 figure quoted in the v1.0.0 entry above — tracked separately, not yet resolved.
 - `document.cookie` read (`_getCookie`) now catches `SecurityError` — a sandboxed cross-origin iframe without `allow-same-origin` (Wix "Embed a Widget", #15) throws on cookie access, which previously aborted `mount()` before it rendered anything.
 - Panel color-contrast: `--__muted` text (profile descriptions, etc.) raised from 0.45 to 0.62 (light) / 0.58 (dark) alpha — the lighter value fell under WCAG AA 4.5:1 against `--__card`, caught by `contrast.spec.ts` (axe-core).
