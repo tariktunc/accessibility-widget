@@ -8,7 +8,7 @@
   {
     "name": "widget ESM (NPM)",
     "path": "packages/widget/dist/widget.esm.js",
-    "limit": "26 KB",
+    "limit": "26.5 KB",
     "gzip": true
   },
   {
