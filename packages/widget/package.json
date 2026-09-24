@@ -1,6 +1,6 @@
 {
   "name": "@blakfy/accessibility-widget",
-  "version": "2.0.0-alpha.7",
+  "version": "2.0.0-alpha.8",
   "description": "Native accessibility preferences panel for Next.js + vanilla sites. Auto-updates via jsDelivr CDN.",
   "type": "module",
   "main": "./dist/widget.esm.js",

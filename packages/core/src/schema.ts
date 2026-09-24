@@ -36,7 +36,7 @@ function warnInvalid(field: string, received: unknown, fallback: unknown): void 
 /** Default `WidgetOptions` returned when input is invalid or missing. */
 const DEFAULT_OPTIONS: WidgetOptions = {
   locale: 'en',
-  theme: 'auto',
+  theme: 'light',
   position: 'bottom-left',
   font: '',
   debug: false,
@@ -113,7 +113,7 @@ function pickLocale(v: unknown): Locale {
 }
 
 function pickTheme(v: unknown): Theme {
-  return v === 'light' || v === 'dark' || v === 'auto' ? v : 'auto';
+  return v === 'light' || v === 'dark' || v === 'auto' ? v : DEFAULT_OPTIONS.theme;
 }
 
 function pickPosition(v: unknown): Position {

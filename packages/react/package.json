@@ -1,6 +1,6 @@
 {
   "name": "@blakfy/accessibility-widget-react",
-  "version": "2.0.0-alpha.7",
+  "version": "2.0.0-alpha.8",
   "description": "React wrapper for @blakfy/accessibility-widget — A11yWidget component and useA11yPreferences hook",
   "type": "module",
   "main": "./dist/index.js",

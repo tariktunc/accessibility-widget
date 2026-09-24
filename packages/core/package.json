@@ -1,6 +1,6 @@
 {
   "name": "@blakfy/a11y-core",
-  "version": "2.0.0-alpha.4",
+  "version": "2.0.0-alpha.8",
   "description": "Framework-agnostic core for @blakfy/accessibility-widget — preferences, i18n, schema, events",
   "type": "module",
   "main": "./dist/index.js",

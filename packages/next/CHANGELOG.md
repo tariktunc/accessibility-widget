@@ -1,5 +1,13 @@
 # @blakfy/accessibility-widget-next
 
+## 2.0.0-alpha.8
+
+### Patch Changes
+
+- FAB shadow changed to a neutral 3% black (removed the blue tint), FAB background is now solid dark with a white icon, and the panel's default theme is `light` (white panel, black text) instead of following system preference.
+- Updated dependencies
+  - @blakfy/a11y-core@2.0.0-alpha.8
+
 ## 2.0.0-alpha.4
 
 ### Minor Changes

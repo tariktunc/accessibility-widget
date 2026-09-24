@@ -146,9 +146,9 @@ button {
   align-items: center;
   justify-content: center;
   border-radius: var(--blakfy-a11y-radius-pill);
-  background: var(--blakfy-a11y-primary);
-  color: var(--blakfy-a11y-primary-text);
-  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.35);
+  background: #0a0a0a;
+  color: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
   transition:
     background 200ms ease,
     transform 200ms ease;
