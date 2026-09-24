@@ -1,6 +1,6 @@
 // @blakfy/a11y-core — apply-styles.test.ts
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { applyPreferences, applyAutoplayControl, detectOSPreferences } from '../src/apply-styles';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { applyAutoplayControl, applyOSPreferences, applyPreferences, detectOSPreferences } from '../src/apply-styles';
 import { DEFAULT_PREFS, type Preferences } from '../src/types';
 
 beforeEach(() => {
@@ -126,5 +126,66 @@ describe('detectOSPreferences', () => {
     expect(typeof os.reducedMotion).toBe('boolean');
     expect(['normal', 'more', 'less']).toContain(os.contrast);
     expect(['light', 'dark', 'no-preference']).toContain(os.colorScheme);
+  });
+});
+
+describe('detectOSPreferences — reduced-transparency and reduced-data', () => {
+  const original = window.matchMedia;
+
+  afterEach(() => {
+    window.matchMedia = original;
+  });
+
+  it('reads both signals from matchMedia', () => {
+    window.matchMedia = ((q: string) =>
+      ({
+        matches:
+          q === '(prefers-reduced-transparency: reduce)' || q === '(prefers-reduced-data: reduce)',
+      }) as MediaQueryList) as unknown as typeof window.matchMedia;
+    const os = detectOSPreferences();
+    expect(os.reducedTransparency).toBe(true);
+    expect(os.reducedData).toBe(true);
+  });
+
+  it('leaves both false when the engine does not know the queries', () => {
+    window.matchMedia = ((_q: string) =>
+      ({ matches: false }) as MediaQueryList) as unknown as typeof window.matchMedia;
+    const os = detectOSPreferences();
+    expect(os.reducedTransparency).toBe(false);
+    expect(os.reducedData).toBe(false);
+  });
+
+  it('survives matchMedia throwing on an unsupported query', () => {
+    window.matchMedia = (() => {
+      throw new Error('unsupported media query');
+    }) as unknown as typeof window.matchMedia;
+    const os = detectOSPreferences();
+    expect(os.reducedTransparency).toBe(false);
+    expect(os.reducedData).toBe(false);
+    expect(os.reducedMotion).toBe(false);
+  });
+});
+
+describe('applyOSPreferences', () => {
+  it('writes the two OS signals onto <html> for host stylesheets', () => {
+    applyOSPreferences({
+      reducedMotion: false,
+      contrast: 'normal',
+      colorScheme: 'no-preference',
+      reducedTransparency: true,
+      reducedData: true,
+    });
+    const html = document.documentElement;
+    expect(html.getAttribute('data-a11y-reduced-transparency')).toBe('true');
+    expect(html.getAttribute('data-a11y-reduced-data')).toBe('true');
+    applyOSPreferences({
+      reducedMotion: false,
+      contrast: 'normal',
+      colorScheme: 'no-preference',
+      reducedTransparency: false,
+      reducedData: false,
+    });
+    expect(html.getAttribute('data-a11y-reduced-transparency')).toBe('false');
+    expect(html.getAttribute('data-a11y-reduced-data')).toBe('false');
   });
 });

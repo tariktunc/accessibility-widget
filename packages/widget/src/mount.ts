@@ -23,6 +23,7 @@ import {
   EVENT_NAMES,
   RTL_LOCALES,
   addIssue,
+  applyOSPreferences,
   applyPreferences,
   detectHostCSSConflicts,
   detectOSPreferences,
@@ -35,6 +36,7 @@ import {
   setDevPipe,
   subscribeToOSChanges,
   type Locale,
+  type OSPreferences,
   type Preferences,
   type Translation,
   type WidgetOptions,
@@ -119,6 +121,16 @@ function _readScriptDataAttrs(): Partial<WidgetOptions> & { devPipe?: string; ve
   if (ds.devPipe) out.devPipe = ds.devPipe;
   if (ds.version) out.version = ds.version;
   return out;
+}
+
+/**
+ * Mirror the OS-level signals onto the widget host element. The widget's
+ * stylesheet lives in a shadow root and cannot see `<html>` of the page, so
+ * the CSS side of `prefers-reduced-transparency` reads them from here.
+ */
+function _applyOSAttributes(host: HTMLElement, os: OSPreferences): void {
+  host.setAttribute('data-a11y-reduced-transparency', String(os.reducedTransparency));
+  host.setAttribute('data-a11y-reduced-data', String(os.reducedData));
 }
 
 /**
@@ -371,6 +383,10 @@ export function mount(opts: Partial<WidgetOptions> = {}): MountResult {
     );
   }
   const osPrefs = detectOSPreferences();
+  // The two signals below have no widget toggle: they are a statement about the
+  // machine, not a preference about this site. Publish them on <html> (host CSS)
+  // and on the widget host element (this widget's own stylesheet, step 7).
+  applyOSPreferences(osPrefs);
   if (osPrefs.reducedMotion) {
     addIssue('info', 'OS_PREFERS_REDUCED_MOTION', 'OS prefers-reduced-motion=reduce detected.');
   }
@@ -384,11 +400,15 @@ export function mount(opts: Partial<WidgetOptions> = {}): MountResult {
     addIssue(
       'info',
       'OS_PREFERS_REDUCED_TRANSPARENCY',
-      'OS prefers-reduced-transparency=reduce detected.',
+      'OS prefers-reduced-transparency=reduce detected — translucent surfaces render opaque.',
     );
   }
   if (osPrefs.reducedData) {
-    addIssue('info', 'OS_PREFERS_REDUCED_DATA', 'OS prefers-reduced-data=reduce detected.');
+    addIssue(
+      'info',
+      'OS_PREFERS_REDUCED_DATA',
+      'OS prefers-reduced-data=reduce detected — remote locale files are not fetched.',
+    );
   }
   const offOSChanges = subscribeToOSChanges(() => {
     if (state.config.theme === 'auto') {
@@ -468,8 +488,15 @@ export function mount(opts: Partial<WidgetOptions> = {}): MountResult {
 
   state.rerender();
 
-  // 8. Lazy-load locale
-  if (config.locale !== 'en') {
+  // 7b. Mirror the OS signals the widget's own stylesheet reacts to. Done here
+  //     rather than with the other diagnostics because the host element only
+  //     exists once `state` is created.
+  _applyOSAttributes(state.host, osPrefs);
+
+  // 8. Lazy-load locale — skipped under prefers-reduced-data (step 3). The
+  //    locale JSON files are the only network asset the widget fetches on its
+  //    own, so honouring the signal means keeping the bundled English locale.
+  if (config.locale !== 'en' && !osPrefs.reducedData) {
     const baseURL = _inferBaseURL();
     void loadLocale(config.locale, baseURL).then((tr) => {
       translation = tr;
@@ -502,7 +529,7 @@ export function mount(opts: Partial<WidgetOptions> = {}): MountResult {
         if (next.locale === 'en') {
           state.translation = getEnglishLocale();
           state.rerender();
-        } else {
+        } else if (!osPrefs.reducedData) {
           const baseURL = _inferBaseURL();
           void loadLocale(next.locale, baseURL).then((tr) => {
             state.translation = tr;

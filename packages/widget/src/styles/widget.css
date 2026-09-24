@@ -3,7 +3,11 @@
  * 15 CSS custom properties from STABLE-API.md §4 are LOCKED — never rename.
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+/* The widget's own optional network asset. `not (…)` is deliberate: a browser
+ * that does not know prefers-reduced-data evaluates the inner query as false,
+ * so the import still loads there and this line is a no-op everywhere except
+ * where the OS actually asks for less data. */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap') not (prefers-reduced-data: reduce);
 
 /* ==========================================================================
  * 1. Light mode defaults
@@ -916,3 +920,28 @@ button {
     background: HighlightText;
   }
 }
+
+/* ==========================================================================
+ * 12. OS signal: prefers-reduced-transparency
+ *     Translucency is decoration. When the machine asks for less of it, the
+ *     semi-transparent text, borders and scrim become solid: same information,
+ *     none of the bleed-through. The attribute is mirrored onto the host
+ *     element by _applyOSAttributes() in mount.ts, because this stylesheet
+ *     lives in a shadow root and cannot see <html> of the page.
+ * ========================================================================== */
+:host([data-a11y-reduced-transparency="true"]) {
+  --blakfy-a11y-panel-muted: #6b7280;
+  --blakfy-a11y-panel-border: #c7c9d1;
+  --blakfy-a11y-panel-muted-dark: #b9c6d4;
+  --blakfy-a11y-panel-border-dark: #3a4048;
+}
+:host([data-a11y-reduced-transparency="true"]) .backdrop {
+  background: #000000;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* prefers-reduced-data needs no rule of its own here: on that path the widget
+ * fetches nothing (remote locales are skipped in mount.ts, step 8). The
+ * attribute is published so host stylesheets can drop their own optional
+ * assets — fonts, hero images, embeds. */

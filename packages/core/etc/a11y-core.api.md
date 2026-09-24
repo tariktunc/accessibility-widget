@@ -8,6 +8,9 @@
 export function addIssue(level: IssueLevel, code: IssueCode, msg: string, extra?: Record<string, unknown>): void;
 
 // @public
+export function applyOSPreferences(osPrefs: OSPreferences): void;
+
+// @public
 export function applyPreferences(prefs: Preferences): void;
 
 // @public
@@ -170,6 +173,8 @@ export const ISSUE_CODES: {
     readonly OS_PREFERS_REDUCED_MOTION: "OS_PREFERS_REDUCED_MOTION";
     readonly OS_PREFERS_CONTRAST_MORE: "OS_PREFERS_CONTRAST_MORE";
     readonly OS_PREFERS_COLOR_SCHEME_DARK: "OS_PREFERS_COLOR_SCHEME_DARK";
+    readonly OS_PREFERS_REDUCED_TRANSPARENCY: "OS_PREFERS_REDUCED_TRANSPARENCY";
+    readonly OS_PREFERS_REDUCED_DATA: "OS_PREFERS_REDUCED_DATA";
 };
 
 // @public
@@ -205,8 +210,10 @@ export interface OSPreferences {
     colorScheme: 'light' | 'dark' | 'no-preference';
     // (undocumented)
     contrast: 'normal' | 'more' | 'less';
+    reducedData: boolean;
     // (undocumented)
     reducedMotion: boolean;
+    reducedTransparency: boolean;
 }
 
 // @public
