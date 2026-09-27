@@ -3,8 +3,6 @@
  * 15 CSS custom properties from STABLE-API.md §4 are LOCKED — never rename.
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-
 /* ==========================================================================
  * 1. Light mode defaults
  * ========================================================================== */
@@ -97,7 +95,7 @@
 :host {
   all: initial;
   font-family:
-    'Poppins',
+    system-ui,
     -apple-system,
     BlinkMacSystemFont,
     'Segoe UI',
