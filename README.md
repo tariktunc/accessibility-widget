@@ -198,7 +198,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 }
 ```
 
-`<A11yServerHelper />` async server component'tir — cookie'yi okur, `<html>` etiketine `data-a11y-*` attribute'larını yazar (SSR FOUC engellenir). `<A11yScript />` jsDelivr URL'iyle `<Script>` tag'ini render eder.
+`A11yServerHelper()` async bir server helper fonksiyonudur — cookie'yi okur ve `<html>` üzerine yayılacak `data-a11y-*` attribute nesnesini döndürür (SSR FOUC engellenir). `<A11yScript />` jsDelivr URL'iyle `<Script>` tag'ini render eder.
 
 #### SSR FOUC fix (manuel)
 
