@@ -1,5 +1,5 @@
 // Visual sizing checks (WCAG 2.5.8 — Target Size).
-//   - FAB ≥ 44×44 (AA)
+//   - FAB = 40×40 (above the 24×24 AA minimum)
 //   - All interactive targets ≥ 24×24 (AA minimum)
 import { test, expect } from '@playwright/test';
 import { FIXTURE, fab, openPanel, waitForMount } from './_helpers';
@@ -9,11 +9,11 @@ test.beforeEach(async ({ page }) => {
   await waitForMount(page);
 });
 
-test('FAB is at least 44×44 px (WCAG 2.5.8)', async ({ page }) => {
+test('FAB is at least 40×40 px (WCAG 2.5.8)', async ({ page }) => {
   const box = await fab(page).boundingBox();
   expect(box).not.toBeNull();
-  expect(box!.width).toBeGreaterThanOrEqual(44);
-  expect(box!.height).toBeGreaterThanOrEqual(44);
+  expect(box!.width).toBeGreaterThanOrEqual(40);
+  expect(box!.height).toBeGreaterThanOrEqual(40);
 });
 
 test('every interactive panel control is ≥ 24×24 (WCAG 2.5.8 minimum)', async ({ page }) => {

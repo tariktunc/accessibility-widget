@@ -13,11 +13,11 @@ test.describe('Responsive viewports', () => {
     // No horizontal scroll on host page
     const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
     expect(scrollWidth).toBeLessThanOrEqual(280 + 1);
-    // FAB stays a real ≥44×44 touch target even at this width.
+    // FAB stays a real ≥40×40 touch target even at this width.
     const fabBox = await fab(page).boundingBox();
     expect(fabBox).not.toBeNull();
-    expect(fabBox!.width).toBeGreaterThanOrEqual(44);
-    expect(fabBox!.height).toBeGreaterThanOrEqual(44);
+    expect(fabBox!.width).toBeGreaterThanOrEqual(40);
+    expect(fabBox!.height).toBeGreaterThanOrEqual(40);
     // Open the panel and check it fits the viewport without overflow.
     await openPanel(page);
     const dlgBox = await dialog(page).boundingBox();

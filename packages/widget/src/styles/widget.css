@@ -18,7 +18,7 @@
   --blakfy-a11y-toggle-on: #000000;
   --blakfy-a11y-toggle-off: #d0d0d0;
   --blakfy-a11y-focus-ring: #000000;
-  --blakfy-a11y-fab-size: 48px;
+  --blakfy-a11y-fab-size: 40px;
   --blakfy-a11y-radius: 3px;
   --blakfy-a11y-radius-pill: 9999px;
   --blakfy-a11y-card-bg: #f5f5f5;
@@ -138,8 +138,8 @@ button {
   inset-inline-start: 1rem;
   width: var(--blakfy-a11y-fab-size);
   height: var(--blakfy-a11y-fab-size);
-  min-width: 44px;
-  min-height: 44px;
+  min-width: 40px;
+  min-height: 40px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -889,7 +889,7 @@ button {
  * ========================================================================== */
 @media (max-width: 480px) {
   .fab {
-    --blakfy-a11y-fab-size: 44px;
+    --blakfy-a11y-fab-size: 40px;
   }
   .dialog {
     inline-size: 100vw;

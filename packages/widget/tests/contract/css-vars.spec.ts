@@ -69,7 +69,7 @@ describe('CSS custom properties contract (STABLE-API §4)', () => {
       '--blakfy-a11y-toggle-on': '#000000',
       '--blakfy-a11y-toggle-off': '#d0d0d0',
       '--blakfy-a11y-focus-ring': '#000000',
-      '--blakfy-a11y-fab-size': '48px',
+      '--blakfy-a11y-fab-size': '40px',
       '--blakfy-a11y-radius': '3px',
       '--blakfy-a11y-radius-pill': '9999px',
       '--blakfy-a11y-card-bg': '#f5f5f5',
