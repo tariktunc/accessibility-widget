@@ -12,6 +12,7 @@
   },
   "changesets": [
     "dark-mode-accent-contrast-fix",
+    "fab-40px-size",
     "info-btn-dark-contrast-fix",
     "mobile-scroll-lock-fix",
     "neutral-fab-light-default",

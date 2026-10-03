@@ -1,5 +1,14 @@
 # @blakfy/accessibility-widget-react
 
+## 2.0.0-alpha.10
+
+### Patch Changes
+
+- 4f94f9a: FAB is now 40px on every viewport (was 48px, 44px under 480px) and its minimum size is 40px instead of 44px, matching the 40px cookie FAB stacked above it.
+- Updated dependencies [4f94f9a]
+  - @blakfy/accessibility-widget@2.0.0-alpha.10
+  - @blakfy/a11y-core@2.0.0-alpha.10
+
 ## 2.0.0-alpha.8
 
 ### Patch Changes
