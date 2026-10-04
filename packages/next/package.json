@@ -1,6 +1,6 @@
 {
   "name": "@blakfy/accessibility-widget-next",
-  "version": "2.0.0-alpha.10",
+  "version": "2.0.0-alpha.11",
   "description": "Next.js helpers for @blakfy/accessibility-widget — A11yServerHelper, A11yScript with FOUC protection",
   "type": "module",
   "main": "./dist/index.js",

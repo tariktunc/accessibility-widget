@@ -19,6 +19,9 @@
   --blakfy-a11y-toggle-off: #d0d0d0;
   --blakfy-a11y-focus-ring: #000000;
   --blakfy-a11y-fab-size: 40px;
+  /* FAB distance from the bottom edge. >=758px leaves room for the brand badge
+     under the FAB (8px + 20px badge + 6px gap); <758px the badge is hidden. */
+  --blakfy-a11y-fab-edge: 34px;
   --blakfy-a11y-radius: 3px;
   --blakfy-a11y-radius-pill: 9999px;
   --blakfy-a11y-card-bg: #f5f5f5;
@@ -134,7 +137,7 @@ button {
  * ========================================================================== */
 .fab {
   position: fixed;
-  inset-block-end: 1rem;
+  inset-block-end: var(--blakfy-a11y-fab-edge);
   inset-inline-start: 1rem;
   width: var(--blakfy-a11y-fab-size);
   height: var(--blakfy-a11y-fab-size);
@@ -184,20 +187,24 @@ button {
  * ========================================================================== */
 .badge {
   position: fixed;
-  inset-block-end: calc(1rem + var(--blakfy-a11y-fab-size) + 0.5rem);
+  /* Sits UNDER the FAB, left-aligned with it (owner decision 2026-10-04): the
+     space above the FAB belongs to the cookie FAB. Hidden below 758px. */
+  inset-block-end: 8px;
   inset-inline-start: 1rem;
   display: inline-flex;
   align-items: center;
   gap: 0.4em;
-  padding: 0.35em 0.6em;
+  height: 20px;
+  box-sizing: border-box;
+  padding: 0 0.6em;
   border-radius: var(--blakfy-a11y-radius-pill);
   background: var(--blakfy-a11y-panel-bg);
   color: var(--blakfy-a11y-panel-text);
   border: 1px solid var(--blakfy-a11y-panel-border);
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   line-height: 1;
   text-decoration: none;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
   z-index: 9997;
 }
 
@@ -212,13 +219,24 @@ button {
 }
 :host([data-position='top-left']) .badge {
   inset-block-end: auto;
-  inset-block-start: calc(1rem + var(--blakfy-a11y-fab-size) + 0.5rem);
+  inset-block-start: calc(1rem + var(--blakfy-a11y-fab-size) + 6px);
 }
 :host([data-position='top-right']) .badge {
   inset-block-end: auto;
-  inset-block-start: calc(1rem + var(--blakfy-a11y-fab-size) + 0.5rem);
+  inset-block-start: calc(1rem + var(--blakfy-a11y-fab-size) + 6px);
   inset-inline-start: auto;
   inset-inline-end: 1rem;
+}
+
+/* Mobile: badge hidden, FAB back to the 16px edge. */
+@media (max-width: 757px) {
+  :host,
+  :root {
+    --blakfy-a11y-fab-edge: 16px;
+  }
+  .badge {
+    display: none;
+  }
 }
 
 .fab svg {

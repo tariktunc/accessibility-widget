@@ -11,6 +11,7 @@
     "@blakfy/accessibility-widget": "2.0.0-alpha.0"
   },
   "changesets": [
+    "badge-under-fab",
     "dark-mode-accent-contrast-fix",
     "fab-40px-size",
     "info-btn-dark-contrast-fix",

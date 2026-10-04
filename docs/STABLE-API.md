@@ -342,17 +342,17 @@ eklenir (LOCKED_API_KEYS kontrat testine dokunmadan).
 
 ## 9. Marka Rozeti (Powered by Blakfy Studio)
 
-Widget her sayfada **sürekli görünür** marka rozeti basar.
+Widget masaüstünde (≥758px) marka rozeti basar; mobilde (<758px) rozet gizlidir (owner kararı 2026-10-04).
 
 | Property | Değer | Değiştirilebilir? |
 |---|---|---|
-| Konum | bottom-right (LTR), bottom-left (RTL aynalanır) | Hayır |
+| Konum | FAB'in altında, FAB ile sola hizalı (RTL aynalanır) | Hayır |
 | Metin | "Powered by Blakfy Studio" | Hayır |
 | URL | `https://blakfy.com` | Hayır |
 | Açılış | `target="_blank" rel="noopener noreferrer"` | Hayır |
 | z-index | 9997 (FAB'in altında) | Hayır |
 | Opaklık | 0.7 default, hover'da 1.0 | Hayır |
-| Görünürlük | Daima görünür | Hayır (iş kuralı) |
+| Görünürlük | Masaüstünde görünür, <758px gizli | Hayır (iş kuralı) |
 
 Bu davranış v1 boyunca sabittir. Major bump (v2) ile değişebilir.
 

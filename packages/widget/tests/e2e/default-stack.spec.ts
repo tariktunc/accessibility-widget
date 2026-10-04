@@ -184,16 +184,15 @@ for (const width of VIEWPORTS) {
       expect(circle.boxShadow).toContain('rgba(0, 0, 0, 0.03)');
 
       const cookieFabBox = await box(cookieFab);
-      const expectedOffsetX = width >= 758 ? 16 : 12;
+      const expectedOffsetX = 16;
       expect(Math.round(cookieFabBox.x)).toBeCloseTo(expectedOffsetX, 0);
       const viewportH = page.viewportSize()!.height;
       const bottomGap = viewportH - (cookieFabBox.y + cookieFabBox.height);
-      expect(Math.round(bottomGap)).toBeCloseTo(116, 0);
+      expect(Math.round(bottomGap)).toBeCloseTo(width >= 758 ? 80 : 62, 0);
 
       // --- Criterion 4: combined stack, no overlap, ordering, a11y FAB paint ---
       const a11yFabEl = a11yFab(page);
       const a11yFabBox = (await a11yFabEl.boundingBox())!;
-      const a11yBadgeBox = (await a11yBadge(page).boundingBox())!;
 
       const a11yFabStyle = await a11yFabEl.evaluate((el) => {
         const cs = getComputedStyle(el);
@@ -215,26 +214,25 @@ for (const width of VIEWPORTS) {
       expect(cookieFabBox.x).toBeLessThan(50);
       expect(a11yFabBox.x).toBeLessThan(50);
 
-      // Ordering: cookie FAB above a11y FAB, badge label between them,
-      // a11y FAB is the lowest of the three.
+      // Ordering: cookie FAB above a11y FAB; the badge sits UNDER the a11y FAB,
+      // left-aligned with it. Below 758px the badge is hidden.
       const cookieBottom = cookieFabBox.y + cookieFabBox.height;
-      const badgeTop = a11yBadgeBox.y;
-      const badgeBottom = a11yBadgeBox.y + a11yBadgeBox.height;
       const a11yFabTop = a11yFabBox.y;
-      expect(cookieBottom).toBeLessThanOrEqual(badgeTop + 2);
-      expect(badgeBottom).toBeLessThanOrEqual(a11yFabTop + 2);
-      expect(a11yFabBox.y + a11yFabBox.height).toBeGreaterThan(cookieFabBox.y + cookieFabBox.height);
-      expect(a11yFabBox.y + a11yFabBox.height).toBeGreaterThan(a11yBadgeBox.y + a11yBadgeBox.height);
+      expect(cookieBottom).toBeLessThanOrEqual(a11yFabTop + 2);
+      const cookieRect: Box = { x: cookieFabBox.x, y: cookieFabBox.y, width: cookieFabBox.width, height: cookieFabBox.height };
+      const a11yRect: Box = { x: a11yFabBox.x, y: a11yFabBox.y, width: a11yFabBox.width, height: a11yFabBox.height };
+      expect(intersects(cookieRect, a11yRect)).toBe(false);
 
-      // No two of the three bounding boxes intersect.
-      const boxes: Box[] = [
-        { x: cookieFabBox.x, y: cookieFabBox.y, width: cookieFabBox.width, height: cookieFabBox.height },
-        { x: a11yBadgeBox.x, y: a11yBadgeBox.y, width: a11yBadgeBox.width, height: a11yBadgeBox.height },
-        { x: a11yFabBox.x, y: a11yFabBox.y, width: a11yFabBox.width, height: a11yFabBox.height },
-      ];
-      expect(intersects(boxes[0], boxes[1])).toBe(false);
-      expect(intersects(boxes[1], boxes[2])).toBe(false);
-      expect(intersects(boxes[0], boxes[2])).toBe(false);
+      if (width < 758) {
+        await expect(a11yBadge(page)).toBeHidden();
+        return;
+      }
+      const a11yBadgeBox = (await a11yBadge(page).boundingBox())!;
+      expect(a11yBadgeBox.y).toBeGreaterThanOrEqual(a11yFabBox.y + a11yFabBox.height);
+      expect(Math.round(a11yBadgeBox.x)).toBeCloseTo(Math.round(a11yFabBox.x), 0);
+      const badgeRect: Box = { x: a11yBadgeBox.x, y: a11yBadgeBox.y, width: a11yBadgeBox.width, height: a11yBadgeBox.height };
+      expect(intersects(cookieRect, badgeRect)).toBe(false);
+      expect(intersects(badgeRect, a11yRect)).toBe(false);
     });
   });
 }

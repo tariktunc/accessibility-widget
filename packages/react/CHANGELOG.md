@@ -1,5 +1,14 @@
 # @blakfy/accessibility-widget-react
 
+## 2.0.0-alpha.11
+
+### Patch Changes
+
+- Brand badge moved under the FAB (left-aligned with it) and hidden below 758px. On >=758px the FAB sits 34px from the bottom to make room for the badge; below 758px it stays at 16px.
+- Updated dependencies
+  - @blakfy/accessibility-widget@2.0.0-alpha.11
+  - @blakfy/a11y-core@2.0.0-alpha.11
+
 ## 2.0.0-alpha.10
 
 ### Patch Changes
