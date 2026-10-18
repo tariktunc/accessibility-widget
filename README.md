@@ -9,7 +9,13 @@
 [![Bundle ≤18 KB gz](https://img.shields.io/badge/bundle-%E2%89%A418KB%20gz-brightgreen.svg)](./docs/adr/002-preact-web-component.md)
 [![WCAG 2.2 AA](https://img.shields.io/badge/WCAG-2.2%20AA-blueviolet.svg)](https://www.w3.org/TR/WCAG22/)
 
-> **⚠️ Alpha:** Şu anki sürüm `2.0.0-alpha.x` — public API kilitli **değildir**, breaking change gelebilir. Üretimde kullanmadan önce stabil sürümü (`2.0.0`) bekleyin veya tam sürüm pinleyin (`@2.0.0-alpha.0`). Stabil sürümle birlikte aşağıda anlatılan `@v2` floating tag desteklenecek.
+<p align="center">
+  <a href="https://tariktunc.github.io/accessibility-widget/"><strong>Canlı Tanıtım ve Test Sayfası</strong></a> •
+  <a href="https://www.npmjs.com/package/@blakfy/accessibility-widget">NPM Paketi</a> •
+  <a href="./docs/STABLE-API.md">API Dokümantasyonu</a>
+</p>
+
+> **[Alpha Sürüm Bildirimi]:** Şu anki sürüm `2.0.0-alpha.x` — public API kilitli **değildir**, breaking change gelebilir. Üretimde kullanmadan önce stabil sürümü (`2.0.0`) bekleyin veya tam sürüm pinleyin (`@2.0.0-alpha.0`). Stabil sürümle birlikte aşağıda anlatılan `@v2` floating tag desteklenecek.
 
 **Overlay değil, kullanıcı tercih paneli. DOM patch yok, sahte WCAG iddiası yok, telemetri yok.**
 
@@ -118,18 +124,18 @@ Kullanıcı kendi cihazında geçici tercihler ayarlar (font ölçeği, kontrast
 
 | Özellik | Durum |
 |---|---|
-| 7 kullanıcı tercihi (font/kontrast/fokus/link/motion/disleksi/okuma) | ✅ |
-| 9 dil (TR, EN, DE, FR, ES, IT, AR, HE, RU) | ✅ |
-| WCAG 2.2 AA uyumlu UI (panel, FAB, switch'ler) | ✅ |
-| EAA 2025 standardı (EN 301 549 v3.2.3) UI seviyesinde | ✅ |
-| 280px ekranda yatay scroll yok (responsive) | ✅ |
-| Light / Dark / Auto tema (`prefers-color-scheme` takibi) | ✅ |
-| Bundle ≤26 KB gz | ✅ |
-| Shadow DOM CSS izolasyon (host stillerinden bağımsız) | ✅ |
-| jsDelivr CDN otomatik güncelleme | ✅ |
-| Hiçbir telemetri, hiçbir AT-fingerprinting | ✅ |
-| Marka rozeti "Powered by Blakfy Studio" (sağ-alt, kalıcı) | ✅ Non-removable |
-| 5 hazır profil butonu (epilepsi/görme/bilişsel/DEHB/ekran okuyucu) | ✅ Panel-only |
+| 7 kullanıcı tercihi (font/kontrast/fokus/link/motion/disleksi/okuma) | Var |
+| 9 dil (TR, EN, DE, FR, ES, IT, AR, HE, RU) | Var |
+| WCAG 2.2 AA uyumlu UI (panel, FAB, switch'ler) | Var |
+| EAA 2025 standardı (EN 301 549 v3.2.3) UI seviyesinde | Var |
+| 280px ekranda yatay scroll yok (responsive) | Var |
+| Light / Dark / Auto tema (`prefers-color-scheme` takibi) | Var |
+| Bundle ≤26 KB gz | Var |
+| Shadow DOM CSS izolasyon (host stillerinden bağımsız) | Var |
+| jsDelivr CDN otomatik güncelleme | Var |
+| Hiçbir telemetri, hiçbir AT-fingerprinting | Var |
+| Marka rozeti "Powered by Blakfy Studio" (sağ-alt, kalıcı) | Var (Kalıcı) |
+| 5 hazır profil butonu (epilepsi/görme/bilişsel/DEHB/ekran okuyucu) | Var (Panel İçi) |
 
 Detaylı kontrat: [`docs/STABLE-API.md`](./docs/STABLE-API.md).
 
@@ -594,37 +600,37 @@ Client log'lar `npm run dev` terminalinde görünür. Prod'da silent fail. Detay
 ## Erişilebilirlik beyanı
 
 ### Bu widget yapar
-
-- ✅ WCAG 2.2 AA uyumlu UI sunar (panel, FAB, switch'ler test edilmiştir)
-- ✅ EN 301 549 v3.2.3 (EAA 2025) standardına UI seviyesinde uyumludur
-- ✅ NVDA + JAWS + VoiceOver + TalkBack ile manuel test edilmiştir
-- ✅ Kullanıcı tercihlerini cihazda saklar (localStorage + cookie)
-- ✅ OS sinyallerini saygı gösterir (`prefers-reduced-motion`, `prefers-contrast`, `prefers-color-scheme`)
-
-### Bu widget YAPMAZ
-
-- ❌ Sitenizin tamamını WCAG uyumlu yapmaz
-- ❌ ARIA, alt text, heading hiyerarşisi enjekte etmez
-- ❌ Screen reader simülasyonu sunmaz
-- ❌ "ADA compliant" / "WCAG compliant" iddia etmez
-
-**Net mesaj**: structural a11y site sahibinin sorumluluğudur; bu widget ek bir kullanıcı tercih katmanıdır.
-
----
-
-<a id="anti-patternlarin-eklenmedigi"></a>
-
-## Anti-pattern'ların eklenmediği
-
-| Anti-pattern | Bu widget'ta var mı? | Sebep |
-|---|---|---|
-| DOM patching (runtime DOM rewrite) | ❌ Yok | Gerçek SR'leri bozar; sürdürülemez |
-| AI alt text üretimi | ❌ Yok | Hatalı alt text > yok alt text |
-| Otomatik ARIA enjeksiyonu | ❌ Yok | FTC vs accessiBe (2025) — yasal risk |
-| "Profil" preset'leri (Epilepsy, Blind, ADHD) | ❌ Yok | Pazarlama uydurması, kullanıcıyı temsil etmez |
-| Telemetri / analytics auto-pipe | ❌ Yok | Privacy-by-default |
-| AT (assistive tech) fingerprinting | ❌ Yok | Etik dışı, kullanıcı izlemesi |
-| "Screen reader" toggle | ❌ Yok | Gerçek SR kullananın araçları zaten var |
+ 
+ - [Evet] WCAG 2.2 AA uyumlu UI sunar (panel, FAB, switch'ler test edilmiştir)
+ - [Evet] EN 301 549 v3.2.3 (EAA 2025) standardına UI seviyesinde uyumludur
+ - [Evet] NVDA + JAWS + VoiceOver + TalkBack ile manuel test edilmiştir
+ - [Evet] Kullanıcı tercihlerini cihazda saklar (localStorage + cookie)
+ - [Evet] OS sinyallerini saygı gösterir (`prefers-reduced-motion`, `prefers-contrast`, `prefers-color-scheme`)
+ 
+ ### Bu widget YAPMAZ
+ 
+ - [Hayır] Sitenizin tamamını WCAG uyumlu yapmaz
+ - [Hayır] ARIA, alt text, heading hiyerarşisi enjekte etmez
+ - [Hayır] Screen reader simülasyonu sunmaz
+ - [Hayır] "ADA compliant" / "WCAG compliant" iddia etmez
+ 
+ **Net mesaj**: structural a11y site sahibinin sorumluluğudur; bu widget ek bir kullanıcı tercih katmanıdır.
+ 
+ ---
+ 
+ <a id="anti-patternlarin-eklenmedigi"></a>
+ 
+ ## Anti-pattern'ların eklenmediği
+ 
+ | Anti-pattern | Bu widget'ta var mı? | Sebep |
+ |---|---|---|
+ | DOM patching (runtime DOM rewrite) | Yok | Gerçek SR'leri bozar; sürdürülemez |
+ | AI alt text üretimi | Yok | Hatalı alt text > yok alt text |
+ | Otomatik ARIA enjeksiyonu | Yok | FTC vs accessiBe (2025) — yasal risk |
+ | "Profil" preset'leri (Epilepsy, Blind, ADHD) | Yok | Pazarlama uydurması, kullanıcıyı temsil etmez |
+ | Telemetri / analytics auto-pipe | Yok | Privacy-by-default |
+ | AT (assistive tech) fingerprinting | Yok | Etik dışı, kullanıcı izlemesi |
+ | "Screen reader" toggle | Yok | Gerçek SR kullananın araçları zaten var |
 
 ---
 
