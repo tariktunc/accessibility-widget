@@ -181,7 +181,8 @@ Müşteri tema customization'ı için. `:root` veya widget'in dış container'ı
 | `--blakfy-a11y-toggle-on` | `#000000` | Switch açık rengi | 1.0.0 |
 | `--blakfy-a11y-toggle-off` | `#d0d0d0` | Switch kapalı rengi (light) — dark override `#3a3a3a` | 1.0.0 |
 | `--blakfy-a11y-focus-ring` | `#000000` | Fokus halkası rengi | 1.0.0 |
-| `--blakfy-a11y-fab-size` | `48px` | FAB buton boyutu | 1.0.0 |
+| `--blakfy-a11y-fab-size` | `40px` | FAB buton boyutu | 1.0.0 |
+| `--blakfy-a11y-fab-edge` | `34px` (mobilde `16px`) | FAB'ın ekran kenarına mesafesi | 2.0.0 |
 | `--blakfy-a11y-radius` | `3px` | Kart/buton/tooltip köşe yarıçapı | 2.0.0 |
 | `--blakfy-a11y-radius-pill` | `9999px` | FAB/switch/info-btn tam yuvarlak yarıçapı | 2.0.0 |
 | `--blakfy-a11y-card-bg` | `#f5f5f5` (light) / `#1e1e1e` (dark) | Kart arkaplanı (profile-list-item/stepper-row/toggle-row) | 2.0.0 |
