@@ -941,7 +941,7 @@ button {
  *     element by _applyOSAttributes() in mount.ts, because this stylesheet
  *     lives in a shadow root and cannot see <html> of the page.
  * ========================================================================== */
-:host([data-a11y-reduced-transparency="true"]) {
+:host([data-a11y-reduced-transparency='true']) {
   --blakfy-a11y-panel-muted: #6b7280;
   --blakfy-a11y-panel-border: #c7c9d1;
 }
@@ -954,7 +954,7 @@ button {
   --blakfy-a11y-panel-muted: #b9c6d4;
   --blakfy-a11y-panel-border: #3a4048;
 }
-:host([data-a11y-reduced-transparency="true"]) .backdrop {
+:host([data-a11y-reduced-transparency='true']) .backdrop {
   background: #000000;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;

@@ -1,6 +1,11 @@
 // @blakfy/a11y-core — apply-styles.test.ts
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { applyAutoplayControl, applyOSPreferences, applyPreferences, detectOSPreferences } from '../src/apply-styles';
+import {
+  applyAutoplayControl,
+  applyOSPreferences,
+  applyPreferences,
+  detectOSPreferences,
+} from '../src/apply-styles';
 import { DEFAULT_PREFS, type Preferences } from '../src/types';
 
 beforeEach(() => {
