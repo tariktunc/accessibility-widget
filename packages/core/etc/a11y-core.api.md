@@ -8,7 +8,13 @@
 export function addIssue(level: IssueLevel, code: IssueCode, msg: string, extra?: Record<string, unknown>): void;
 
 // @public
+export function applyAutoplayControl(enabled: boolean): void;
+
+// @public
 export function applyPreferences(prefs: Preferences): void;
+
+// @public
+export function applyReadAloud(enabled: boolean): void;
 
 // @public
 export type Contrast = 'normal' | 'high';
@@ -49,6 +55,8 @@ export interface DiagnosticsSnapshot {
         reducedMotion: boolean;
         contrast: 'normal' | 'more' | 'less';
         colorScheme: 'light' | 'dark' | 'no-preference';
+        reducedTransparency: boolean;
+        reducedData: boolean;
     };
     // (undocumented)
     performance: {
@@ -170,6 +178,11 @@ export const ISSUE_CODES: {
     readonly OS_PREFERS_REDUCED_MOTION: "OS_PREFERS_REDUCED_MOTION";
     readonly OS_PREFERS_CONTRAST_MORE: "OS_PREFERS_CONTRAST_MORE";
     readonly OS_PREFERS_COLOR_SCHEME_DARK: "OS_PREFERS_COLOR_SCHEME_DARK";
+    readonly OS_PREFERS_REDUCED_TRANSPARENCY: "OS_PREFERS_REDUCED_TRANSPARENCY";
+    readonly OS_PREFERS_REDUCED_DATA: "OS_PREFERS_REDUCED_DATA";
+    readonly INVALID_PREF_VALUE: "INVALID_PREF_VALUE";
+    readonly SANDBOXED_IFRAME: "SANDBOXED_IFRAME";
+    readonly STORAGE_UNAVAILABLE: "STORAGE_UNAVAILABLE";
 };
 
 // @public
@@ -206,7 +219,11 @@ export interface OSPreferences {
     // (undocumented)
     contrast: 'normal' | 'more' | 'less';
     // (undocumented)
+    reducedData: boolean;
+    // (undocumented)
     reducedMotion: boolean;
+    // (undocumented)
+    reducedTransparency: boolean;
 }
 
 // @public
@@ -235,11 +252,21 @@ export interface Preferences {
     // (undocumented)
     linkUnderline: boolean;
     // (undocumented)
+    magnifier: boolean;
+    // (undocumented)
     motion: Motion;
+    // (undocumented)
+    readAloud: boolean;
+    // (undocumented)
+    readingMask: boolean;
     // (undocumented)
     readingMode: boolean;
     // (undocumented)
+    readingWidth: ReadingWidth;
+    // (undocumented)
     saturation: Saturation;
+    // (undocumented)
+    stopAutoplay: boolean;
     // (undocumented)
     textAlign: TextAlign;
 }
@@ -258,6 +285,9 @@ export interface PreferencesRecord {
     // (undocumented)
     version: string;
 }
+
+// @public
+export type ReadingWidth = 'default' | 'narrow' | 'narrower';
 
 // @public
 export function _resetDiagnostics(): void;
@@ -443,6 +473,31 @@ export interface Translation {
                 title: string;
                 description: string;
             };
+            readAloud: {
+                title: string;
+                description: string;
+            };
+            readingMask: {
+                title: string;
+                description: string;
+            };
+            magnifier: {
+                title: string;
+                description: string;
+            };
+            stopAutoplay: {
+                title: string;
+                description: string;
+            };
+            readingWidth: {
+                title: string;
+                description: string;
+                values: {
+                    default: string;
+                    narrow: string;
+                    narrower: string;
+                };
+            };
         };
     };
 }
@@ -453,6 +508,10 @@ export interface WidgetOptions {
     debug: boolean;
     // (undocumented)
     font: string;
+    // (undocumented)
+    iconStyle: IconStyle;
+    // (undocumented)
+    keyboardShortcut: boolean;
     // (undocumented)
     locale: Locale;
     // (undocumented)

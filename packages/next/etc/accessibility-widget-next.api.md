@@ -46,6 +46,11 @@ export type ServerSideAttrs = {
     'data-a11y-saturation': string;
     'data-a11y-cursor': string;
     'data-a11y-hideimages': string;
+    'data-a11y-readingwidth': string;
+    'data-a11y-readaloud': string;
+    'data-a11y-readingmask': string;
+    'data-a11y-magnifier': string;
+    'data-a11y-stopautoplay': string;
 };
 
 export { Theme }

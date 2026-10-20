@@ -56,7 +56,7 @@ function _setCookie(name: string, value: string, days: number): void {
 
 function _getCookie(name: string): string | null {
   if (!_hasDocument()) return null;
-  let cookieStr = '';
+  let cookieStr: string;
   try {
     cookieStr = document.cookie || '';
   } catch {

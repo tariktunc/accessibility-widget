@@ -18,6 +18,8 @@ export default [
       '**/public/**',
       'test-site/**',
       'examples/nextjs/next-env.d.ts',
+      // Static demo page — vendored/handwritten, not part of the lint surface
+      'showcase/**',
       // Legacy v1 root files — not part of the v2 monorepo lint surface
       'AccessibilityWidget.tsx',
       'AccessibilityPanel.tsx',
@@ -48,7 +50,7 @@ export default [
     },
   },
   {
-    files: ['scripts/**/*.{js,mjs,cjs}'],
+    files: ['**/scripts/**/*.{js,mjs,cjs}'],
     languageOptions: {
       globals: {
         ...globals.node,
