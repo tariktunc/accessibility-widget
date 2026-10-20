@@ -925,8 +925,15 @@ button {
 :host([data-a11y-reduced-transparency="true"]) {
   --blakfy-a11y-panel-muted: #6b7280;
   --blakfy-a11y-panel-border: #c7c9d1;
-  --blakfy-a11y-panel-muted-dark: #b9c6d4;
-  --blakfy-a11y-panel-border-dark: #3a4048;
+}
+/* Dark theme needs its own tuned values here, same as section 2's dark
+ * override for the un-suffixed vars above — a bare "-dark" suffix is never
+ * read by any rule (removed as dead code once already, #73). Higher
+ * specificity (2 attributes) wins over both rules above regardless of
+ * source order, so this applies whenever both attributes are present. */
+:host([data-theme='dark'][data-a11y-reduced-transparency='true']) {
+  --blakfy-a11y-panel-muted: #b9c6d4;
+  --blakfy-a11y-panel-border: #3a4048;
 }
 :host([data-a11y-reduced-transparency="true"]) .backdrop {
   background: #000000;
