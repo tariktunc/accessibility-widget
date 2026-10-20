@@ -11,12 +11,21 @@
     "@blakfy/accessibility-widget": "2.0.0-alpha.0"
   },
   "changesets": [
+    "align-css-default-documentation",
     "badge-under-fab",
+    "clarify-preset-toggle-behavior",
+    "complete-text-line-height",
+    "core-version-metadata",
+    "correct-server-helper-example",
     "dark-mode-accent-contrast-fix",
+    "dialog-keyboard-readiness",
     "fab-40px-size",
+    "fresh-widget-version",
     "info-btn-dark-contrast-fix",
     "mobile-scroll-lock-fix",
     "neutral-fab-light-default",
-    "v2-alpha-batch-release"
+    "reuse-active-mount",
+    "v2-alpha-batch-release",
+    "windows-workspace-filters"
   ]
 }

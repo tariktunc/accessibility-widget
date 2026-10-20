@@ -1,5 +1,12 @@
 # @blakfy/a11y-core
 
+## 2.0.0-alpha.12
+
+### Patch Changes
+
+- 2108439: Add browser regression coverage for medium/large line-height preferences, reset behavior, and unaffected controls across all supported text elements.
+- 360fe83: Add a regression test for the core diagnostic version using future package metadata.
+
 ## 2.0.0-alpha.11
 
 ### Patch Changes
