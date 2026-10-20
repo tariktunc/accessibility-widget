@@ -104,6 +104,79 @@ describe('Diagnostics integration', () => {
     }
   });
 
+  it('emits OS_PREFERS_REDUCED_* and mirrors both signals onto the host element', () => {
+    const mqMock = (q: string): MediaQueryList =>
+      ({
+        matches:
+          q === '(prefers-reduced-transparency: reduce)' || q === '(prefers-reduced-data: reduce)',
+        media: q,
+        onchange: null,
+        addEventListener: () => undefined,
+        removeEventListener: () => undefined,
+        addListener: () => undefined,
+        removeListener: () => undefined,
+        dispatchEvent: () => false,
+      }) as unknown as MediaQueryList;
+    const original = window.matchMedia;
+    window.matchMedia = mqMock as unknown as typeof window.matchMedia;
+    window.history.replaceState(null, '', '/?a11y-debug=1');
+
+    const infoSpy = vi.spyOn(console, 'info').mockImplementation(() => undefined);
+    try {
+      mount();
+      const lines = infoSpy.mock.calls.map((c) => String(c[0] ?? ''));
+      // info lines print the human message, not the code, so match either —
+      // the sibling OS_PREFERS test does the same.
+      expect(
+        lines.some(
+          (l) =>
+            l.includes('reduced-transparency') || l.includes('OS_PREFERS_REDUCED_TRANSPARENCY'),
+        ),
+      ).toBe(true);
+      expect(
+        lines.some((l) => l.includes('reduced-data') || l.includes('OS_PREFERS_REDUCED_DATA')),
+      ).toBe(true);
+      // Host element: what this widget's own shadow-scoped stylesheet reads.
+      const host = document.querySelector('blakfy-a11y-root');
+      expect(host?.getAttribute('data-a11y-reduced-transparency')).toBe('true');
+      expect(host?.getAttribute('data-a11y-reduced-data')).toBe('true');
+      // <html>: what a host page's stylesheet reads.
+      expect(document.documentElement.getAttribute('data-a11y-reduced-data')).toBe('true');
+    } finally {
+      infoSpy.mockRestore();
+      window.matchMedia = original;
+    }
+  });
+
+  it('does not fetch a remote locale when prefers-reduced-data is set', async () => {
+    const originalFetch = globalThis.fetch;
+    const fetchSpy = vi.fn(
+      async () => ({ ok: true, json: async () => ({}) }) as unknown as Response,
+    );
+    globalThis.fetch = fetchSpy as unknown as typeof fetch;
+    const original = window.matchMedia;
+    window.matchMedia = ((q: string) =>
+      ({
+        matches: q === '(prefers-reduced-data: reduce)',
+        media: q,
+        onchange: null,
+        addEventListener: () => undefined,
+        removeEventListener: () => undefined,
+        addListener: () => undefined,
+        removeListener: () => undefined,
+        dispatchEvent: () => false,
+      }) as unknown as MediaQueryList) as unknown as typeof window.matchMedia;
+    try {
+      mount({ locale: 'ru' });
+      await Promise.resolve();
+      await Promise.resolve();
+      expect(fetchSpy).not.toHaveBeenCalled();
+    } finally {
+      globalThis.fetch = originalFetch as unknown as typeof fetch;
+      window.matchMedia = original;
+    }
+  });
+
   it('emits STORAGE_PARSE_ERROR on corrupt cookie', () => {
     document.cookie = 'blakfy_a11y_prefs=NOT_VALID_JSON; path=/';
     // Suppress console.error from the print path

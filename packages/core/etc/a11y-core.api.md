@@ -11,6 +11,9 @@ export function addIssue(level: IssueLevel, code: IssueCode, msg: string, extra?
 export function applyAutoplayControl(enabled: boolean): void;
 
 // @public
+export function applyOSPreferences(osPrefs: OSPreferences): void;
+
+// @public
 export function applyPreferences(prefs: Preferences): void;
 
 // @public
@@ -218,11 +221,9 @@ export interface OSPreferences {
     colorScheme: 'light' | 'dark' | 'no-preference';
     // (undocumented)
     contrast: 'normal' | 'more' | 'less';
-    // (undocumented)
     reducedData: boolean;
     // (undocumented)
     reducedMotion: boolean;
-    // (undocumented)
     reducedTransparency: boolean;
 }
 
