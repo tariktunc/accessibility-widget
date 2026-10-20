@@ -1,441 +1,807 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr" class="scroll-smooth" data-theme="light">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blakfy Accessibility Widget — WCAG 2.2 AA ve EAA 2025 Uyumlu Doğal Erişilebilirlik Paneli</title>
-  <meta name="description" content="Web siteleriniz için sahte kaplama (overlay) içermeyen, WCAG 2.2 AA standartlarına tam uyumlu, hafif, çok dilli ve yerel kullanıcı tercih paneli.">
-  
-  <!-- Favicon / Logo -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232563eb'><circle cx='12' cy='4' r='2'/><path d='M19 13v-2c-1.54.02-3.09-.75-4.07-1.83l-1.29-1.43c-.4-.44-.97-.74-1.64-.74-.67 0-1.24.3-1.64.74l-1.29 1.43C7.09 10.25 5.54 11.02 4 11v2c1.94 0 3.79-.89 5-2.25V22h2v-7h2v7h2V10.75c1.21 1.36 3.06 2.25 5 2.25z'/></svg>">
-  
-  <!-- Fontlar: Plus Jakarta Sans & JetBrains Mono -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
-            mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Blakfy Accessibility Widget — WCAG 2.2 AA ve EAA 2025 Uyumlu Doğal Erişilebilirlik Paneli
+    </title>
+    <meta
+      name="description"
+      content="Web siteleriniz için sahte kaplama (overlay) içermeyen, WCAG 2.2 AA standartlarına tam uyumlu, hafif, çok dilli ve yerel kullanıcı tercih paneli."
+    />
+
+    <!-- Favicon / Logo -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232563eb'><circle cx='12' cy='4' r='2'/><path d='M19 13v-2c-1.54.02-3.09-.75-4.07-1.83l-1.29-1.43c-.4-.44-.97-.74-1.64-.74-.67 0-1.24.3-1.64.74l-1.29 1.43C7.09 10.25 5.54 11.02 4 11v2c1.94 0 3.79-.89 5-2.25V22h2v-7h2v7h2V10.75c1.21 1.36 3.06 2.25 5 2.25z'/></svg>"
+    />
+
+    <!-- Fontlar: Plus Jakarta Sans & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+              mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+            },
+            colors: {
+              a11y: {
+                blue: '#2563eb',
+                blueHover: '#1d4ed8',
+                blueLight: '#eff6ff',
+                blueBorder: '#bfdbfe',
+                emerald: '#059669',
+                amber: '#d97706',
+                slate: '#0f172a',
+                muted: '#64748b',
+              },
+            },
+            boxShadow: {
+              'card-soft':
+                '0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.02)',
+              'card-hover':
+                '0 20px 35px -5px rgba(37, 99, 235, 0.12), 0 8px 16px -4px rgba(0, 0, 0, 0.04)',
+            },
           },
-          colors: {
-            a11y: {
-              blue: '#2563eb',
-              blueHover: '#1d4ed8',
-              blueLight: '#eff6ff',
-              blueBorder: '#bfdbfe',
-              emerald: '#059669',
-              amber: '#d97706',
-              slate: '#0f172a',
-              muted: '#64748b',
-            }
-          },
-          boxShadow: {
-            'card-soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.02)',
-            'card-hover': '0 20px 35px -5px rgba(37, 99, 235, 0.12), 0 8px 16px -4px rgba(0, 0, 0, 0.04)',
-          }
-        }
+        },
+      };
+    </script>
+    <style>
+      body {
+        background-color: #ffffff;
+        color: #1e293b;
+        overflow-x: hidden;
+        font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
       }
-    }
-  </script>
-  <style>
-    body {
-      background-color: #ffffff;
-      color: #1e293b;
-      overflow-x: hidden;
-      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-    }
-    .badge-blue {
-      background: rgba(37, 99, 235, 0.08);
-      border: 1px solid rgba(37, 99, 235, 0.2);
-    }
-  </style>
-</head>
-<body class="min-h-screen flex flex-col bg-white text-slate-800 antialiased selection:bg-a11y-blue selection:text-white">
-
-  <!-- Üst Menü (Navbar) -->
-  <header class="sticky top-0 z-40 backdrop-blur-md bg-white/90 border-b border-slate-200/80 transition-all">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-      
-      <!-- Logo ve Başlık -->
-      <a href="#" class="flex items-center gap-3 group">
-        <div class="w-10 h-10 rounded-xl bg-a11y-blue p-2 shadow-md shadow-a11y-blue/20 flex items-center justify-center text-white group-hover:bg-a11y-blueHover transition-colors">
-          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-            <circle cx="12" cy="4" r="2"/>
-            <path d="M19 13v-2c-1.54.02-3.09-.75-4.07-1.83l-1.29-1.43c-.4-.44-.97-.74-1.64-.74-.67 0-1.24.3-1.64.74l-1.29 1.43C7.09 10.25 5.54 11.02 4 11v2c1.94 0 3.79-.89 5-2.25V22h2v-7h2v7h2V10.75c1.21 1.36 3.06 2.25 5 2.25z"/>
-          </svg>
-        </div>
-        <div class="flex flex-col">
-          <span class="text-xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
-            Blakfy A11y
-            <span class="text-[11px] font-mono px-2 py-0.5 rounded-full badge-blue text-a11y-blue font-semibold tracking-wide">v2.0.0-alpha</span>
-          </span>
-          <span class="text-[11px] text-slate-500 font-medium">Doğal Tercih Paneli</span>
-        </div>
-      </a>
-
-      <!-- Menü Linkleri -->
-      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
-        <a href="#ozellikler" class="hover:text-a11y-blue transition-colors">Özellikler</a>
-        <a href="#karsilastirma" class="hover:text-a11y-blue transition-colors">Neden Overlay Değil?</a>
-        <a href="#canli-deneyim" class="hover:text-a11y-blue transition-colors">Canlı Test</a>
-        <a href="#entegrasyon" class="hover:text-a11y-blue transition-colors">Hızlı Kurulum</a>
-        <a href="#standartlar" class="hover:text-a11y-blue transition-colors">Standartlar</a>
-      </nav>
-
-      <!-- Sağ Aksiyon Butonları -->
-      <div class="flex items-center gap-3">
-        <a href="https://github.com/tariktunc/accessibility-widget" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors">
-          <svg class="w-4 h-4 text-slate-800" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
-          </svg>
-          <span>GitHub</span>
+      .badge-blue {
+        background: rgba(37, 99, 235, 0.08);
+        border: 1px solid rgba(37, 99, 235, 0.2);
+      }
+    </style>
+  </head>
+  <body
+    class="min-h-screen flex flex-col bg-white text-slate-800 antialiased selection:bg-a11y-blue selection:text-white"
+  >
+    <!-- Üst Menü (Navbar) -->
+    <header
+      class="sticky top-0 z-40 backdrop-blur-md bg-white/90 border-b border-slate-200/80 transition-all"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <!-- Logo ve Başlık -->
+        <a href="#" class="flex items-center gap-3 group">
+          <div
+            class="w-10 h-10 rounded-xl bg-a11y-blue p-2 shadow-md shadow-a11y-blue/20 flex items-center justify-center text-white group-hover:bg-a11y-blueHover transition-colors"
+          >
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+              <circle cx="12" cy="4" r="2" />
+              <path
+                d="M19 13v-2c-1.54.02-3.09-.75-4.07-1.83l-1.29-1.43c-.4-.44-.97-.74-1.64-.74-.67 0-1.24.3-1.64.74l-1.29 1.43C7.09 10.25 5.54 11.02 4 11v2c1.94 0 3.79-.89 5-2.25V22h2v-7h2v7h2V10.75c1.21 1.36 3.06 2.25 5 2.25z"
+              />
+            </svg>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
+              Blakfy A11y
+              <span
+                class="text-[11px] font-mono px-2 py-0.5 rounded-full badge-blue text-a11y-blue font-semibold tracking-wide"
+                >v2.0.0-alpha</span
+              >
+            </span>
+            <span class="text-[11px] text-slate-500 font-medium">Doğal Tercih Paneli</span>
+          </div>
         </a>
-        <button onclick="window.BlakfyA11y ? window.BlakfyA11y.open() : alert('Widget yükleniyor, lütfen bekleyin.')" class="bg-a11y-blue hover:bg-a11y-blueHover text-white px-5 py-2.5 rounded-xl text-sm font-semibold shadow-md shadow-a11y-blue/20 transition-all flex items-center gap-2">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-          </svg>
-          <span>Paneli Aç</span>
-        </button>
+
+        <!-- Menü Linkleri -->
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+          <a href="#ozellikler" class="hover:text-a11y-blue transition-colors">Özellikler</a>
+          <a href="#karsilastirma" class="hover:text-a11y-blue transition-colors"
+            >Neden Overlay Değil?</a
+          >
+          <a href="#canli-deneyim" class="hover:text-a11y-blue transition-colors">Canlı Test</a>
+          <a href="#entegrasyon" class="hover:text-a11y-blue transition-colors">Hızlı Kurulum</a>
+          <a href="#standartlar" class="hover:text-a11y-blue transition-colors">Standartlar</a>
+        </nav>
+
+        <!-- Sağ Aksiyon Butonları -->
+        <div class="flex items-center gap-3">
+          <a
+            href="https://github.com/tariktunc/accessibility-widget"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors"
+          >
+            <svg class="w-4 h-4 text-slate-800" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"
+              />
+            </svg>
+            <span>GitHub</span>
+          </a>
+          <button
+            onclick="
+              window.BlakfyA11y
+                ? window.BlakfyA11y.open()
+                : alert('Widget yükleniyor, lütfen bekleyin.')
+            "
+            class="bg-a11y-blue hover:bg-a11y-blueHover text-white px-5 py-2.5 rounded-xl text-sm font-semibold shadow-md shadow-a11y-blue/20 transition-all flex items-center gap-2"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+              />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+              />
+            </svg>
+            <span>Paneli Aç</span>
+          </button>
+        </div>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <!-- Hero Bölümü -->
-  <main class="flex-grow">
-    <section class="relative pt-16 pb-20 px-4 sm:px-6 lg:px-8 text-center max-w-5xl mx-auto">
-      
-      <!-- Standart Onay Rozeti -->
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full badge-blue text-xs font-semibold text-a11y-blue mb-6 shadow-sm">
-        <span class="w-2 h-2 rounded-full bg-a11y-blue animate-pulse"></span>
-        <span>WCAG 2.2 Level AA ve EAA 2025 (EN 301 549) Uyumlu</span>
-      </div>
+    <!-- Hero Bölümü -->
+    <main class="flex-grow">
+      <section class="relative pt-16 pb-20 px-4 sm:px-6 lg:px-8 text-center max-w-5xl mx-auto">
+        <!-- Standart Onay Rozeti -->
+        <div
+          class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full badge-blue text-xs font-semibold text-a11y-blue mb-6 shadow-sm"
+        >
+          <span class="w-2 h-2 rounded-full bg-a11y-blue animate-pulse"></span>
+          <span>WCAG 2.2 Level AA ve EAA 2025 (EN 301 549) Uyumlu</span>
+        </div>
 
-      <!-- Başlık -->
-      <h1 class="text-4xl sm:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.15] mb-6">
-        Web Siteleriniz İçin Doğal <br>
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Erişilebilirlik ve Tercih Paneli</span>
-      </h1>
+        <!-- Başlık -->
+        <h1
+          class="text-4xl sm:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.15] mb-6"
+        >
+          Web Siteleriniz İçin Doğal <br />
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600"
+            >Erişilebilirlik ve Tercih Paneli</span
+          >
+        </h1>
 
-      <!-- Alt Açıklama -->
-      <p class="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto font-normal leading-relaxed mb-10">
-        Sahte kaplamalardan (overlay) uzak, DOM yapısını bozmayan, telemetri barındırmayan ve kullanıcının işletim sistemi sinyallerine saygı gösteren hafif web bileşeni.
-      </p>
+        <!-- Alt Açıklama -->
+        <p
+          class="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto font-normal leading-relaxed mb-10"
+        >
+          Sahte kaplamalardan (overlay) uzak, DOM yapısını bozmayan, telemetri barındırmayan ve
+          kullanıcının işletim sistemi sinyallerine saygı gösteren hafif web bileşeni.
+        </p>
 
-      <!-- Aksiyon Çağrısı (CTA) -->
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-lg mx-auto mb-10">
-        <button onclick="window.BlakfyA11y ? window.BlakfyA11y.open() : null" class="w-full sm:w-auto bg-a11y-blue hover:bg-a11y-blueHover text-white px-7 py-4 rounded-2xl text-base font-bold shadow-lg shadow-a11y-blue/25 hover:shadow-a11y-blue/40 transition-all flex items-center justify-center gap-3">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
-          </svg>
-          <span>Paneli Canlıda Test Et</span>
-        </button>
-        <a href="#entegrasyon" class="w-full sm:w-auto bg-slate-100 hover:bg-slate-200 text-slate-800 px-7 py-4 rounded-2xl text-base font-bold transition-all flex items-center justify-center gap-3">
-          <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-          </svg>
-          <span>Hızlı Entegrasyon</span>
-        </a>
-      </div>
+        <!-- Aksiyon Çağrısı (CTA) -->
+        <div
+          class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-lg mx-auto mb-10"
+        >
+          <button
+            onclick="window.BlakfyA11y ? window.BlakfyA11y.open() : null"
+            class="w-full sm:w-auto bg-a11y-blue hover:bg-a11y-blueHover text-white px-7 py-4 rounded-2xl text-base font-bold shadow-lg shadow-a11y-blue/25 hover:shadow-a11y-blue/40 transition-all flex items-center justify-center gap-3"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+              />
+            </svg>
+            <span>Paneli Canlıda Test Et</span>
+          </button>
+          <a
+            href="#entegrasyon"
+            class="w-full sm:w-auto bg-slate-100 hover:bg-slate-200 text-slate-800 px-7 py-4 rounded-2xl text-base font-bold transition-all flex items-center justify-center gap-3"
+          >
+            <svg
+              class="w-5 h-5 text-slate-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+              />
+            </svg>
+            <span>Hızlı Entegrasyon</span>
+          </a>
+        </div>
 
-      <!-- Güven ve Gizlilik Rozeti -->
-      <div class="inline-flex flex-wrap items-center justify-center gap-6 text-xs font-semibold text-slate-600 bg-slate-50 border border-slate-200 px-6 py-3 rounded-2xl shadow-sm">
-        <span class="flex items-center gap-1.5 text-emerald-700">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-          Sıfır Telemetri
-        </span>
-        <span class="flex items-center gap-1.5 text-blue-700">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-          18 KB Gzip Hafiflik
-        </span>
-        <span class="flex items-center gap-1.5 text-purple-700">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-          Shadow DOM İzolasyonu
-        </span>
-        <span class="flex items-center gap-1.5 text-slate-700">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
-          9 Uluslararası Dil
-        </span>
-      </div>
-
-    </section>
-
-    <!-- Canlı Test ve İnteraktif Deneyim Alanı (Playground) -->
-    <section id="canli-deneyim" class="py-16 border-t border-slate-200 bg-slate-50/70">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="text-center max-w-2xl mx-auto mb-10">
-          <span class="text-xs font-mono font-semibold text-a11y-blue uppercase tracking-widest px-3 py-1 rounded-full badge-blue">
-            İnteraktif Laboratuvar
+        <!-- Güven ve Gizlilik Rozeti -->
+        <div
+          class="inline-flex flex-wrap items-center justify-center gap-6 text-xs font-semibold text-slate-600 bg-slate-50 border border-slate-200 px-6 py-3 rounded-2xl shadow-sm"
+        >
+          <span class="flex items-center gap-1.5 text-emerald-700">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+            Sıfır Telemetri
           </span>
-          <h2 class="text-3xl font-bold text-slate-900 mt-3">Canlı Test ve Tercih Kontrolleri</h2>
-          <p class="text-sm text-slate-600 mt-2">
-            Aşağıdaki düğmeleri kullanarak veya sol alttaki mavi erişilebilirlik butonuna basarak bu sayfanın gerçek zamanlı olarak nasıl uyum sağladığını inceleyin.
-          </p>
+          <span class="flex items-center gap-1.5 text-blue-700">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 10V3L4 14h7v7l9-11h-7z"
+              />
+            </svg>
+            18 KB Gzip Hafiflik
+          </span>
+          <span class="flex items-center gap-1.5 text-purple-700">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+              />
+            </svg>
+            Shadow DOM İzolasyonu
+          </span>
+          <span class="flex items-center gap-1.5 text-slate-700">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"
+              />
+            </svg>
+            9 Uluslararası Dil
+          </span>
         </div>
+      </section>
 
-        <!-- Hızlı API Butonları -->
-        <div class="flex flex-wrap items-center justify-center gap-2.5 mb-8">
-          <button onclick="window.BlakfyA11y ? window.BlakfyA11y.toggle('contrast') : null" class="px-4 py-2 text-xs font-bold rounded-xl bg-white border border-slate-300 hover:border-a11y-blue text-slate-800 hover:text-a11y-blue shadow-sm transition-all flex items-center gap-2">
-            <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor"/></svg>
-            <span>Yüksek Kontrast</span>
-          </button>
-          <button onclick="window.BlakfyA11y ? window.BlakfyA11y.toggle('dyslexic') : null" class="px-4 py-2 text-xs font-bold rounded-xl bg-white border border-slate-300 hover:border-a11y-blue text-slate-800 hover:text-a11y-blue shadow-sm transition-all flex items-center gap-2">
-            <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-            <span>Disleksi Fontu</span>
-          </button>
-          <button onclick="window.BlakfyA11y ? window.BlakfyA11y.toggle('highlightLinks') : null" class="px-4 py-2 text-xs font-bold rounded-xl bg-white border border-slate-300 hover:border-a11y-blue text-slate-800 hover:text-a11y-blue shadow-sm transition-all flex items-center gap-2">
-            <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-            <span>Bağlantıları Vurgula</span>
-          </button>
-          <button onclick="window.BlakfyA11y ? window.BlakfyA11y.toggle('readingMask') : null" class="px-4 py-2 text-xs font-bold rounded-xl bg-white border border-slate-300 hover:border-a11y-blue text-slate-800 hover:text-a11y-blue shadow-sm transition-all flex items-center gap-2">
-            <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-            <span>Okuma Maskesi</span>
-          </button>
-          <button onclick="window.BlakfyA11y ? window.BlakfyA11y.toggle('bigCursor') : null" class="px-4 py-2 text-xs font-bold rounded-xl bg-white border border-slate-300 hover:border-a11y-blue text-slate-800 hover:text-a11y-blue shadow-sm transition-all flex items-center gap-2">
-            <svg class="w-4 h-4 text-slate-600" viewBox="0 0 24 24" fill="currentColor"><path d="M4 0l16 12.279-6.951 1.17 4.325 8.817-3.596 1.734-4.35-8.879-5.428 5.428z"/></svg>
-            <span>Büyük İmleç</span>
-          </button>
-          <button onclick="window.BlakfyA11y ? window.BlakfyA11y.reset() : null" class="px-4 py-2 text-xs font-bold rounded-xl bg-rose-50 border border-rose-200 hover:bg-rose-100 text-rose-700 shadow-sm transition-all flex items-center gap-2">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-            <span>Sıfırla</span>
-          </button>
-        </div>
+      <!-- Canlı Test ve İnteraktif Deneyim Alanı (Playground) -->
+      <section id="canli-deneyim" class="py-16 border-t border-slate-200 bg-slate-50/70">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center max-w-2xl mx-auto mb-10">
+            <span
+              class="text-xs font-mono font-semibold text-a11y-blue uppercase tracking-widest px-3 py-1 rounded-full badge-blue"
+            >
+              İnteraktif Laboratuvar
+            </span>
+            <h2 class="text-3xl font-bold text-slate-900 mt-3">Canlı Test ve Tercih Kontrolleri</h2>
+            <p class="text-sm text-slate-600 mt-2">
+              Aşağıdaki düğmeleri kullanarak veya sol alttaki mavi erişilebilirlik butonuna basarak
+              bu sayfanın gerçek zamanlı olarak nasıl uyum sağladığını inceleyin.
+            </p>
+          </div>
 
-        <!-- Örnek Test Kartı (Metin & Form & Bağlantı) -->
-        <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-card-soft">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-            
-            <div>
-              <span class="text-xs font-bold uppercase tracking-wider text-a11y-blue">Tipografi ve Okunabilirlik Testi</span>
-              <h3 class="text-xl font-bold text-slate-900 mt-1 mb-3">Kullanıcı Tercihleri Neden Önemlidir?</h3>
-              <p class="text-sm text-slate-600 leading-relaxed mb-4">
-                Her internet kullanıcısı aynı görme keskinliğine, kontrast algısına veya nörolojik odaklanma yapısına sahip değildir. Disleksi olan bir birey için harflerin alt ağırlıklarının belirgin olması, yaşlı bir birey için satır aralığının genişletilmesi dijital dünyaya katılımı doğrudan mümkün kılar.
-              </p>
-              <div class="flex items-center gap-4 text-xs font-semibold">
-                <a href="#karsilastirma" class="text-a11y-blue underline hover:text-a11y-blueHover">Karşılaştırma Tablosuna Git</a>
-                <a href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank" rel="noopener noreferrer" class="text-slate-600 underline hover:text-slate-900">W3C WCAG 2.2 Kılavuzu</a>
-              </div>
-            </div>
+          <!-- Hızlı API Butonları -->
+          <div class="flex flex-wrap items-center justify-center gap-2.5 mb-8">
+            <button
+              onclick="window.BlakfyA11y ? window.BlakfyA11y.toggle('contrast') : null"
+              class="px-4 py-2 text-xs font-bold rounded-xl bg-white border border-slate-300 hover:border-a11y-blue text-slate-800 hover:text-a11y-blue shadow-sm transition-all flex items-center gap-2"
+            >
+              <svg
+                class="w-4 h-4 text-slate-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <circle cx="12" cy="12" r="10" stroke-width="2" />
+                <path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor" />
+              </svg>
+              <span>Yüksek Kontrast</span>
+            </button>
+            <button
+              onclick="window.BlakfyA11y ? window.BlakfyA11y.toggle('dyslexic') : null"
+              class="px-4 py-2 text-xs font-bold rounded-xl bg-white border border-slate-300 hover:border-a11y-blue text-slate-800 hover:text-a11y-blue shadow-sm transition-all flex items-center gap-2"
+            >
+              <svg
+                class="w-4 h-4 text-slate-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                />
+              </svg>
+              <span>Disleksi Fontu</span>
+            </button>
+            <button
+              onclick="window.BlakfyA11y ? window.BlakfyA11y.toggle('highlightLinks') : null"
+              class="px-4 py-2 text-xs font-bold rounded-xl bg-white border border-slate-300 hover:border-a11y-blue text-slate-800 hover:text-a11y-blue shadow-sm transition-all flex items-center gap-2"
+            >
+              <svg
+                class="w-4 h-4 text-slate-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+                />
+              </svg>
+              <span>Bağlantıları Vurgula</span>
+            </button>
+            <button
+              onclick="window.BlakfyA11y ? window.BlakfyA11y.toggle('readingMask') : null"
+              class="px-4 py-2 text-xs font-bold rounded-xl bg-white border border-slate-300 hover:border-a11y-blue text-slate-800 hover:text-a11y-blue shadow-sm transition-all flex items-center gap-2"
+            >
+              <svg
+                class="w-4 h-4 text-slate-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                />
+              </svg>
+              <span>Okuma Maskesi</span>
+            </button>
+            <button
+              onclick="window.BlakfyA11y ? window.BlakfyA11y.toggle('bigCursor') : null"
+              class="px-4 py-2 text-xs font-bold rounded-xl bg-white border border-slate-300 hover:border-a11y-blue text-slate-800 hover:text-a11y-blue shadow-sm transition-all flex items-center gap-2"
+            >
+              <svg class="w-4 h-4 text-slate-600" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M4 0l16 12.279-6.951 1.17 4.325 8.817-3.596 1.734-4.35-8.879-5.428 5.428z"
+                />
+              </svg>
+              <span>Büyük İmleç</span>
+            </button>
+            <button
+              onclick="window.BlakfyA11y ? window.BlakfyA11y.reset() : null"
+              class="px-4 py-2 text-xs font-bold rounded-xl bg-rose-50 border border-rose-200 hover:bg-rose-100 text-rose-700 shadow-sm transition-all flex items-center gap-2"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                />
+              </svg>
+              <span>Sıfırla</span>
+            </button>
+          </div>
 
-            <!-- Etkileşimli Form Alanı -->
-            <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-4">
-              <span class="text-xs font-bold text-slate-700 block">Form ve Klavye Odaklanma Testi</span>
+          <!-- Örnek Test Kartı (Metin & Form & Bağlantı) -->
+          <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-card-soft">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
               <div>
-                <label for="test-name" class="block text-xs font-medium text-slate-600 mb-1">Ad Soyad</label>
-                <input id="test-name" type="text" placeholder="Örn: Ayşe Yılmaz" class="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-a11y-blue bg-white">
+                <span class="text-xs font-bold uppercase tracking-wider text-a11y-blue"
+                  >Tipografi ve Okunabilirlik Testi</span
+                >
+                <h3 class="text-xl font-bold text-slate-900 mt-1 mb-3">
+                  Kullanıcı Tercihleri Neden Önemlidir?
+                </h3>
+                <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                  Her internet kullanıcısı aynı görme keskinliğine, kontrast algısına veya nörolojik
+                  odaklanma yapısına sahip değildir. Disleksi olan bir birey için harflerin alt
+                  ağırlıklarının belirgin olması, yaşlı bir birey için satır aralığının
+                  genişletilmesi dijital dünyaya katılımı doğrudan mümkün kılar.
+                </p>
+                <div class="flex items-center gap-4 text-xs font-semibold">
+                  <a
+                    href="#karsilastirma"
+                    class="text-a11y-blue underline hover:text-a11y-blueHover"
+                    >Karşılaştırma Tablosuna Git</a
+                  >
+                  <a
+                    href="https://www.w3.org/WAI/standards-guidelines/wcag/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-slate-600 underline hover:text-slate-900"
+                    >W3C WCAG 2.2 Kılavuzu</a
+                  >
+                </div>
               </div>
+
+              <!-- Etkileşimli Form Alanı -->
+              <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-4">
+                <span class="text-xs font-bold text-slate-700 block"
+                  >Form ve Klavye Odaklanma Testi</span
+                >
+                <div>
+                  <label for="test-name" class="block text-xs font-medium text-slate-600 mb-1"
+                    >Ad Soyad</label
+                  >
+                  <input
+                    id="test-name"
+                    type="text"
+                    placeholder="Örn: Ayşe Yılmaz"
+                    class="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-a11y-blue bg-white"
+                  />
+                </div>
+                <div>
+                  <label for="test-role" class="block text-xs font-medium text-slate-600 mb-1"
+                    >Erişilebilirlik Rolü</label
+                  >
+                  <select
+                    id="test-role"
+                    class="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-a11y-blue bg-white"
+                  >
+                    <option>Ekran Okuyucu Kullanıcısı</option>
+                    <option>Yalnızca Klavye Gezgini</option>
+                    <option>Düşük Görme / Yüksek Kontrast</option>
+                    <option>Bilişsel & Nöroçeşitlilik (Disleksi / DEHB)</option>
+                  </select>
+                </div>
+                <button
+                  type="button"
+                  class="w-full py-2.5 rounded-lg bg-a11y-blue hover:bg-a11y-blueHover text-white text-xs font-bold transition-colors"
+                >
+                  Gönder ve Doğrula
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Neden "Overlay" Değil? (Karşılaştırma Tablosu) -->
+      <section id="karsilastirma" class="py-20 border-t border-slate-200 bg-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center max-w-3xl mx-auto mb-14">
+            <span
+              class="text-xs font-mono font-semibold text-rose-600 uppercase tracking-widest px-3 py-1 rounded-full bg-rose-50 border border-rose-200"
+            >
+              Kritik Farkındalık
+            </span>
+            <h2 class="text-3xl font-bold text-slate-900 mt-3">Neden "Overlay" (Kaplama) Değil?</h2>
+            <p class="text-sm text-slate-600 mt-2">
+              Piyasada "yapay zeka ile sitenizi tek tıkla %100 ADA uyumlu yapıyoruz" iddiasıyla
+              satılan ticari kaplamalar (accessiBe vb.) 2025'te FTC cezalarına çarptırılmış ve
+              engelli hakları savunucuları tarafından kınanmıştır.
+            </p>
+          </div>
+
+          <div class="overflow-x-auto border border-slate-200 rounded-2xl shadow-card-soft">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="bg-slate-50 border-b border-slate-200 text-slate-700">
+                  <th class="py-4 px-6 font-bold text-sm">Özellik / Yaklaşım</th>
+                  <th class="py-4 px-6 font-bold text-sm text-rose-700 bg-rose-50/50">
+                    Sahte Kaplamalar (Overlays)
+                  </th>
+                  <th class="py-4 px-6 font-bold text-sm text-blue-700 bg-blue-50/50">
+                    Blakfy Accessibility Widget
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 text-slate-600">
+                <tr class="hover:bg-slate-50/50">
+                  <td class="py-3.5 px-6 font-semibold text-slate-900">
+                    DOM Müdahalesi (Runtime Rewrite)
+                  </td>
+                  <td class="py-3.5 px-6 text-rose-600 font-medium">
+                    Sayfa kodunu runtime'da değiştirir, ekran okuyucuları bozar.
+                  </td>
+                  <td class="py-3.5 px-6 text-emerald-700 font-semibold">
+                    Sıfır DOM müdahalesi. Yalnızca CSS sınıfları ve değişkenleri yönetir.
+                  </td>
+                </tr>
+                <tr class="hover:bg-slate-50/50">
+                  <td class="py-3.5 px-6 font-semibold text-slate-900">
+                    Yapay Zeka Alt-Text Uydurması
+                  </td>
+                  <td class="py-3.5 px-6 text-rose-600 font-medium">
+                    Fotoğraflara bağlamsız, hatalı otomatik açıklamalar yazar.
+                  </td>
+                  <td class="py-3.5 px-6 text-emerald-700 font-semibold">
+                    Uydurma yapmaz. Gerçek erişilebilirliğin site sahibinin işi olduğunu açıkça
+                    belirtir.
+                  </td>
+                </tr>
+                <tr class="hover:bg-slate-50/50">
+                  <td class="py-3.5 px-6 font-semibold text-slate-900">
+                    Kullanıcı Takibi ve Parmak İzi (Fingerprinting)
+                  </td>
+                  <td class="py-3.5 px-6 text-rose-600 font-medium">
+                    Engelli bireylerin yardımcı teknolojilerini izler ve fişler.
+                  </td>
+                  <td class="py-3.5 px-6 text-emerald-700 font-semibold">
+                    Sıfır telemetri. Tercihler yalnızca kullanıcının kendi tarayıcısında saklanır.
+                  </td>
+                </tr>
+                <tr class="hover:bg-slate-50/50">
+                  <td class="py-3.5 px-6 font-semibold text-slate-900">Yasal Koruma & Beyan</td>
+                  <td class="py-3.5 px-6 text-rose-600 font-medium">
+                    Yanıltıcı "Dava edilemezsiniz" iddiaları (FTC 2025 cezası).
+                  </td>
+                  <td class="py-3.5 px-6 text-emerald-700 font-semibold">
+                    Dürüst yaklaşım: Ek bir kullanıcı tercih katmanı sunar; EAA 2025 ve WCAG 2.2 AA
+                    UI uyumludur.
+                  </td>
+                </tr>
+                <tr class="hover:bg-slate-50/50">
+                  <td class="py-3.5 px-6 font-semibold text-slate-900">
+                    Paket Boyutu & Performans
+                  </td>
+                  <td class="py-3.5 px-6 text-rose-600 font-medium">
+                    Yüzlerce kilobayt, ağır harici kütüphaneler.
+                  </td>
+                  <td class="py-3.5 px-6 text-emerald-700 font-semibold">
+                    Yalnızca 18 KB (Gzip). Preact ve Shadow DOM ile milisaniyeler içinde açılır.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7 Temel Özellik (Bento Grid) -->
+      <section id="ozellikler" class="py-20 border-t border-slate-200 bg-slate-50/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center max-w-3xl mx-auto mb-16">
+            <span
+              class="text-xs font-mono font-semibold text-a11y-blue uppercase tracking-widest px-3 py-1 rounded-full badge-blue"
+            >
+              Kullanıcı Kontrolü
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mt-3">
+              7 Temel Erişilebilirlik Tercihi
+            </h2>
+            <p class="text-base text-slate-600 mt-3">
+              Kullanıcıların sayfayı kendi görme, odaklanma ve motor becerilerine göre anında
+              özelleştirmesini sağlar.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Özellik 1: Font Boyutu -->
+            <div
+              class="bg-white rounded-2xl p-7 border border-slate-200 shadow-card-soft hover:shadow-card-hover hover:border-a11y-blue/40 transition-all flex flex-col justify-between"
+            >
               <div>
-                <label for="test-role" class="block text-xs font-medium text-slate-600 mb-1">Erişilebilirlik Rolü</label>
-                <select id="test-role" class="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-a11y-blue bg-white">
-                  <option>Ekran Okuyucu Kullanıcısı</option>
-                  <option>Yalnızca Klavye Gezgini</option>
-                  <option>Düşük Görme / Yüksek Kontrast</option>
-                  <option>Bilişsel & Nöroçeşitlilik (Disleksi / DEHB)</option>
-                </select>
+                <div
+                  class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 text-a11y-blue flex items-center justify-center mb-5"
+                >
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+                    />
+                  </svg>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900 mb-2">Yazı Boyutu Ölçekleme</h3>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                  Sayfa yerleşimini (layout) bozmadan tipografiyi %100 ile %150 arasında 3 kademeli
+                  olarak büyütür ve küçültür.
+                </p>
               </div>
-              <button type="button" class="w-full py-2.5 rounded-lg bg-a11y-blue hover:bg-a11y-blueHover text-white text-xs font-bold transition-colors">
-                Gönder ve Doğrula
-              </button>
+              <div
+                class="mt-5 pt-3 border-t border-slate-100 text-xs text-a11y-blue font-mono font-medium"
+              >
+                Fluid Rem-based Scaling
+              </div>
             </div>
 
+            <!-- Özellik 2: Kontrast -->
+            <div
+              class="bg-white rounded-2xl p-7 border border-slate-200 shadow-card-soft hover:shadow-card-hover hover:border-a11y-blue/40 transition-all flex flex-col justify-between"
+            >
+              <div>
+                <div
+                  class="w-12 h-12 rounded-xl bg-indigo-50 border border-indigo-100 text-indigo-600 flex items-center justify-center mb-5"
+                >
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" stroke-width="2" />
+                    <path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor" />
+                  </svg>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900 mb-2">Çoklu Kontrast Modları</h3>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                  Yüksek kontrast, koyu arka plan, açık zemin veya renk körlüğü için monokrom
+                  (siyah-beyaz) filtreleme seçenekleri.
+                </p>
+              </div>
+              <div
+                class="mt-5 pt-3 border-t border-slate-100 text-xs text-indigo-600 font-mono font-medium"
+              >
+                WCAG 2.2 AAA Contrast (7:1)
+              </div>
+            </div>
+
+            <!-- Özellik 3: Disleksi Fontu -->
+            <div
+              class="bg-white rounded-2xl p-7 border border-slate-200 shadow-card-soft hover:shadow-card-hover hover:border-a11y-blue/40 transition-all flex flex-col justify-between"
+            >
+              <div>
+                <div
+                  class="w-12 h-12 rounded-xl bg-purple-50 border border-purple-100 text-purple-600 flex items-center justify-center mb-5"
+                >
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                    />
+                  </svg>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900 mb-2">Disleksi Dostu Tipografi</h3>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                  Harflerin yön karışıklığını önleyen taban ağırlıklı özel disleksi fontuyla
+                  (OpenDyslexic) anında okuma rahatlığı.
+                </p>
+              </div>
+              <div
+                class="mt-5 pt-3 border-t border-slate-100 text-xs text-purple-600 font-mono font-medium"
+              >
+                OpenDyslexic Embedded
+              </div>
+            </div>
+
+            <!-- Özellik 4: Bağlantı Vurgusu -->
+            <div
+              class="bg-white rounded-2xl p-7 border border-slate-200 shadow-card-soft hover:shadow-card-hover hover:border-a11y-blue/40 transition-all flex flex-col justify-between"
+            >
+              <div>
+                <div
+                  class="w-12 h-12 rounded-xl bg-teal-50 border border-teal-100 text-teal-600 flex items-center justify-center mb-5"
+                >
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+                    />
+                  </svg>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900 mb-2">Bağlantı & Başlık Vurguları</h3>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                  Tıklanabilir tüm bağlantıları yüksek görünürlüklü alt çizgilerle ve başlıkları
+                  çerçevelerle belirginleştirir.
+                </p>
+              </div>
+              <div
+                class="mt-5 pt-3 border-t border-slate-100 text-xs text-teal-600 font-mono font-medium"
+              >
+                Link Focus & Underline
+              </div>
+            </div>
+
+            <!-- Özellik 5: Okuma Maskesi -->
+            <div
+              class="bg-white rounded-2xl p-7 border border-slate-200 shadow-card-soft hover:shadow-card-hover hover:border-a11y-blue/40 transition-all flex flex-col justify-between"
+            >
+              <div>
+                <div
+                  class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-100 text-amber-600 flex items-center justify-center mb-5"
+                >
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                    />
+                  </svg>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900 mb-2">Okuma Maskesi & Cetveli</h3>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                  DEHB (ADHD) ve dikkat dağınıklığı yaşayan bireyler için imleci takip eden yatay
+                  okuma kılavuzu şeridi sunar.
+                </p>
+              </div>
+              <div
+                class="mt-5 pt-3 border-t border-slate-100 text-xs text-amber-600 font-mono font-medium"
+              >
+                Reading Guide / Mask
+              </div>
+            </div>
+
+            <!-- Özellik 6: Animasyon Durdurma -->
+            <div
+              class="bg-white rounded-2xl p-7 border border-slate-200 shadow-card-soft hover:shadow-card-hover hover:border-a11y-blue/40 transition-all flex flex-col justify-between"
+            >
+              <div>
+                <div
+                  class="w-12 h-12 rounded-xl bg-rose-50 border border-rose-100 text-rose-600 flex items-center justify-center mb-5"
+                >
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900 mb-2">Animasyonları Durdurma</h3>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                  Vestibüler rahatsızlık ve epilepsi tetikleyebilecek CSS/JS animasyonlarını ve
+                  kayan öğeleri tek dokunuşla dondurur.
+                </p>
+              </div>
+              <div
+                class="mt-5 pt-3 border-t border-slate-100 text-xs text-rose-600 font-mono font-medium"
+              >
+                Prefers-Reduced-Motion
+              </div>
+            </div>
           </div>
         </div>
+      </section>
 
-      </div>
-    </section>
-
-    <!-- Neden "Overlay" Değil? (Karşılaştırma Tablosu) -->
-    <section id="karsilastirma" class="py-20 border-t border-slate-200 bg-white">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="text-center max-w-3xl mx-auto mb-14">
-          <span class="text-xs font-mono font-semibold text-rose-600 uppercase tracking-widest px-3 py-1 rounded-full bg-rose-50 border border-rose-200">
-            Kritik Farkındalık
-          </span>
-          <h2 class="text-3xl font-bold text-slate-900 mt-3">Neden "Overlay" (Kaplama) Değil?</h2>
-          <p class="text-sm text-slate-600 mt-2">
-            Piyasada "yapay zeka ile sitenizi tek tıkla %100 ADA uyumlu yapıyoruz" iddiasıyla satılan ticari kaplamalar (accessiBe vb.) 2025'te FTC cezalarına çarptırılmış ve engelli hakları savunucuları tarafından kınanmıştır.
-          </p>
-        </div>
-
-        <div class="overflow-x-auto border border-slate-200 rounded-2xl shadow-card-soft">
-          <table class="w-full text-left text-xs border-collapse">
-            <thead>
-              <tr class="bg-slate-50 border-b border-slate-200 text-slate-700">
-                <th class="py-4 px-6 font-bold text-sm">Özellik / Yaklaşım</th>
-                <th class="py-4 px-6 font-bold text-sm text-rose-700 bg-rose-50/50">Sahte Kaplamalar (Overlays)</th>
-                <th class="py-4 px-6 font-bold text-sm text-blue-700 bg-blue-50/50">Blakfy Accessibility Widget</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-slate-100 text-slate-600">
-              <tr class="hover:bg-slate-50/50">
-                <td class="py-3.5 px-6 font-semibold text-slate-900">DOM Müdahalesi (Runtime Rewrite)</td>
-                <td class="py-3.5 px-6 text-rose-600 font-medium">Sayfa kodunu runtime'da değiştirir, ekran okuyucuları bozar.</td>
-                <td class="py-3.5 px-6 text-emerald-700 font-semibold">Sıfır DOM müdahalesi. Yalnızca CSS sınıfları ve değişkenleri yönetir.</td>
-              </tr>
-              <tr class="hover:bg-slate-50/50">
-                <td class="py-3.5 px-6 font-semibold text-slate-900">Yapay Zeka Alt-Text Uydurması</td>
-                <td class="py-3.5 px-6 text-rose-600 font-medium">Fotoğraflara bağlamsız, hatalı otomatik açıklamalar yazar.</td>
-                <td class="py-3.5 px-6 text-emerald-700 font-semibold">Uydurma yapmaz. Gerçek erişilebilirliğin site sahibinin işi olduğunu açıkça belirtir.</td>
-              </tr>
-              <tr class="hover:bg-slate-50/50">
-                <td class="py-3.5 px-6 font-semibold text-slate-900">Kullanıcı Takibi ve Parmak İzi (Fingerprinting)</td>
-                <td class="py-3.5 px-6 text-rose-600 font-medium">Engelli bireylerin yardımcı teknolojilerini izler ve fişler.</td>
-                <td class="py-3.5 px-6 text-emerald-700 font-semibold">Sıfır telemetri. Tercihler yalnızca kullanıcının kendi tarayıcısında saklanır.</td>
-              </tr>
-              <tr class="hover:bg-slate-50/50">
-                <td class="py-3.5 px-6 font-semibold text-slate-900">Yasal Koruma & Beyan</td>
-                <td class="py-3.5 px-6 text-rose-600 font-medium">Yanıltıcı "Dava edilemezsiniz" iddiaları (FTC 2025 cezası).</td>
-                <td class="py-3.5 px-6 text-emerald-700 font-semibold">Dürüst yaklaşım: Ek bir kullanıcı tercih katmanı sunar; EAA 2025 ve WCAG 2.2 AA UI uyumludur.</td>
-              </tr>
-              <tr class="hover:bg-slate-50/50">
-                <td class="py-3.5 px-6 font-semibold text-slate-900">Paket Boyutu & Performans</td>
-                <td class="py-3.5 px-6 text-rose-600 font-medium">Yüzlerce kilobayt, ağır harici kütüphaneler.</td>
-                <td class="py-3.5 px-6 text-emerald-700 font-semibold">Yalnızca 18 KB (Gzip). Preact ve Shadow DOM ile milisaniyeler içinde açılır.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- 7 Temel Özellik (Bento Grid) -->
-    <section id="ozellikler" class="py-20 border-t border-slate-200 bg-slate-50/60">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="text-center max-w-3xl mx-auto mb-16">
-          <span class="text-xs font-mono font-semibold text-a11y-blue uppercase tracking-widest px-3 py-1 rounded-full badge-blue">
-            Kullanıcı Kontrolü
-          </span>
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mt-3">
-            7 Temel Erişilebilirlik Tercihi
-          </h2>
-          <p class="text-base text-slate-600 mt-3">
-            Kullanıcıların sayfayı kendi görme, odaklanma ve motor becerilerine göre anında özelleştirmesini sağlar.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          
-          <!-- Özellik 1: Font Boyutu -->
-          <div class="bg-white rounded-2xl p-7 border border-slate-200 shadow-card-soft hover:shadow-card-hover hover:border-a11y-blue/40 transition-all flex flex-col justify-between">
-            <div>
-              <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 text-a11y-blue flex items-center justify-center mb-5">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
-              </div>
-              <h3 class="text-lg font-bold text-slate-900 mb-2">Yazı Boyutu Ölçekleme</h3>
-              <p class="text-xs text-slate-600 leading-relaxed">
-                Sayfa yerleşimini (layout) bozmadan tipografiyi %100 ile %150 arasında 3 kademeli olarak büyütür ve küçültür.
-              </p>
-            </div>
-            <div class="mt-5 pt-3 border-t border-slate-100 text-xs text-a11y-blue font-mono font-medium">Fluid Rem-based Scaling</div>
+      <!-- Hızlı Kurulum & Entegrasyon (Code Snippets) -->
+      <section id="entegrasyon" class="py-20 border-t border-slate-200 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center mb-12">
+            <span
+              class="text-xs font-mono font-semibold text-a11y-blue uppercase tracking-widest px-3 py-1 rounded-full badge-blue"
+            >
+              30 Saniyede Entegre Et
+            </span>
+            <h2 class="text-3xl font-bold text-slate-900 mt-3">Hızlı Kurulum Yöntemleri</h2>
+            <p class="text-sm text-slate-600 mt-2">
+              İster tek satır CDN scripti ile ister Next.js ve React paketleriyle projenize dahil
+              edin.
+            </p>
           </div>
 
-          <!-- Özellik 2: Kontrast -->
-          <div class="bg-white rounded-2xl p-7 border border-slate-200 shadow-card-soft hover:shadow-card-hover hover:border-a11y-blue/40 transition-all flex flex-col justify-between">
-            <div>
-              <div class="w-12 h-12 rounded-xl bg-indigo-50 border border-indigo-100 text-indigo-600 flex items-center justify-center mb-5">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor"/></svg>
+          <div class="space-y-6">
+            <!-- Metot 1: CDN Script Tag -->
+            <div
+              class="bg-slate-900 rounded-2xl p-6 text-white border border-slate-800 shadow-card-soft"
+            >
+              <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
+                <span class="text-xs font-bold text-slate-300 font-mono"
+                  >1. CDN İle Entegrasyon (Tüm Siteler)</span
+                >
+                <span
+                  class="text-[11px] font-mono px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30"
+                  >Vanilla HTML / WordPress</span
+                >
               </div>
-              <h3 class="text-lg font-bold text-slate-900 mb-2">Çoklu Kontrast Modları</h3>
-              <p class="text-xs text-slate-600 leading-relaxed">
-                Yüksek kontrast, koyu arka plan, açık zemin veya renk körlüğü için monokrom (siyah-beyaz) filtreleme seçenekleri.
-              </p>
-            </div>
-            <div class="mt-5 pt-3 border-t border-slate-100 text-xs text-indigo-600 font-mono font-medium">WCAG 2.2 AAA Contrast (7:1)</div>
-          </div>
-
-          <!-- Özellik 3: Disleksi Fontu -->
-          <div class="bg-white rounded-2xl p-7 border border-slate-200 shadow-card-soft hover:shadow-card-hover hover:border-a11y-blue/40 transition-all flex flex-col justify-between">
-            <div>
-              <div class="w-12 h-12 rounded-xl bg-purple-50 border border-purple-100 text-purple-600 flex items-center justify-center mb-5">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-              </div>
-              <h3 class="text-lg font-bold text-slate-900 mb-2">Disleksi Dostu Tipografi</h3>
-              <p class="text-xs text-slate-600 leading-relaxed">
-                Harflerin yön karışıklığını önleyen taban ağırlıklı özel disleksi fontuyla (OpenDyslexic) anında okuma rahatlığı.
-              </p>
-            </div>
-            <div class="mt-5 pt-3 border-t border-slate-100 text-xs text-purple-600 font-mono font-medium">OpenDyslexic Embedded</div>
-          </div>
-
-          <!-- Özellik 4: Bağlantı Vurgusu -->
-          <div class="bg-white rounded-2xl p-7 border border-slate-200 shadow-card-soft hover:shadow-card-hover hover:border-a11y-blue/40 transition-all flex flex-col justify-between">
-            <div>
-              <div class="w-12 h-12 rounded-xl bg-teal-50 border border-teal-100 text-teal-600 flex items-center justify-center mb-5">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-              </div>
-              <h3 class="text-lg font-bold text-slate-900 mb-2">Bağlantı & Başlık Vurguları</h3>
-              <p class="text-xs text-slate-600 leading-relaxed">
-                Tıklanabilir tüm bağlantıları yüksek görünürlüklü alt çizgilerle ve başlıkları çerçevelerle belirginleştirir.
-              </p>
-            </div>
-            <div class="mt-5 pt-3 border-t border-slate-100 text-xs text-teal-600 font-mono font-medium">Link Focus & Underline</div>
-          </div>
-
-          <!-- Özellik 5: Okuma Maskesi -->
-          <div class="bg-white rounded-2xl p-7 border border-slate-200 shadow-card-soft hover:shadow-card-hover hover:border-a11y-blue/40 transition-all flex flex-col justify-between">
-            <div>
-              <div class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-100 text-amber-600 flex items-center justify-center mb-5">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-              </div>
-              <h3 class="text-lg font-bold text-slate-900 mb-2">Okuma Maskesi & Cetveli</h3>
-              <p class="text-xs text-slate-600 leading-relaxed">
-                DEHB (ADHD) ve dikkat dağınıklığı yaşayan bireyler için imleci takip eden yatay okuma kılavuzu şeridi sunar.
-              </p>
-            </div>
-            <div class="mt-5 pt-3 border-t border-slate-100 text-xs text-amber-600 font-mono font-medium">Reading Guide / Mask</div>
-          </div>
-
-          <!-- Özellik 6: Animasyon Durdurma -->
-          <div class="bg-white rounded-2xl p-7 border border-slate-200 shadow-card-soft hover:shadow-card-hover hover:border-a11y-blue/40 transition-all flex flex-col justify-between">
-            <div>
-              <div class="w-12 h-12 rounded-xl bg-rose-50 border border-rose-100 text-rose-600 flex items-center justify-center mb-5">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              </div>
-              <h3 class="text-lg font-bold text-slate-900 mb-2">Animasyonları Durdurma</h3>
-              <p class="text-xs text-slate-600 leading-relaxed">
-                Vestibüler rahatsızlık ve epilepsi tetikleyebilecek CSS/JS animasyonlarını ve kayan öğeleri tek dokunuşla dondurur.
-              </p>
-            </div>
-            <div class="mt-5 pt-3 border-t border-slate-100 text-xs text-rose-600 font-mono font-medium">Prefers-Reduced-Motion</div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Hızlı Kurulum & Entegrasyon (Code Snippets) -->
-    <section id="entegrasyon" class="py-20 border-t border-slate-200 bg-white">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="text-center mb-12">
-          <span class="text-xs font-mono font-semibold text-a11y-blue uppercase tracking-widest px-3 py-1 rounded-full badge-blue">
-            30 Saniyede Entegre Et
-          </span>
-          <h2 class="text-3xl font-bold text-slate-900 mt-3">Hızlı Kurulum Yöntemleri</h2>
-          <p class="text-sm text-slate-600 mt-2">İster tek satır CDN scripti ile ister Next.js ve React paketleriyle projenize dahil edin.</p>
-        </div>
-
-        <div class="space-y-6">
-          
-          <!-- Metot 1: CDN Script Tag -->
-          <div class="bg-slate-900 rounded-2xl p-6 text-white border border-slate-800 shadow-card-soft">
-            <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
-              <span class="text-xs font-bold text-slate-300 font-mono">1. CDN İle Entegrasyon (Tüm Siteler)</span>
-              <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30">Vanilla HTML / WordPress</span>
-            </div>
-            <pre class="text-xs font-mono text-slate-300 overflow-x-auto leading-relaxed"><code>&lt;!-- HTML kapanış &lt;/body&gt; etiketinden hemen önce ekleyin --&gt;
+              <pre
+                class="text-xs font-mono text-slate-300 overflow-x-auto leading-relaxed"
+              ><code>&lt;!-- HTML kapanış &lt;/body&gt; etiketinden hemen önce ekleyin --&gt;
 &lt;script
   src="https://cdn.jsdelivr.net/npm/@blakfy/accessibility-widget@v2/dist/widget.js"
   data-locale="tr"
@@ -443,15 +809,24 @@
   data-position="bottom-left"
   defer
 &gt;&lt;/script&gt;</code></pre>
-          </div>
-
-          <!-- Metot 2: Next.js App Router -->
-          <div class="bg-slate-900 rounded-2xl p-6 text-white border border-slate-800 shadow-card-soft">
-            <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
-              <span class="text-xs font-bold text-slate-300 font-mono">2. Next.js App Router (app/layout.tsx)</span>
-              <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">Next.js 14 / 15</span>
             </div>
-            <pre class="text-xs font-mono text-slate-300 overflow-x-auto leading-relaxed"><code>import Script from 'next/script';
+
+            <!-- Metot 2: Next.js App Router -->
+            <div
+              class="bg-slate-900 rounded-2xl p-6 text-white border border-slate-800 shadow-card-soft"
+            >
+              <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
+                <span class="text-xs font-bold text-slate-300 font-mono"
+                  >2. Next.js App Router (app/layout.tsx)</span
+                >
+                <span
+                  class="text-[11px] font-mono px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-400 border border-indigo-500/30"
+                  >Next.js 14 / 15</span
+                >
+              </div>
+              <pre
+                class="text-xs font-mono text-slate-300 overflow-x-auto leading-relaxed"
+              ><code>import Script from 'next/script';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -468,128 +843,161 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     &lt;/html&gt;
   );
 }</code></pre>
-          </div>
-
-          <!-- Metot 3: NPM Paketi -->
-          <div class="bg-slate-900 rounded-2xl p-6 text-white border border-slate-800 shadow-card-soft">
-            <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
-              <span class="text-xs font-bold text-slate-300 font-mono">3. NPM Paketi ile Kurulum</span>
-              <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">NPM / PNPM</span>
             </div>
-            <pre class="text-xs font-mono text-emerald-400 overflow-x-auto"><code>npm install @blakfy/accessibility-widget</code></pre>
+
+            <!-- Metot 3: NPM Paketi -->
+            <div
+              class="bg-slate-900 rounded-2xl p-6 text-white border border-slate-800 shadow-card-soft"
+            >
+              <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
+                <span class="text-xs font-bold text-slate-300 font-mono"
+                  >3. NPM Paketi ile Kurulum</span
+                >
+                <span
+                  class="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
+                  >NPM / PNPM</span
+                >
+              </div>
+              <pre
+                class="text-xs font-mono text-emerald-400 overflow-x-auto"
+              ><code>npm install @blakfy/accessibility-widget</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Standartlar ve Yasal Uyumluluk -->
+      <section id="standartlar" class="py-20 border-t border-slate-200 bg-slate-50/70">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center mb-12">
+            <span
+              class="text-xs font-mono font-semibold text-a11y-blue uppercase tracking-widest px-3 py-1 rounded-full badge-blue"
+            >
+              Uluslararası Kılavuzlar
+            </span>
+            <h2 class="text-3xl font-bold text-slate-900 mt-3">
+              Desteklenen Standartlar ve Ekran Okuyucular
+            </h2>
           </div>
 
-        </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white rounded-2xl p-6 border border-slate-200">
+              <h4 class="font-bold text-slate-900 mb-3 text-base flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
+                Yasal Düzenlemeler ve Direktifler
+              </h4>
+              <ul class="text-xs text-slate-600 space-y-2">
+                <li class="flex items-center justify-between py-1 border-b border-slate-100">
+                  <span>W3C WCAG 2.2 Level AA</span>
+                  <span class="font-bold text-slate-900">Doğrulanmış UI</span>
+                </li>
+                <li class="flex items-center justify-between py-1 border-b border-slate-100">
+                  <span>European Accessibility Act (EAA 2025)</span>
+                  <span class="font-bold text-slate-900">EN 301 549 v3.2.3</span>
+                </li>
+                <li class="flex items-center justify-between py-1 border-b border-slate-100">
+                  <span>Section 508 (ABD Federal)</span>
+                  <span class="font-bold text-slate-900">Tam Uyumlu</span>
+                </li>
+                <li class="flex items-center justify-between py-1">
+                  <span>KVKK ve GDPR Gizlilik</span>
+                  <span class="font-bold text-slate-900">Sıfır Telemetri</span>
+                </li>
+              </ul>
+            </div>
 
-      </div>
-    </section>
-
-    <!-- Standartlar ve Yasal Uyumluluk -->
-    <section id="standartlar" class="py-20 border-t border-slate-200 bg-slate-50/70">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="text-center mb-12">
-          <span class="text-xs font-mono font-semibold text-a11y-blue uppercase tracking-widest px-3 py-1 rounded-full badge-blue">
-            Uluslararası Kılavuzlar
-          </span>
-          <h2 class="text-3xl font-bold text-slate-900 mt-3">Desteklenen Standartlar ve Ekran Okuyucular</h2>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          
-          <div class="bg-white rounded-2xl p-6 border border-slate-200">
-            <h4 class="font-bold text-slate-900 mb-3 text-base flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
-              Yasal Düzenlemeler ve Direktifler
-            </h4>
-            <ul class="text-xs text-slate-600 space-y-2">
-              <li class="flex items-center justify-between py-1 border-b border-slate-100">
-                <span>W3C WCAG 2.2 Level AA</span>
-                <span class="font-bold text-slate-900">Doğrulanmış UI</span>
-              </li>
-              <li class="flex items-center justify-between py-1 border-b border-slate-100">
-                <span>European Accessibility Act (EAA 2025)</span>
-                <span class="font-bold text-slate-900">EN 301 549 v3.2.3</span>
-              </li>
-              <li class="flex items-center justify-between py-1 border-b border-slate-100">
-                <span>Section 508 (ABD Federal)</span>
-                <span class="font-bold text-slate-900">Tam Uyumlu</span>
-              </li>
-              <li class="flex items-center justify-between py-1">
-                <span>KVKK ve GDPR Gizlilik</span>
-                <span class="font-bold text-slate-900">Sıfır Telemetri</span>
-              </li>
-            </ul>
+            <div class="bg-white rounded-2xl p-6 border border-slate-200">
+              <h4 class="font-bold text-slate-900 mb-3 text-base flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-indigo-600"></span>
+                Test Edilen Ekran Okuyucular (AT)
+              </h4>
+              <ul class="text-xs text-slate-600 space-y-2">
+                <li class="flex items-center justify-between py-1 border-b border-slate-100">
+                  <span>NVDA (Windows)</span>
+                  <span class="font-bold text-slate-900">Manuel Test Edildi</span>
+                </li>
+                <li class="flex items-center justify-between py-1 border-b border-slate-100">
+                  <span>JAWS (Windows)</span>
+                  <span class="font-bold text-slate-900">Manuel Test Edildi</span>
+                </li>
+                <li class="flex items-center justify-between py-1 border-b border-slate-100">
+                  <span>VoiceOver (macOS & iOS)</span>
+                  <span class="font-bold text-slate-900">Manuel Test Edildi</span>
+                </li>
+                <li class="flex items-center justify-between py-1">
+                  <span>TalkBack (Android)</span>
+                  <span class="font-bold text-slate-900">Manuel Test Edildi</span>
+                </li>
+              </ul>
+            </div>
           </div>
+        </div>
+      </section>
+    </main>
 
-          <div class="bg-white rounded-2xl p-6 border border-slate-200">
-            <h4 class="font-bold text-slate-900 mb-3 text-base flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-indigo-600"></span>
-              Test Edilen Ekran Okuyucular (AT)
-            </h4>
-            <ul class="text-xs text-slate-600 space-y-2">
-              <li class="flex items-center justify-between py-1 border-b border-slate-100">
-                <span>NVDA (Windows)</span>
-                <span class="font-bold text-slate-900">Manuel Test Edildi</span>
-              </li>
-              <li class="flex items-center justify-between py-1 border-b border-slate-100">
-                <span>JAWS (Windows)</span>
-                <span class="font-bold text-slate-900">Manuel Test Edildi</span>
-              </li>
-              <li class="flex items-center justify-between py-1 border-b border-slate-100">
-                <span>VoiceOver (macOS & iOS)</span>
-                <span class="font-bold text-slate-900">Manuel Test Edildi</span>
-              </li>
-              <li class="flex items-center justify-between py-1">
-                <span>TalkBack (Android)</span>
-                <span class="font-bold text-slate-900">Manuel Test Edildi</span>
-              </li>
-            </ul>
+    <!-- Alt Bilgi (Footer) -->
+    <footer class="border-t border-slate-200 bg-slate-50 py-12 text-xs text-slate-600">
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6"
+      >
+        <div class="flex items-center gap-3">
+          <div
+            class="w-7 h-7 rounded-lg bg-a11y-blue p-1.5 shadow-sm text-white flex items-center justify-center"
+          >
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+              <circle cx="12" cy="4" r="2" />
+              <path
+                d="M19 13v-2c-1.54.02-3.09-.75-4.07-1.83l-1.29-1.43c-.4-.44-.97-.74-1.64-.74-.67 0-1.24.3-1.64.74l-1.29 1.43C7.09 10.25 5.54 11.02 4 11v2c1.94 0 3.79-.89 5-2.25V22h2v-7h2v7h2V10.75c1.21 1.36 3.06 2.25 5 2.25z"
+              />
+            </svg>
           </div>
-
+          <span class="font-medium text-slate-800"
+            ><strong>Blakfy A11y</strong> — Doğal Kullanıcı Tercih Paneli</span
+          >
         </div>
 
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Alt Bilgi (Footer) -->
-  <footer class="border-t border-slate-200 bg-slate-50 py-12 text-xs text-slate-600">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
-      
-      <div class="flex items-center gap-3">
-        <div class="w-7 h-7 rounded-lg bg-a11y-blue p-1.5 shadow-sm text-white flex items-center justify-center">
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-            <circle cx="12" cy="4" r="2"/>
-            <path d="M19 13v-2c-1.54.02-3.09-.75-4.07-1.83l-1.29-1.43c-.4-.44-.97-.74-1.64-.74-.67 0-1.24.3-1.64.74l-1.29 1.43C7.09 10.25 5.54 11.02 4 11v2c1.94 0 3.79-.89 5-2.25V22h2v-7h2v7h2V10.75c1.21 1.36 3.06 2.25 5 2.25z"/>
-          </svg>
+        <div class="flex items-center gap-6">
+          <a
+            href="https://github.com/tariktunc/accessibility-widget/blob/main/LICENSE"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:text-a11y-blue font-medium transition-colors"
+            >MIT Lisansı</a
+          >
+          <a
+            href="https://github.com/tariktunc/accessibility-widget"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:text-a11y-blue font-medium transition-colors"
+            >GitHub Reposu</a
+          >
+          <a
+            href="https://www.npmjs.com/package/@blakfy/accessibility-widget"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:text-a11y-blue font-medium transition-colors"
+            >NPM Paketi</a
+          >
+          <a
+            href="mailto:info@blakfy.com"
+            class="hover:text-a11y-blue font-medium transition-colors"
+            >İletişim: info@blakfy.com</a
+          >
         </div>
-        <span class="font-medium text-slate-800"><strong>Blakfy A11y</strong> — Doğal Kullanıcı Tercih Paneli</span>
+
+        <div>
+          <span>Telif Hakkı &copy; 2026 Tarık Tunç & Blakfy Studio. Tüm hakları saklıdır.</span>
+        </div>
       </div>
+    </footer>
 
-      <div class="flex items-center gap-6">
-        <a href="https://github.com/tariktunc/accessibility-widget/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" class="hover:text-a11y-blue font-medium transition-colors">MIT Lisansı</a>
-        <a href="https://github.com/tariktunc/accessibility-widget" target="_blank" rel="noopener noreferrer" class="hover:text-a11y-blue font-medium transition-colors">GitHub Reposu</a>
-        <a href="https://www.npmjs.com/package/@blakfy/accessibility-widget" target="_blank" rel="noopener noreferrer" class="hover:text-a11y-blue font-medium transition-colors">NPM Paketi</a>
-        <a href="mailto:info@blakfy.com" class="hover:text-a11y-blue font-medium transition-colors">İletişim: info@blakfy.com</a>
-      </div>
-
-      <div>
-        <span>Telif Hakkı &copy; 2026 Tarık Tunç & Blakfy Studio. Tüm hakları saklıdır.</span>
-      </div>
-
-    </div>
-  </footer>
-
-  <!-- Blakfy Accessibility Widget Yerel Yükleme -->
-  <script
-    src="./widget.js"
-    data-locale="tr"
-    data-theme="auto"
-    data-position="bottom-left"
-    defer
-  ></script>
-
-</body>
+    <!-- Blakfy Accessibility Widget Yerel Yükleme -->
+    <script
+      src="./widget.js"
+      data-locale="tr"
+      data-theme="auto"
+      data-position="bottom-left"
+      defer
+    ></script>
+  </body>
 </html>

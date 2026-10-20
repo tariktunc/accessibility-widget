@@ -15,13 +15,36 @@
 //     defaulting to the sibling repo's dist/cookie.min.js — injected with no
 //     data-blakfy-* attributes (no site overrides)
 import { test, expect, type Page, type ElementHandle } from '@playwright/test';
-import { readFileSync } from 'node:fs';
-import { FIXTURE, fab as a11yFab, badge as a11yBadge, dialog as a11yDialog, waitForMount, openPanel } from './_helpers';
+import { existsSync, readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import {
+  FIXTURE,
+  fab as a11yFab,
+  badge as a11yBadge,
+  dialog as a11yDialog,
+  waitForMount,
+  openPanel,
+} from './_helpers';
 
-const DEFAULT_COOKIE_DIST =
-  'C:/Users/tarkt/OneDrive/Desktop/Github/Eklentiler/blakfy-cookie/dist/cookie.min.js';
+const __dirname = dirname(fileURLToPath(import.meta.url));
+// Sibling checkout: <workspace-root>/accessibility-widget and <workspace-root>/blakfy-cookie.
+// Not vendored into this repo and not built in CI — this suite only runs when that sibling
+// checkout exists locally (or BLAKFY_COOKIE_DIST is set explicitly), and skips otherwise.
+const DEFAULT_COOKIE_DIST = join(
+  __dirname,
+  '..',
+  '..',
+  '..',
+  '..',
+  '..',
+  'blakfy-cookie',
+  'dist',
+  'cookie.min.js',
+);
 const COOKIE_DIST_PATH = process.env.BLAKFY_COOKIE_DIST || DEFAULT_COOKIE_DIST;
-const COOKIE_SRC = readFileSync(COOKIE_DIST_PATH, 'utf8');
+const COOKIE_DIST_AVAILABLE = existsSync(COOKIE_DIST_PATH);
+const COOKIE_SRC = COOKIE_DIST_AVAILABLE ? readFileSync(COOKIE_DIST_PATH, 'utf8') : '';
 
 const VIEWPORTS = [1200, 758, 350, 280];
 
@@ -33,9 +56,7 @@ interface Box {
 }
 
 function intersects(a: Box, b: Box): boolean {
-  return (
-    a.x < b.x + b.width && a.x + a.width > b.x && a.y < b.y + b.height && a.y + a.height > b.y
-  );
+  return a.x < b.x + b.width && a.x + a.width > b.x && a.y < b.y + b.height && a.y + a.height > b.y;
 }
 
 /** Inject the cookie widget with zero attributes/config — no site overrides. */
@@ -46,7 +67,9 @@ async function loadCookieWidget(page: Page): Promise<void> {
     document.body.appendChild(s);
   }, COOKIE_SRC);
   await page.waitForFunction(
-    () => typeof window !== 'undefined' && !!(window as unknown as { BlakfyCookie?: unknown }).BlakfyCookie,
+    () =>
+      typeof window !== 'undefined' &&
+      !!(window as unknown as { BlakfyCookie?: unknown }).BlakfyCookie,
     null,
     { timeout: 10_000 },
   );
@@ -82,7 +105,9 @@ function cookieDescHandle(page: Page) {
 async function rejectCookieBanner(page: Page): Promise<void> {
   await page.evaluate(() => {
     const root = document.getElementById('blakfy-cookie-root') as HTMLElement;
-    const btns = Array.from(root.shadowRoot!.querySelectorAll('button.blakfy-btn')) as HTMLElement[];
+    const btns = Array.from(
+      root.shadowRoot!.querySelectorAll('button.blakfy-btn'),
+    ) as HTMLElement[];
     const rejectBtn = btns.find((b) => /redd|reject|decline/i.test(b.textContent || '')) || btns[0];
     rejectBtn.click();
   });
@@ -103,7 +128,11 @@ function cookieFabHandle(page: Page) {
   });
 }
 
-async function box(handle: ElementHandle<HTMLElement> | ReturnType<typeof cookieFabHandle> extends Promise<infer T> ? T : never): Promise<Box> {
+async function box(
+  handle: ElementHandle<HTMLElement> | ReturnType<typeof cookieFabHandle> extends Promise<infer T>
+    ? T
+    : never,
+): Promise<Box> {
   return handle.evaluate((el: HTMLElement) => {
     const r = el.getBoundingClientRect();
     return { x: r.x, y: r.y, width: r.width, height: r.height };
@@ -113,7 +142,10 @@ async function box(handle: ElementHandle<HTMLElement> | ReturnType<typeof cookie
 /** The cookie FAB's visible circle is painted by ::before (discovered at
  *  runtime — the <button class="blakfy-fab"> element itself is transparent
  *  with no radius; the pseudo-element carries bg/shadow/radius/opacity). */
-async function cookieFabCircleStyle(page: Page, handle: ReturnType<typeof cookieFabHandle> extends Promise<infer T> ? T : never) {
+async function cookieFabCircleStyle(
+  page: Page,
+  handle: ReturnType<typeof cookieFabHandle> extends Promise<infer T> ? T : never,
+) {
   return handle.evaluate((el: HTMLElement) => {
     const cs = getComputedStyle(el, '::before');
     return {
@@ -125,11 +157,15 @@ async function cookieFabCircleStyle(page: Page, handle: ReturnType<typeof cookie
   });
 }
 
+const describeMaybe = COOKIE_DIST_AVAILABLE ? test.describe : test.describe.skip;
+
 for (const width of VIEWPORTS) {
-  test.describe(`combined stack @ ${width}px`, () => {
+  describeMaybe(`combined stack @ ${width}px`, () => {
     test.use({ viewport: { width, height: 900 } });
 
-    test(`criterion 3+4 — rendered defaults, stacking, no overlap @ ${width}px`, async ({ page }) => {
+    test(`criterion 3+4 — rendered defaults, stacking, no overlap @ ${width}px`, async ({
+      page,
+    }) => {
       await page.goto(FIXTURE);
       await waitForMount(page);
       await loadCookieWidget(page);
@@ -158,7 +194,9 @@ for (const width of VIEWPORTS) {
 
       // --- a11y panel theme ---
       await openPanel(page);
-      const dialogBg = await a11yDialog(page).evaluate((el) => getComputedStyle(el).backgroundColor);
+      const dialogBg = await a11yDialog(page).evaluate(
+        (el) => getComputedStyle(el).backgroundColor,
+      );
       expect(dialogBg).toBe('rgb(255, 255, 255)');
       const dialogColor = await a11yDialog(page).evaluate((el) => getComputedStyle(el).color);
       const dialogRgb = dialogColor.match(/\d+/g)!.map(Number);
@@ -196,13 +234,20 @@ for (const width of VIEWPORTS) {
 
       const a11yFabStyle = await a11yFabEl.evaluate((el) => {
         const cs = getComputedStyle(el);
-        return { backgroundColor: cs.backgroundColor, boxShadow: cs.boxShadow, borderRadius: cs.borderRadius, width: el.getBoundingClientRect().width };
+        return {
+          backgroundColor: cs.backgroundColor,
+          boxShadow: cs.boxShadow,
+          borderRadius: cs.borderRadius,
+          width: el.getBoundingClientRect().width,
+        };
       });
       expect(a11yFabStyle.backgroundColor).toBe('rgb(10, 10, 10)');
       expect(a11yFabStyle.boxShadow).toContain('0px 1px 3px 0px');
       expect(a11yFabStyle.boxShadow).toContain('rgba(0, 0, 0, 0.03)');
       const radiusPx = parseFloat(a11yFabStyle.borderRadius);
-      expect(radiusPx >= a11yFabStyle.width / 2 || a11yFabStyle.borderRadius.includes('9999')).toBe(true);
+      expect(radiusPx >= a11yFabStyle.width / 2 || a11yFabStyle.borderRadius.includes('9999')).toBe(
+        true,
+      );
 
       const iconColor = await a11yFabEl.evaluate((el) => {
         const icon = el.querySelector('svg');
@@ -219,8 +264,18 @@ for (const width of VIEWPORTS) {
       const cookieBottom = cookieFabBox.y + cookieFabBox.height;
       const a11yFabTop = a11yFabBox.y;
       expect(cookieBottom).toBeLessThanOrEqual(a11yFabTop + 2);
-      const cookieRect: Box = { x: cookieFabBox.x, y: cookieFabBox.y, width: cookieFabBox.width, height: cookieFabBox.height };
-      const a11yRect: Box = { x: a11yFabBox.x, y: a11yFabBox.y, width: a11yFabBox.width, height: a11yFabBox.height };
+      const cookieRect: Box = {
+        x: cookieFabBox.x,
+        y: cookieFabBox.y,
+        width: cookieFabBox.width,
+        height: cookieFabBox.height,
+      };
+      const a11yRect: Box = {
+        x: a11yFabBox.x,
+        y: a11yFabBox.y,
+        width: a11yFabBox.width,
+        height: a11yFabBox.height,
+      };
       expect(intersects(cookieRect, a11yRect)).toBe(false);
 
       if (width < 758) {
@@ -230,7 +285,12 @@ for (const width of VIEWPORTS) {
       const a11yBadgeBox = (await a11yBadge(page).boundingBox())!;
       expect(a11yBadgeBox.y).toBeGreaterThanOrEqual(a11yFabBox.y + a11yFabBox.height);
       expect(Math.round(a11yBadgeBox.x)).toBeCloseTo(Math.round(a11yFabBox.x), 0);
-      const badgeRect: Box = { x: a11yBadgeBox.x, y: a11yBadgeBox.y, width: a11yBadgeBox.width, height: a11yBadgeBox.height };
+      const badgeRect: Box = {
+        x: a11yBadgeBox.x,
+        y: a11yBadgeBox.y,
+        width: a11yBadgeBox.width,
+        height: a11yBadgeBox.height,
+      };
       expect(intersects(cookieRect, badgeRect)).toBe(false);
       expect(intersects(badgeRect, a11yRect)).toBe(false);
     });
