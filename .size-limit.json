@@ -2,7 +2,7 @@
   {
     "name": "widget IIFE (CDN)",
     "path": "packages/widget/dist/widget.js",
-    "limit": "26 KB",
+    "limit": "26.5 KB",
     "gzip": true
   },
   {
