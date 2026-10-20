@@ -106,7 +106,7 @@ Bu kadar. FAB sol-altta görünür, panel açılır, tercihler `localStorage` + 
 | Yaklaşım | DOM'u runtime'da yamalar (alt text, ARIA, heading enjekte eder) | Yalnızca CSS değişkenleri ve `data-*` toggle eder |
 | WCAG iddiası | "WCAG/ADA compliant" pazarlar | İddia etmez — yalnızca UI'sının kendisi WCAG 2.2 AA |
 | Site tasarımına etkisi | Genelde bozar — gerçek SR'lerle çakışır | Sıfır — Shadow DOM içinde izole |
-| Profil preset'leri | "Epilepsy", "ADHD", "Blind" gibi sahte kategoriler | Yok (anti-pattern) |
+| Profil preset'leri | "Epilepsy", "ADHD", "Blind" gibi kategoriler | Beş panel tercih kısayolu; [davranışı ve sınırları](./docs/STABLE-API.md) |
 | Telemetri | Genelde var, AT-fingerprinting riski | Hiçbir telemetri yok |
 | Yasal bağlam | FTC vs accessiBe (2025) — $1M ceza | Pazarlama iddiası yok, hukuki risk minimum |
 
@@ -600,37 +600,36 @@ Client log'lar `npm run dev` terminalinde görünür. Prod'da silent fail. Detay
 ## Erişilebilirlik beyanı
 
 ### Bu widget yapar
- 
- - [Evet] WCAG 2.2 AA uyumlu UI sunar (panel, FAB, switch'ler test edilmiştir)
- - [Evet] EN 301 549 v3.2.3 (EAA 2025) standardına UI seviyesinde uyumludur
- - [Evet] NVDA + JAWS + VoiceOver + TalkBack ile manuel test edilmiştir
- - [Evet] Kullanıcı tercihlerini cihazda saklar (localStorage + cookie)
- - [Evet] OS sinyallerini saygı gösterir (`prefers-reduced-motion`, `prefers-contrast`, `prefers-color-scheme`)
- 
- ### Bu widget YAPMAZ
- 
- - [Hayır] Sitenizin tamamını WCAG uyumlu yapmaz
- - [Hayır] ARIA, alt text, heading hiyerarşisi enjekte etmez
- - [Hayır] Screen reader simülasyonu sunmaz
- - [Hayır] "ADA compliant" / "WCAG compliant" iddia etmez
- 
- **Net mesaj**: structural a11y site sahibinin sorumluluğudur; bu widget ek bir kullanıcı tercih katmanıdır.
- 
- ---
- 
- <a id="anti-patternlarin-eklenmedigi"></a>
- 
- ## Anti-pattern'ların eklenmediği
- 
- | Anti-pattern | Bu widget'ta var mı? | Sebep |
- |---|---|---|
- | DOM patching (runtime DOM rewrite) | Yok | Gerçek SR'leri bozar; sürdürülemez |
- | AI alt text üretimi | Yok | Hatalı alt text > yok alt text |
- | Otomatik ARIA enjeksiyonu | Yok | FTC vs accessiBe (2025) — yasal risk |
- | "Profil" preset'leri (Epilepsy, Blind, ADHD) | Yok | Pazarlama uydurması, kullanıcıyı temsil etmez |
- | Telemetri / analytics auto-pipe | Yok | Privacy-by-default |
- | AT (assistive tech) fingerprinting | Yok | Etik dışı, kullanıcı izlemesi |
- | "Screen reader" toggle | Yok | Gerçek SR kullananın araçları zaten var |
+
+- [Evet] WCAG 2.2 AA uyumlu UI sunar (panel, FAB, switch'ler test edilmiştir)
+- [Evet] EN 301 549 v3.2.3 (EAA 2025) standardına UI seviyesinde uyumludur
+- [Evet] NVDA + JAWS + VoiceOver + TalkBack ile manuel test edilmiştir
+- [Evet] Kullanıcı tercihlerini cihazda saklar (localStorage + cookie)
+- [Evet] OS sinyallerini saygı gösterir (`prefers-reduced-motion`, `prefers-contrast`, `prefers-color-scheme`)
+
+### Bu widget YAPMAZ
+
+- [Hayır] Sitenizin tamamını WCAG uyumlu yapmaz
+- [Hayır] ARIA, alt text, heading hiyerarşisi enjekte etmez
+- [Hayır] Screen reader simülasyonu sunmaz
+- [Hayır] "ADA compliant" / "WCAG compliant" iddia etmez
+
+**Net mesaj**: structural a11y site sahibinin sorumluluğudur; bu widget ek bir kullanıcı tercih katmanıdır.
+
+---
+
+<a id="anti-patternlarin-eklenmedigi"></a>
+
+## Anti-pattern'ların eklenmediği
+
+| Anti-pattern | Bu widget'ta var mı? | Sebep |
+|---|---|---|
+| DOM patching (runtime DOM rewrite) | Yok | Gerçek SR'leri bozar; sürdürülemez |
+| AI alt text üretimi | Yok | Hatalı alt text > yok alt text |
+| Otomatik ARIA enjeksiyonu | Yok | FTC vs accessiBe (2025) — yasal risk |
+| Telemetri / analytics auto-pipe | Yok | Privacy-by-default |
+| AT (assistive tech) fingerprinting | Yok | Etik dışı, kullanıcı izlemesi |
+| "Screen reader" toggle | Yok | Gerçek SR kullananın araçları zaten var |
 
 ---
 
