@@ -1,5 +1,14 @@
 # @blakfy/accessibility-widget-next
 
+## 2.0.0-alpha.12
+
+### Patch Changes
+
+- 9556caf: Clarify that A11yServerHelper is an async function returning attributes for the html element.
+- Updated dependencies [2108439]
+- Updated dependencies [360fe83]
+  - @blakfy/a11y-core@2.0.0-alpha.12
+
 ## 2.0.0-alpha.11
 
 ### Patch Changes

@@ -1,5 +1,19 @@
 # @blakfy/accessibility-widget-react
 
+## 2.0.0-alpha.12
+
+### Patch Changes
+
+- Updated dependencies [ef9d558]
+- Updated dependencies [a8948c6]
+- Updated dependencies [2108439]
+- Updated dependencies [360fe83]
+- Updated dependencies [9ebf5e3]
+- Updated dependencies [360fe83]
+- Updated dependencies [8fcde33]
+  - @blakfy/accessibility-widget@2.0.0-alpha.12
+  - @blakfy/a11y-core@2.0.0-alpha.12
+
 ## 2.0.0-alpha.11
 
 ### Patch Changes

@@ -1,5 +1,18 @@
 # @blakfy/accessibility-widget
 
+## 2.0.0-alpha.12
+
+### Patch Changes
+
+- ef9d558: Correct the documented theme examples to target the widget host, allowing their colors to override Shadow DOM defaults.
+- a8948c6: Clarify preset toggle-off and shared-field behavior and correct contradictory README profile claims.
+- 9ebf5e3: Handle keyboard input as soon as the dialog renders and restore focus during close cleanup.
+- 360fe83: Add future-version regression coverage for CDN checks, the ready event, and the widget public API.
+- 8fcde33: Reuse the active mount result, register cleanup before ready events, and make stale unmount handles harmless. Release detached instances before recovering from externally removed or replaced hosts.
+- Updated dependencies [2108439]
+- Updated dependencies [360fe83]
+  - @blakfy/a11y-core@2.0.0-alpha.12
+
 ## 2.0.0-alpha.11
 
 ### Patch Changes
